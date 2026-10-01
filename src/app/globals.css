@@ -7,60 +7,31 @@
 
 /* ========================================
    02. DESIGN TOKENS
-   Identidade visual global do projeto
 ======================================== */
 
 :root {
-  /* Brand */
-  --navy-950: #07111f;
-  --navy-900: #0b1728;
-  --navy-800: #12243b;
-  --blue-600: #2563eb;
-
-  /* Neutral */
-  --white: #ffffff;
-  --off-white: #f7f8fa;
-  --gray-100: #eef1f5;
-  --gray-400: #98a2b3;
-  --gray-600: #667085;
-  --gray-900: #171717;
-
-  /* Semantic */
-  --background: var(--white);
-  --foreground: var(--gray-900);
-  --muted: var(--gray-600);
+  --paper: #f5f3ee;
+  --ink: #161513;
+  --moss: #2f5d46;
 }
 
-
-/* ========================================
-   03. TAILWIND THEME
-======================================== */
 
 /* ========================================
    03. TAILWIND THEME
 ======================================== */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-moss: var(--moss);
 
-  --color-navy-950: #07111f;
-  --color-navy-900: #0b1728;
-  --color-navy-800: #12243b;
-
-  --color-brand-blue: #2563eb;
-
-  --color-off-white: #f7f8fa;
-  --color-muted: #667085;
-
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-figtree);
+  --font-editorial: var(--font-instrument-serif);
 }
 
 
 /* ========================================
    04. BASE
-   Comportamento global da página
 ======================================== */
 
 html {
@@ -68,12 +39,9 @@ html {
 }
 
 body {
-  margin: 0;
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-figtree), Arial, Helvetica, sans-serif;
 }
 
 * {

@@ -1,68 +1,57 @@
 export default function Header() {
   return (
-    // ========================================
-    // HEADER
-    // Navegação principal do site
-    // ========================================
+    <header className="absolute inset-x-0 top-0 z-50">
+      <div className="mx-auto flex max-w-[1440px] items-center justify-between px-6 py-7 lg:px-10 xl:px-14">
 
-    <header className="absolute left-0 top-0 z-50 w-full">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6 lg:px-8">
-
-        {/* Identidade */}
         <a
           href="#inicio"
-          className="flex items-center gap-4"
+          className="flex flex-col"
           aria-label="Filipe Brito Albuquerque - Início"
         >
-          {/* Monograma */}
-          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/20 text-sm font-semibold text-white">
-            FA
+          <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink">
+            Filipe Brito Albuquerque
           </span>
 
-          {/* Nome e especialidade */}
-          <span className="hidden flex-col sm:flex">
-            <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white">
-              Filipe Brito Albuquerque
-            </span>
-
-            <span className="mt-1 text-[9px] font-medium uppercase tracking-[0.28em] text-white/45">
-              Desenvolvimento Web
-            </span>
+          <span className="mt-1.5 text-[9px] font-medium uppercase tracking-[0.28em] text-ink/50">
+            Desenvolvimento Web
           </span>
         </a>
 
-        {/* Navegação principal */}
         <nav
-          className="hidden items-center space-x-8 text-sm text-white/70 lg:flex"
+          className="hidden items-center gap-8 text-[13px] font-medium text-ink/70 lg:flex"
           aria-label="Navegação principal"
         >
-          <a className="transition hover:text-white" href="#inicio">
-            Início
-          </a>
-
-          <a className="transition hover:text-white" href="#servicos">
+          <a className="transition-colors hover:text-ink" href="#servicos">
             Serviços
           </a>
 
-          <a className="transition hover:text-white" href="#projetos">
+          <a className="transition-colors hover:text-ink" href="#projetos">
             Projetos
           </a>
 
-          <a className="transition hover:text-white" href="#sobre">
+          <a className="transition-colors hover:text-ink" href="#sobre">
             Sobre
           </a>
 
-          <a className="transition hover:text-white" href="#faq">
-            FAQ
+          <a className="transition-colors hover:text-ink" href="#metodo">
+            Método
+          </a>
+
+          <a className="transition-colors hover:text-ink" href="#processo">
+            Processo
+          </a>
+
+          <a className="transition-colors hover:text-ink" href="#duvidas">
+            Dúvidas
           </a>
         </nav>
 
-        {/* CTA */}
         <a
           href="#contato"
-          className="rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-navy-950 transition hover:-translate-y-0.5 hover:bg-white/90"
+          className="hidden items-center gap-2 border-b border-ink pb-1 text-[13px] font-semibold text-ink transition-colors hover:border-moss hover:text-moss sm:flex"
         >
-          Vamos conversar?
+          Vamos conversar
+          <span aria-hidden="true">↗</span>
         </a>
 
       </div>
