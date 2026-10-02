@@ -7,7 +7,7 @@ export default function Services() {
       <div className="mx-auto max-w-[1240px]">
         {/* Identificação da seção */}
         <p className="text-sm font-medium text-ink/50">
-          Nº 02 — Serviços
+          Nº 02 - Serviços
         </p>
 
         {/* Introdução */}

@@ -3,7 +3,7 @@ export default function Hero() {
     <section id="inicio" className="min-h-dvh bg-paper text-ink">
       <div className="mx-auto flex min-h-dvh max-w-[1440px] flex-col px-6 pb-12 pt-36 sm:pb-16 sm:pt-40
       lg:px-10 lg:pt-44 xl:px-14">
-        <p className="text-sm font-medium text-ink/50">Nº 01 — Capa</p>
+        <p className="text-sm font-medium text-ink/50">Nº 01 - Capa</p>
 
         <h1 className="mt-8 max-w-[1160px] text-[clamp(2.75rem,5.7vw,5.25rem)] font-medium leading-[1.08]
         tracking-[-0.045em] text-balance sm:mt-10">
