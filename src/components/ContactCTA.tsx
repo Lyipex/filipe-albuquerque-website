@@ -1,3 +1,6 @@
+// TODO: substituir pelo WhatsApp real, se desejado. O e-mail já existe no Footer.
+const contactHref = "mailto:fbalbuquerque@proton.me";
+
 export default function ContactCTA() {
   return (
     <section
@@ -23,7 +26,7 @@ export default function ContactCTA() {
 
         {/* Conteúdo */}
         <div className="mt-section-gap grid gap-10 lg:grid-cols-2 lg:gap-editorial-gap">
-          <div />
+          <div className="hidden lg:block" aria-hidden="true" />
 
           <div>
             <p className="max-w-[55ch] text-lead leading-[1.6] text-paper/70">
@@ -33,7 +36,7 @@ export default function ContactCTA() {
             </p>
 
             <a
-              href="#"
+              href={contactHref}
               className="mt-8 inline-flex items-center bg-moss px-6 py-4 text-base font-medium text-paper transition-opacity duration-300 hover:opacity-85"
             >
               Quero falar sobre meu projeto ↗

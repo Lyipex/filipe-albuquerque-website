@@ -2,7 +2,7 @@ export default function Hero() {
   return (
     <section id="inicio" className="min-h-[min(100dvh,56rem)] bg-paper px-6 text-ink lg:px-10 xl:px-14">
       <div className="mx-auto flex min-h-[min(100dvh,56rem)] max-w-editorial flex-col pb-12 pt-32 sm:pb-16 sm:pt-36 lg:pt-40">
-        <p className="text-sm font-medium text-ink/50">Nº 01 - Capa</p>
+        <p className="text-sm font-medium text-ink/60">Nº 01 - Capa</p>
 
         <h1 className="mt-8 max-w-[1100px] text-display font-medium leading-[1.08]
         tracking-[-0.045em] text-balance sm:mt-10">
@@ -30,7 +30,7 @@ export default function Hero() {
 
             <a
               href="#projetos"
-              className="text-sm font-medium text-ink/80 transition-colors hover:text-moss
+              className="inline-flex min-h-11 items-center text-sm font-medium text-ink/80 transition-colors lg:min-h-0 hover:text-moss
               focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-moss"
             >
               Ver projetos ↓

@@ -20,7 +20,7 @@ export default function Method() {
 
         {/* Introdução */}
         <div className="mt-section-gap grid gap-8 lg:grid-cols-2 lg:gap-editorial-gap">
-          <div />
+          <div className="hidden lg:block" aria-hidden="true" />
 
           <div>
             <p className="max-w-[50ch] text-lead leading-[1.6] text-paper">
@@ -37,21 +37,21 @@ export default function Method() {
         {/* Princípios */}
         <div className="mt-section-gap border-t border-paper/15">
           <div className="grid border-b border-paper/15 py-7 md:grid-cols-[5rem_1fr] md:items-center">
-            <span className="text-sm text-paper/35">01</span>
+            <span className="text-sm text-paper/50">01</span>
             <p className="mt-2 text-xl font-medium md:mt-0">
               Mapear antes de desenhar
             </p>
           </div>
 
           <div className="grid border-b border-paper/15 py-7 md:grid-cols-[5rem_1fr] md:items-center">
-            <span className="text-sm text-paper/35">02</span>
+            <span className="text-sm text-paper/50">02</span>
             <p className="mt-2 text-xl font-medium md:mt-0">
               Padronizar para manter
             </p>
           </div>
 
           <div className="grid border-b border-paper/15 py-7 md:grid-cols-[5rem_1fr] md:items-center">
-            <span className="text-sm text-paper/35">03</span>
+            <span className="text-sm text-paper/50">03</span>
             <p className="mt-2 text-xl font-medium md:mt-0">
               Revisar com critério
             </p>

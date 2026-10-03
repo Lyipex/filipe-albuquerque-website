@@ -8,7 +8,7 @@ export default function About() {
     >
       <div className="mx-auto max-w-editorial">
         {/* Identificação da seção */}
-        <p className="text-sm font-medium text-ink/50">
+        <p className="text-sm font-medium text-ink/60">
           Nº 04 - Sobre
         </p>
 
@@ -59,7 +59,7 @@ export default function About() {
 
             {/* Formação */}
             <div className="mt-8 border-t border-ink/15 pt-6">
-              <p className="text-sm text-ink/45">
+              <p className="text-sm text-ink/60">
                 Formação
               </p>
 

@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { Figtree, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 
+const title = "Filipe Brito Albuquerque | Desenvolvimento Web";
+const description =
+  "Landing pages e sites profissionais desenvolvidos para apresentar negócios com clareza e transformar visitantes em oportunidades.";
+
 const figtree = Figtree({
   variable: "--font-figtree",
   subsets: ["latin"],
@@ -15,9 +19,20 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "Filipe Brito Albuquerque | Desenvolvimento Web",
-  description:
-    "Landing pages e sites profissionais desenvolvidos para apresentar negócios com clareza e transformar visitantes em oportunidades.",
+  title,
+  description,
+  openGraph: {
+    title,
+    description,
+    siteName: "Filipe Brito Albuquerque",
+    locale: "pt_BR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title,
+    description,
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

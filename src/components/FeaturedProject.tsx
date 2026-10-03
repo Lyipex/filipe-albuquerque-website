@@ -42,7 +42,7 @@ export default function FeaturedProject() {
     >
       <div className="mx-auto max-w-editorial">
         {/* Identificação da seção */}
-        <p className="text-sm font-medium text-ink/50">
+        <p className="text-sm font-medium text-ink/60">
           Nº 03 - Projetos
         </p>
 
@@ -80,7 +80,7 @@ export default function FeaturedProject() {
                   </h3>
                 </div>
 
-                <p className="text-sm text-ink/50">
+                <p className="text-sm text-ink/60">
                   {item.type}
                 </p>
               </div>
@@ -89,7 +89,7 @@ export default function FeaturedProject() {
               <div className={`mt-6 flex w-full items-center justify-center border border-ink/15 bg-ink/[0.03] ${
                 index === 0 ? "aspect-[16/9] sm:aspect-[2/1] lg:aspect-[5/2]" : "aspect-[16/9] sm:aspect-[2/1]"
               }`}>
-                <p className="text-sm text-ink/40">
+                <p className="text-sm text-ink/65">
                   Imagem do projeto
                 </p>
               </div>
@@ -99,7 +99,7 @@ export default function FeaturedProject() {
                 index === 0 ? "gap-6 md:grid-cols-3 md:gap-8" : "gap-5"
               }`}>
                 <div>
-                  <p className="text-sm font-medium text-ink/45">
+                  <p className="text-sm font-medium text-ink/60">
                     Contexto
                   </p>
 
@@ -109,7 +109,7 @@ export default function FeaturedProject() {
                 </div>
 
                 <div>
-                  <p className="text-sm font-medium text-ink/45">
+                  <p className="text-sm font-medium text-ink/60">
                     Objetivo
                   </p>
 
@@ -119,7 +119,7 @@ export default function FeaturedProject() {
                 </div>
 
                 <div>
-                  <p className="text-sm font-medium text-ink/45">
+                  <p className="text-sm font-medium text-ink/60">
                     No projeto
                   </p>
 

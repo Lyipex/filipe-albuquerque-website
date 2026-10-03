@@ -39,7 +39,7 @@ export default function FAQ() {
     >
       <div className="mx-auto max-w-editorial">
         {/* Identificação da seção */}
-        <p className="text-sm font-medium text-ink/50">
+        <p className="text-sm font-medium text-ink/60">
           Nº 07 - Dúvidas
         </p>
 

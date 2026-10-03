@@ -6,7 +6,7 @@ export default function Services() {
     >
       <div className="mx-auto max-w-editorial">
         {/* Identificação da seção */}
-        <p className="text-sm font-medium text-ink/50">
+        <p className="text-sm font-medium text-ink/60">
           Nº 02 - Serviços
         </p>
 
@@ -28,14 +28,14 @@ export default function Services() {
         <div className="mt-section-gap border-t border-ink/20">
           <article className="grid gap-5 border-b border-ink/20 py-8 md:grid-cols-[2.5rem_minmax(0,1fr)_minmax(0,1fr)]
           md:items-start md:gap-8 lg:py-8">
-            <span className="text-sm font-medium text-ink/40">01</span>
+            <span className="text-sm font-medium text-ink/60">01</span>
 
             <div>
               <h3 className="text-secondary-title font-medium leading-[1.2] tracking-[-0.025em]">
                 Landing Pages
               </h3>
 
-              <p className="mt-2 text-base leading-7 text-ink/55">
+              <p className="mt-2 text-base leading-7 text-ink/60">
                 Uma página focada em uma oferta e em uma ação.
               </p>
             </div>
@@ -49,14 +49,14 @@ export default function Services() {
 
           <article className="grid gap-5 border-b border-ink/20 py-8 md:grid-cols-[2.5rem_minmax(0,1fr)_minmax(0,1fr)]
           md:items-start md:gap-8 lg:py-8">
-            <span className="text-sm font-medium text-ink/40">02</span>
+            <span className="text-sm font-medium text-ink/60">02</span>
 
             <div>
               <h3 className="text-secondary-title font-medium leading-[1.2] tracking-[-0.025em]">
                 Sites Institucionais
               </h3>
 
-              <p className="mt-2 text-base leading-7 text-ink/55">
+              <p className="mt-2 text-base leading-7 text-ink/60">
                 Uma presença digital à altura do seu negócio.
               </p>
             </div>
@@ -69,14 +69,14 @@ export default function Services() {
           </article>
 
           <article className="grid gap-5 border-b border-ink/20 py-8 md:grid-cols-[2.5rem_minmax(0,1fr)_minmax(0,1fr)] md:items-start md:gap-8 lg:py-8">
-            <span className="text-sm font-medium text-ink/40">03</span>
+            <span className="text-sm font-medium text-ink/60">03</span>
 
             <div>
               <h3 className="text-secondary-title font-medium leading-[1.2] tracking-[-0.025em]">
                 Redesign de Sites
               </h3>
 
-              <p className="mt-2 text-base leading-7 text-ink/55">
+              <p className="mt-2 text-base leading-7 text-ink/60">
                 Seu negócio evoluiu. Seu site também deveria.
               </p>
             </div>

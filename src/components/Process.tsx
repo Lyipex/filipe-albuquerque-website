@@ -44,7 +44,7 @@ export default function Process() {
     >
       <div className="mx-auto max-w-editorial">
         {/* Identificação da seção */}
-        <p className="text-sm font-medium text-ink/50">
+        <p className="text-sm font-medium text-ink/60">
           Nº 06 - Processo
         </p>
 
@@ -58,7 +58,7 @@ export default function Process() {
 
         {/* Introdução */}
         <div className="mt-section-gap grid gap-8 lg:grid-cols-2 lg:gap-editorial-gap">
-          <div />
+          <div className="hidden lg:block" aria-hidden="true" />
 
           <p className="max-w-[60ch] text-lead leading-[1.6] text-ink/70">
             Um processo claro para você saber o que estamos fazendo, o que
@@ -73,7 +73,7 @@ export default function Process() {
               key={step.number}
               className="grid gap-5 border-b border-ink/15 py-8 md:grid-cols-[4rem_minmax(0,0.75fr)_minmax(0,1fr)] md:gap-8"
             >
-              <span className="text-sm text-ink/40">
+              <span className="text-sm text-ink/60">
                 {step.number}
               </span>
 
@@ -88,7 +88,7 @@ export default function Process() {
               </div>
 
               <div className="md:border-l md:border-ink/15 md:pl-8">
-                <p className="text-sm text-ink/40">
+                <p className="text-sm text-ink/60">
                   Você recebe
                 </p>
 

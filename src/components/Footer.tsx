@@ -9,16 +9,16 @@ export default function Footer() {
               Filipe Brito Albuquerque
             </p>
 
-            <p className="mt-1 text-sm text-paper/45">
+            <p className="mt-1 text-sm text-paper/50">
               Desenvolvimento Web
             </p>
           </div>
 
           {/* Contato */}
-          <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
             <a
               href="mailto:fbalbuquerque@proton.me"
-              className="text-paper/60 transition-colors duration-300 hover:text-paper"
+              className="inline-flex min-h-11 items-center text-paper/60 transition-colors duration-300 hover:text-paper"
             >
               E-mail ↗
             </a>
@@ -27,12 +27,12 @@ export default function Footer() {
         </div>
 
         {/* Rodapé final */}
-        <div className="mt-10 flex flex-col gap-2 text-xs text-paper/35 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-10 flex flex-col gap-2 text-xs text-paper/50 sm:flex-row sm:items-center sm:justify-between">
           <p>© 2026 Filipe Brito Albuquerque.</p>
 
           <a
-            href="#"
-            className="transition-colors duration-300 hover:text-paper/70"
+            href="#inicio"
+            className="inline-flex min-h-11 items-center self-start transition-colors duration-300 hover:text-paper/70"
           >
             Voltar ao topo ↑
           </a>

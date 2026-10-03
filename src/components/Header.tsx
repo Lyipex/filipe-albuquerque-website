@@ -1,3 +1,5 @@
+import MobileNavigation from "./MobileNavigation";
+
 export default function Header() {
   return (
     <header className="absolute inset-x-0 top-0 z-50">
@@ -5,14 +7,14 @@ export default function Header() {
 
         <a
           href="#inicio"
-          className="flex flex-col"
+          className="flex min-h-11 flex-col justify-center lg:min-h-0"
           aria-label="Filipe Brito Albuquerque - Início"
         >
           <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink">
             Filipe Brito Albuquerque
           </span>
 
-          <span className="mt-1.5 text-[9px] font-medium uppercase tracking-[0.28em] text-ink/50">
+          <span className="mt-1.5 text-[9px] font-medium uppercase tracking-[0.28em] text-ink/60">
             Desenvolvimento Web
           </span>
         </a>
@@ -48,12 +50,13 @@ export default function Header() {
 
         <a
           href="#contato"
-          className="hidden items-center gap-2 border-b border-ink pb-1 text-[13px] font-semibold text-ink transition-colors hover:border-moss hover:text-moss sm:flex"
+          className="hidden items-center gap-2 border-b border-ink pb-1 text-[13px] font-semibold text-ink transition-colors hover:border-moss hover:text-moss sm:ml-auto sm:flex sm:min-h-11 lg:ml-0 lg:min-h-0"
         >
           Vamos conversar
           <span aria-hidden="true">↗</span>
         </a>
 
+        <MobileNavigation />
       </div>
     </header>
   );
