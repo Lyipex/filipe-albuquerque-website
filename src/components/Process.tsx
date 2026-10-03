@@ -44,12 +44,12 @@ export default function Process() {
     >
       <div className="mx-auto max-w-editorial">
         {/* Identificação da seção */}
-        <p className="text-sm font-medium text-ink/60">
+        <p data-motion="reveal" className="text-sm font-medium text-ink/60">
           Nº 06 - Processo
         </p>
 
         {/* Título */}
-        <div className="mt-8 border-t border-ink/15 pt-6">
+        <div data-motion="reveal" data-motion-delay="40" className="mt-8 border-t border-ink/15 pt-6">
           <h2 className="max-w-4xl text-section-title font-medium leading-[1.08] text-balance tracking-[-0.045em]">
             Do primeiro contato ao{" "}
             <span className="font-editorial font-normal">site publicado.</span>
@@ -57,7 +57,7 @@ export default function Process() {
         </div>
 
         {/* Introdução */}
-        <div className="mt-section-gap grid gap-8 lg:grid-cols-2 lg:gap-editorial-gap">
+        <div data-motion="reveal" data-motion-delay="80" className="mt-section-gap grid gap-8 lg:grid-cols-2 lg:gap-editorial-gap">
           <div className="hidden lg:block" aria-hidden="true" />
 
           <p className="max-w-[60ch] text-lead leading-[1.6] text-ink/70">
@@ -67,7 +67,7 @@ export default function Process() {
         </div>
 
         {/* Etapas */}
-        <ol className="mt-section-gap border-t border-ink/15">
+        <ol data-motion="reveal" data-motion-delay="80" className="mt-section-gap border-t border-ink/15">
           {steps.map((step) => (
             <li
               key={step.number}

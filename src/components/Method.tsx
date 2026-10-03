@@ -2,16 +2,17 @@ export default function Method() {
   return (
     <section
       id="metodo"
+      data-motion="ink"
       className="bg-ink px-6 py-section text-paper lg:px-10 xl:px-14"
     >
       <div className="mx-auto max-w-editorial">
         {/* Identificação da seção */}
-        <p className="text-sm font-medium text-paper/50">
+        <p data-motion="reveal" className="text-sm font-medium text-paper/50">
           Nº 05 - Método
         </p>
 
         {/* Título */}
-        <div className="mt-8 border-t border-paper/15 pt-6">
+        <div data-motion="reveal" data-motion-delay="40" className="mt-8 border-t border-paper/15 pt-6">
           <h2 className="max-w-4xl text-section-title font-medium leading-[1.08] text-balance tracking-[-0.045em]">
             Engenharia também é uma{" "}
             <span className="font-editorial font-normal">forma de pensar.</span>
@@ -19,7 +20,7 @@ export default function Method() {
         </div>
 
         {/* Introdução */}
-        <div className="mt-section-gap grid gap-8 lg:grid-cols-2 lg:gap-editorial-gap">
+        <div data-motion="reveal" data-motion-delay="80" className="mt-section-gap grid gap-8 lg:grid-cols-2 lg:gap-editorial-gap">
           <div className="hidden lg:block" aria-hidden="true" />
 
           <div>
@@ -35,7 +36,7 @@ export default function Method() {
         </div>
 
         {/* Princípios */}
-        <div className="mt-section-gap border-t border-paper/15">
+        <div data-motion="reveal" data-motion-delay="80" className="mt-section-gap border-t border-paper/15">
           <div className="grid border-b border-paper/15 py-7 md:grid-cols-[5rem_1fr] md:items-center">
             <span className="text-sm text-paper/50">01</span>
             <p className="mt-2 text-xl font-medium md:mt-0">

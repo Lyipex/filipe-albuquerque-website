@@ -42,12 +42,12 @@ export default function FeaturedProject() {
     >
       <div className="mx-auto max-w-editorial">
         {/* Identificação da seção */}
-        <p className="text-sm font-medium text-ink/60">
+        <p data-motion="reveal" className="text-sm font-medium text-ink/60">
           Nº 03 - Projetos
         </p>
 
         {/* Introdução */}
-        <div className="mt-8 grid gap-8 border-t border-ink/15 pt-6 lg:grid-cols-2 lg:gap-editorial-gap">
+        <div data-motion="reveal" data-motion-delay="40" className="mt-8 grid gap-8 border-t border-ink/15 pt-6 lg:grid-cols-2 lg:gap-editorial-gap">
           <h2 className="max-w-2xl text-section-title font-medium leading-[1.08] text-balance tracking-[-0.045em]">
             Projetos pensados para comunicar melhor cada negócio.
           </h2>
@@ -67,7 +67,7 @@ export default function FeaturedProject() {
               className={`min-w-0 border-t border-ink/20 ${index === 0 ? "py-8 md:col-span-2 lg:pb-10" : "py-6"}`}
             >
               {/* Cabeçalho do projeto */}
-              <div className={`grid gap-3 ${index === 0 ? "md:grid-cols-[minmax(0,1fr)_auto] md:items-end" : ""}`}>
+              <div data-motion="reveal" className={`grid gap-3 ${index === 0 ? "md:grid-cols-[minmax(0,1fr)_auto] md:items-end" : ""}`}>
                 <div>
                   <p className="text-sm font-medium uppercase tracking-[0.12em] text-moss">
                     Projeto conceito
@@ -86,7 +86,7 @@ export default function FeaturedProject() {
               </div>
 
               {/* Imagem futura */}
-              <div className={`mt-6 flex w-full items-center justify-center border border-ink/15 bg-ink/[0.03] ${
+              <div data-motion="project" className={`mt-6 flex w-full items-center justify-center border border-ink/15 bg-ink/[0.03] ${
                 index === 0 ? "aspect-[16/9] sm:aspect-[2/1] lg:aspect-[5/2]" : "aspect-[16/9] sm:aspect-[2/1]"
               }`}>
                 <p className="text-sm text-ink/65">
@@ -95,7 +95,7 @@ export default function FeaturedProject() {
               </div>
 
               {/* Informações */}
-              <div className={`mt-6 grid ${
+              <div data-motion="reveal" data-motion-delay="60" className={`mt-6 grid ${
                 index === 0 ? "gap-6 md:grid-cols-3 md:gap-8" : "gap-5"
               }`}>
                 <div>

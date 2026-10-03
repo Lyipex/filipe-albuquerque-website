@@ -9,12 +9,12 @@ export default function ContactCTA() {
     >
       <div className="mx-auto max-w-editorial">
         {/* Identificação da seção */}
-        <p className="text-sm font-medium text-paper/50">
+        <p data-motion="reveal" className="text-sm font-medium text-paper/50">
           Nº 08 - Contato
         </p>
 
         {/* Título */}
-        <div className="mt-8 border-t border-paper/15 pt-6">
+        <div data-motion="reveal" data-motion-delay="40" className="mt-8 border-t border-paper/15 pt-6">
           <h2 className="max-w-5xl text-section-title font-medium leading-[1.08] text-balance tracking-[-0.045em]">
             Tem um projeto em mente?
             <br />
@@ -25,7 +25,7 @@ export default function ContactCTA() {
         </div>
 
         {/* Conteúdo */}
-        <div className="mt-section-gap grid gap-10 lg:grid-cols-2 lg:gap-editorial-gap">
+        <div data-motion="reveal" data-motion-delay="80" className="mt-section-gap grid gap-10 lg:grid-cols-2 lg:gap-editorial-gap">
           <div className="hidden lg:block" aria-hidden="true" />
 
           <div>

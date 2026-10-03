@@ -1,4 +1,5 @@
 import Header from '@/components/Header';
+import MotionLayer from '@/components/MotionLayer';
 import Hero from '@/components/Hero';
 import Services from '@/components/Services';
 import FeaturedProject from '@/components/FeaturedProject';
@@ -32,6 +33,7 @@ export default function Home() {
       </main>
 
       <Footer />
+      <MotionLayer />
     </>
   );
 }

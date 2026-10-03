@@ -8,12 +8,12 @@ export default function About() {
     >
       <div className="mx-auto max-w-editorial">
         {/* Identificação da seção */}
-        <p className="text-sm font-medium text-ink/60">
+        <p data-motion="reveal" className="text-sm font-medium text-ink/60">
           Nº 04 - Sobre
         </p>
 
         {/* Título */}
-        <div className="mt-8 border-t border-ink/15 pt-6">
+        <div data-motion="reveal" data-motion-delay="40" className="mt-8 border-t border-ink/15 pt-6">
           <h2 className="max-w-4xl text-section-title font-medium leading-[1.08] text-balance tracking-[-0.045em]">
             Tecnologia com método.
             <br />
@@ -22,7 +22,7 @@ export default function About() {
         </div>
 
         {/* Conteúdo */}
-        <div className="mt-section-gap grid items-start gap-editorial-gap lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
+        <div data-motion="reveal" data-motion-delay="80" className="mt-section-gap grid items-start gap-editorial-gap lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
           {/* Foto */}
           <div className="w-full max-w-[26rem] bg-ink/[0.03]">
             <Image
@@ -59,16 +59,13 @@ export default function About() {
 
             {/* Formação */}
             <div className="mt-8 border-t border-ink/15 pt-6">
-              <p className="text-sm text-ink/60">
-                Formação
-              </p>
 
               <p className="mt-2 text-base font-medium text-ink">
-                Engenharia de Produção
+                Engenheiro de Produção
               </p>
 
               <p className="mt-1 text-sm text-ink/60">
-                Gestão de Projetos - UERJ
+                Especialista em Gestão de Projetos
               </p>
             </div>
           </div>

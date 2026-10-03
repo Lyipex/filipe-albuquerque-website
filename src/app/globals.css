@@ -98,3 +98,130 @@ button {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ========================================
+   06. MARGINÁLIA — CAMADA DE MOTION
+   Only classes armed by MotionLayer can hide content.
+======================================== */
+
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --motion-rise: 24px;
+    --motion-duration: 850ms;
+    --hero-rise: 8px;
+    --hero-duration: 700ms;
+    --project-duration: 950ms;
+    --ink-duration: 1100ms;
+  }
+
+  [data-motion="reveal"].motion-pending {
+    opacity: 0;
+    transform: translateY(var(--motion-rise));
+  }
+
+  [data-motion="reveal"].motion-running {
+    animation: editorial-reveal var(--motion-duration) var(--motion-ease)
+      var(--motion-delay, 0ms) both;
+    will-change: opacity, transform;
+  }
+
+  [data-motion="hero"].motion-running {
+    animation: cover-reveal var(--hero-duration) var(--motion-ease)
+      var(--motion-delay, 0ms) both;
+  }
+
+  [data-motion="project"].motion-pending {
+    clip-path: inset(0 0 100% 0);
+  }
+
+  [data-motion="project"].motion-running {
+    animation: project-reveal var(--project-duration) var(--motion-ease) both;
+  }
+
+  [data-motion="ink"] {
+    position: relative;
+  }
+
+  /* Only a few pixels at the seam reveal Ink; the section background stays still. */
+  [data-motion="ink"].motion-pending::before,
+  [data-motion="ink"].motion-running::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 6px;
+    background: var(--paper);
+    pointer-events: none;
+    transform-origin: top;
+  }
+
+  [data-motion="ink"].motion-running::before {
+    animation: ink-expansion var(--ink-duration) cubic-bezier(0.4, 0, 0.2, 1) both;
+  }
+
+  :where(header, footer, #inicio, #contato) a,
+  header button {
+    transition-property: color, background-color, border-color, opacity, translate;
+    transition-duration: 220ms;
+    transition-timing-function: var(--motion-ease);
+  }
+
+  header button:hover {
+    color: var(--moss);
+    border-color: var(--moss);
+  }
+
+  #inicio a[href="#contato"]:is(:hover, :focus-visible),
+  #contato a:is(:hover, :focus-visible) {
+    translate: 0 -2px;
+  }
+
+  #inicio a span[aria-hidden] {
+    transition: translate 220ms var(--motion-ease);
+  }
+
+  #inicio a:is(:hover, :focus-visible) span[aria-hidden] {
+    translate: 2px -1px;
+  }
+
+  @keyframes editorial-reveal {
+    from { opacity: 0; transform: translateY(var(--motion-rise)); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes cover-reveal {
+    from { opacity: 0.88; transform: translateY(var(--hero-rise)); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes project-reveal {
+    from { clip-path: inset(0 0 100% 0); }
+    to { clip-path: inset(0); }
+  }
+
+  @keyframes ink-expansion {
+    from { transform: scaleY(1); }
+    to { transform: scaleY(0); }
+  }
+
+  @media (max-width: 767px) {
+    :root {
+      --motion-rise: 16px;
+      --motion-duration: 750ms;
+      --hero-rise: 5px;
+      --hero-duration: 600ms;
+      --project-duration: 800ms;
+      --ink-duration: 900ms;
+    }
+
+    [data-motion="ink"].motion-pending::before,
+    [data-motion="ink"].motion-running::before {
+      height: 4px;
+    }
+
+    #inicio a[href="#contato"]:is(:hover, :focus-visible),
+    #contato a:is(:hover, :focus-visible) {
+      translate: 0 -1px;
+    }
+  }
+}

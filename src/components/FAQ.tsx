@@ -39,12 +39,12 @@ export default function FAQ() {
     >
       <div className="mx-auto max-w-editorial">
         {/* Identificação da seção */}
-        <p className="text-sm font-medium text-ink/60">
+        <p data-motion="reveal" className="text-sm font-medium text-ink/60">
           Nº 07 - Dúvidas
         </p>
 
         {/* Título */}
-        <div className="mt-8 border-t border-ink/15 pt-6">
+        <div data-motion="reveal" data-motion-delay="40" className="mt-8 border-t border-ink/15 pt-6">
           <h2 className="max-w-4xl text-section-title font-medium leading-[1.08] text-balance tracking-[-0.045em]">
             Antes de começarmos, talvez você{" "}
             <span className="font-editorial font-normal">queira saber.</span>
@@ -52,7 +52,7 @@ export default function FAQ() {
         </div>
 
         {/* Perguntas */}
-        <div className="mt-section-gap border-t border-ink/15">
+        <div data-motion="reveal" data-motion-delay="80" className="mt-section-gap border-t border-ink/15">
           {questions.map((item) => (
             <details
               key={item.question}

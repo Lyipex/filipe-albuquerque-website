@@ -6,12 +6,12 @@ export default function Services() {
     >
       <div className="mx-auto max-w-editorial">
         {/* Identificação da seção */}
-        <p className="text-sm font-medium text-ink/60">
+        <p data-motion="reveal" className="text-sm font-medium text-ink/60">
           Nº 02 - Serviços
         </p>
 
         {/* Introdução */}
-        <div className="mt-8 grid gap-8 border-t border-ink/15 pt-6 lg:grid-cols-2 lg:gap-editorial-gap">
+        <div data-motion="reveal" data-motion-delay="40" className="mt-8 grid gap-8 border-t border-ink/15 pt-6 lg:grid-cols-2 lg:gap-editorial-gap">
           <h2 className="max-w-xl text-section-title font-medium leading-[1.08] text-balance
           tracking-[-0.045em]">
             O site certo para o momento do seu negócio.
@@ -25,7 +25,7 @@ export default function Services() {
         </div>
 
         {/* Lista de serviços */}
-        <div className="mt-section-gap border-t border-ink/20">
+        <div data-motion="reveal" data-motion-delay="80" className="mt-section-gap border-t border-ink/20">
           <article className="grid gap-5 border-b border-ink/20 py-8 md:grid-cols-[2.5rem_minmax(0,1fr)_minmax(0,1fr)]
           md:items-start md:gap-8 lg:py-8">
             <span className="text-sm font-medium text-ink/60">01</span>
