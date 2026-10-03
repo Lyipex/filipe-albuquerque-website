@@ -1,19 +1,18 @@
 export default function Hero() {
   return (
-    <section id="inicio" className="min-h-dvh bg-paper text-ink">
-      <div className="mx-auto flex min-h-dvh max-w-[1440px] flex-col px-6 pb-12 pt-36 sm:pb-16 sm:pt-40
-      lg:px-10 lg:pt-44 xl:px-14">
+    <section id="inicio" className="min-h-[min(100dvh,56rem)] bg-paper px-6 text-ink lg:px-10 xl:px-14">
+      <div className="mx-auto flex min-h-[min(100dvh,56rem)] max-w-editorial flex-col pb-12 pt-32 sm:pb-16 sm:pt-36 lg:pt-40">
         <p className="text-sm font-medium text-ink/50">Nº 01 - Capa</p>
 
-        <h1 className="mt-8 max-w-[1160px] text-[clamp(2.75rem,5.7vw,5.25rem)] font-medium leading-[1.08]
+        <h1 className="mt-8 max-w-[1100px] text-display font-medium leading-[1.08]
         tracking-[-0.045em] text-balance sm:mt-10">
           Um bom site explica o seu negócio{" "}
           <span className="font-editorial font-normal italic tracking-normal">antes</span>{" "}
           da primeira conversa.
         </h1>
 
-        <div className="mt-16 w-full max-w-[640px] lg:mt-auto lg:ml-auto lg:pt-20">
-          <p className="text-base leading-7 text-ink/80 sm:text-lg sm:leading-8">
+        <div className="mt-16 w-full max-w-[60ch] lg:mt-auto lg:ml-auto lg:pt-16">
+          <p className="text-body leading-[1.75] text-ink/80">
             Desenvolvo landing pages e sites profissionais que apresentam sua empresa
             com clareza, fortalecem sua presença digital e ajudam a transformar
             visitantes em oportunidades de negócio.
