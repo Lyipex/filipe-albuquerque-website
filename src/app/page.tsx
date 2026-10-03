@@ -3,6 +3,7 @@ import Hero from '@/components/Hero';
 import Services from '@/components/Services';
 import FeaturedProject from '@/components/FeaturedProject';
 import About from '@/components/About';
+import Method from "@/components/Method";
 import Process from '@/components/Process';
 import FAQ from '@/components/FAQ';
 import ContactCTA from '@/components/ContactCTA';
@@ -18,6 +19,7 @@ export default function Home() {
         <Services />
         <FeaturedProject />
         <About/>
+        <Method/>
         <Process />
         <FAQ/>
         <ContactCTA />

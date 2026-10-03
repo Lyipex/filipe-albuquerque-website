@@ -1,17 +1,46 @@
 export default function ContactCTA() {
   return (
-    <section id="contato">
-      <p>Vamos conversar?</p>
+    <section
+      id="contato"
+      className="bg-ink px-6 py-section text-paper lg:px-10 xl:px-14"
+    >
+      <div className="mx-auto max-w-editorial">
+        {/* Identificação da seção */}
+        <p className="text-sm font-medium text-paper/50">
+          Nº 08 - Contato
+        </p>
 
-      <h2>Seu próximo cliente pode estar a um clique.</h2>
+        {/* Título */}
+        <div className="mt-8 border-t border-paper/15 pt-6">
+          <h2 className="max-w-5xl text-section-title font-medium leading-[1.08] text-balance tracking-[-0.045em]">
+            Tem um projeto em mente?
+            <br />
+            <span className="font-editorial font-normal">
+              Vamos conversar sobre ele.
+            </span>
+          </h2>
+        </div>
 
-      <p>
-        Me conte sobre seu projeto. Vamos encontrar a melhor solução
-        para apresentar seu negócio na internet.
-      </p>
+        {/* Conteúdo */}
+        <div className="mt-section-gap grid gap-10 lg:grid-cols-2 lg:gap-editorial-gap">
+          <div />
 
-      <a href="#">Falar no WhatsApp</a>
-      <a href="mailto:">Enviar um e-mail</a>
+          <div>
+            <p className="max-w-[55ch] text-lead leading-[1.6] text-paper/70">
+              Conte um pouco sobre seu negócio e o que você precisa. A partir
+              daí, podemos entender juntos qual caminho faz sentido para o
+              projeto.
+            </p>
+
+            <a
+              href="#"
+              className="mt-8 inline-flex items-center bg-moss px-6 py-4 text-base font-medium text-paper transition-opacity duration-300 hover:opacity-85"
+            >
+              Quero falar sobre meu projeto ↗
+            </a>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
