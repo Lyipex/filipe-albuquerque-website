@@ -88,9 +88,12 @@ export default function MotionLayer() {
         finish(element);
         continue;
       }
+      const isTextReveal =
+        (element.dataset.motion === "reveal" || element.dataset.motion === "hero") &&
+        !element.hasAttribute("data-motion-preserve");
       element.style.setProperty(
         "--motion-delay",
-        `${Number(element.dataset.motionDelay) || 0}ms`,
+        `${(Number(element.dataset.motionDelay) || 0) * (isTextReveal ? 1.25 : 1)}ms`,
       );
       const rect = element.getBoundingClientRect();
       if (element.dataset.motion === "hero") {

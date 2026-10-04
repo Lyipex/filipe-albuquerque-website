@@ -2,7 +2,6 @@ export default function Method() {
   return (
     <section
       id="metodo"
-      data-motion="ink"
       className="bg-ink px-6 py-section text-paper lg:px-10 xl:px-14"
     >
       <div className="mx-auto max-w-editorial">

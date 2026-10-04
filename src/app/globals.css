@@ -108,11 +108,11 @@ button {
   :root {
     --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
     --motion-rise: 24px;
-    --motion-duration: 850ms;
+    --motion-duration: 1062.5ms;
+    --photo-reveal-duration: 850ms;
     --hero-rise: 8px;
-    --hero-duration: 700ms;
+    --hero-duration: 875ms;
     --project-duration: 950ms;
-    --ink-duration: 1100ms;
   }
 
   [data-motion="reveal"].motion-pending {
@@ -126,6 +126,11 @@ button {
     will-change: opacity, transform;
   }
 
+  /* The About photograph shares this reveal with its surrounding copy. */
+  [data-motion="reveal"][data-motion-preserve].motion-running {
+    animation-duration: var(--photo-reveal-duration);
+  }
+
   [data-motion="hero"].motion-running {
     animation: cover-reveal var(--hero-duration) var(--motion-ease)
       var(--motion-delay, 0ms) both;
@@ -137,26 +142,6 @@ button {
 
   [data-motion="project"].motion-running {
     animation: project-reveal var(--project-duration) var(--motion-ease) both;
-  }
-
-  [data-motion="ink"] {
-    position: relative;
-  }
-
-  /* Only a few pixels at the seam reveal Ink; the section background stays still. */
-  [data-motion="ink"].motion-pending::before,
-  [data-motion="ink"].motion-running::before {
-    content: "";
-    position: absolute;
-    inset: 0 0 auto;
-    height: 6px;
-    background: var(--paper);
-    pointer-events: none;
-    transform-origin: top;
-  }
-
-  [data-motion="ink"].motion-running::before {
-    animation: ink-expansion var(--ink-duration) cubic-bezier(0.4, 0, 0.2, 1) both;
   }
 
   :where(header, footer, #inicio, #contato) a,
@@ -199,24 +184,14 @@ button {
     to { clip-path: inset(0); }
   }
 
-  @keyframes ink-expansion {
-    from { transform: scaleY(1); }
-    to { transform: scaleY(0); }
-  }
-
   @media (max-width: 767px) {
     :root {
       --motion-rise: 16px;
-      --motion-duration: 750ms;
+      --motion-duration: 937.5ms;
+      --photo-reveal-duration: 750ms;
       --hero-rise: 5px;
-      --hero-duration: 600ms;
+      --hero-duration: 750ms;
       --project-duration: 800ms;
-      --ink-duration: 900ms;
-    }
-
-    [data-motion="ink"].motion-pending::before,
-    [data-motion="ink"].motion-running::before {
-      height: 4px;
     }
 
     #inicio a[href="#contato"]:is(:hover, :focus-visible),

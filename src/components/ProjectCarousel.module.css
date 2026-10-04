@@ -1,0 +1,54 @@
+.carousel:focus-visible {
+  outline: 2px solid var(--moss);
+  outline-offset: 4px;
+}
+
+.viewport {
+  overflow: hidden;
+  touch-action: pan-y pinch-zoom;
+}
+
+/* Hidden slides still size the shared rows, so every case uses the same frame. */
+.slides {
+  display: grid;
+  grid-template-rows: auto auto auto;
+  gap: 24px;
+}
+
+.slide {
+  display: grid;
+  grid-area: 1 / 1 / 4 / 2;
+  grid-template-rows: subgrid;
+  min-width: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.slide[aria-hidden="false"] {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .slide[aria-hidden="false"][data-direction="next"] {
+    animation: project-next 260ms var(--motion-ease) both;
+  }
+
+  .slide[aria-hidden="false"][data-direction="previous"] {
+    animation: project-previous 260ms var(--motion-ease) both;
+  }
+
+  .control {
+    transition: color 220ms var(--motion-ease), border-color 220ms var(--motion-ease);
+  }
+
+  @keyframes project-next {
+    from { opacity: 0.8; transform: translateX(14px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes project-previous {
+    from { opacity: 0.8; transform: translateX(-14px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+}

@@ -22,7 +22,7 @@ export default function About() {
         </div>
 
         {/* Conteúdo */}
-        <div data-motion="reveal" data-motion-delay="80" className="mt-section-gap grid items-start gap-editorial-gap lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
+        <div data-motion="reveal" data-motion-preserve="" data-motion-delay="80" className="mt-section-gap grid items-start gap-editorial-gap lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
           {/* Foto */}
           <div className="w-full max-w-[26rem] bg-ink/[0.03]">
             <Image
