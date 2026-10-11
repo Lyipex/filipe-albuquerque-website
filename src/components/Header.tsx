@@ -14,38 +14,17 @@ export default function Header() {
             Filipe Brito Albuquerque
           </span>
 
-          <span className="mt-1.5 text-[9px] font-medium uppercase tracking-[0.28em] text-ink/60">
+          <span className="mt-1.5 text-[9px] font-medium uppercase tracking-[0.28em] text-ink/80">
             Desenvolvimento Web
           </span>
         </a>
 
         <nav
-          className="hidden items-center gap-8 text-[13px] font-medium text-ink/70 lg:flex"
+          className="hidden items-center gap-8 text-[13px] font-medium text-ink/80 lg:flex"
           aria-label="Navegação principal"
         >
-          <a className="transition-colors hover:text-ink" href="#servicos">
-            Serviços
-          </a>
-
-          <a className="transition-colors hover:text-ink" href="#projetos">
-            Projetos
-          </a>
-
-          <a className="transition-colors hover:text-ink" href="#sobre">
-            Sobre
-          </a>
-
-          <a className="transition-colors hover:text-ink" href="#metodo">
-            Método
-          </a>
-
-          <a className="transition-colors hover:text-ink" href="#processo">
-            Processo
-          </a>
-
-          <a className="transition-colors hover:text-ink" href="#duvidas">
-            Dúvidas
-          </a>
+          <a className="transition-colors hover:text-moss" href="#projetos">Projetos</a>
+          <a className="transition-colors hover:text-moss" href="#sobre">Sobre + serviços</a>
         </nav>
 
         <a

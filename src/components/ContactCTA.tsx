@@ -1,48 +1,22 @@
-// TODO: substituir pelo WhatsApp real, se desejado. O e-mail já existe no Footer.
+import Image from "next/image";
+import Footer from "./Footer";
+
 const contactHref = "mailto:fbalbuquerque@proton.me";
 
 export default function ContactCTA() {
   return (
-    <section
-      id="contato"
-      className="bg-ink px-6 py-section text-paper lg:px-10 xl:px-14"
-    >
+    <section id="contato" className="bg-ink px-6 pt-section text-paper lg:px-10 xl:px-14">
       <div className="mx-auto max-w-editorial">
-        {/* Identificação da seção */}
-        <p data-motion="reveal" className="text-sm font-medium text-paper/50">
-          Nº 08 - Contato
-        </p>
-
-        {/* Título */}
-        <div data-motion="reveal" data-motion-delay="40" className="mt-8 border-t border-paper/15 pt-6">
-          <h2 className="max-w-5xl text-section-title font-medium leading-[1.08] text-balance tracking-[-0.045em]">
-            Tem um projeto em mente?
-            <br />
-            <span className="font-editorial font-normal">
-              Vamos conversar sobre ele.
-            </span>
-          </h2>
-        </div>
-
-        {/* Conteúdo */}
-        <div data-motion="reveal" data-motion-delay="80" className="mt-section-gap grid gap-10 lg:grid-cols-2 lg:gap-editorial-gap">
-          <div className="hidden lg:block" aria-hidden="true" />
-
+        <div data-motion="reveal" className="grid items-center gap-8 pb-10 md:grid-cols-[1fr_auto]">
           <div>
-            <p className="max-w-[55ch] text-lead leading-[1.6] text-paper/70">
-              Conte um pouco sobre seu negócio e o que você precisa. A partir
-              daí, podemos entender juntos qual caminho faz sentido para o
-              projeto.
-            </p>
-
-            <a
-              href={contactHref}
-              className="mt-8 inline-flex items-center bg-moss px-6 py-4 text-base font-medium text-paper transition-opacity duration-300 hover:opacity-85"
-            >
-              Quero falar sobre meu projeto ↗
-            </a>
+            <p className="text-sm font-medium text-paper/80">Nº 04 — Contato</p>
+            <h2 className="mt-6 max-w-3xl text-section-title font-medium leading-[1.1] tracking-[-0.04em]">Seu próximo projeto começa <span className="font-editorial font-normal italic">com uma conversa.</span></h2>
+            <p className="mt-5 max-w-[48ch] text-body leading-7 text-paper/80">Conte sobre seu negócio e o site que você precisa.</p>
+            <a href={contactHref} className="mt-6 inline-flex min-h-11 items-center gap-3 bg-paper px-6 py-3.5 text-sm font-semibold text-ink hover:bg-paper/90">Quero falar sobre meu projeto <span aria-hidden="true">↗</span></a>
           </div>
+          <Image src="/images/filipe-albuquerque.png" alt="Filipe Brito Albuquerque" width={1312} height={1199} sizes="(min-width: 768px) 176px, 112px" className="aspect-square w-28 object-cover md:w-44" />
         </div>
+        <Footer />
       </div>
     </section>
   );

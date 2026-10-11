@@ -10,9 +10,11 @@
 ======================================== */
 
 :root {
-  --paper: #f5f3ee;
-  --ink: #161513;
-  --moss: #2f5d46;
+  --paper: #F3F0EA;
+  --ink: #414042;
+  --moss: #626044;
+  --gray: #898989;
+  --brown: #49372F;
 }
 
 
@@ -24,6 +26,8 @@
   --color-paper: var(--paper);
   --color-ink: var(--ink);
   --color-moss: var(--moss);
+  --color-gray: var(--gray);
+  --color-brown: var(--brown);
 
   --font-sans: var(--font-figtree);
   --font-editorial: var(--font-instrument-serif);
@@ -37,7 +41,7 @@
   --text-lead: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
 
   --container-editorial: 77.5rem;
-  --spacing-section: clamp(4rem, 2rem + 4vw, 6.5rem);
+  --spacing-section: clamp(3rem, 2rem + 2vw, 4.5rem);
   --spacing-section-gap: clamp(2.5rem, 1.5rem + 2vw, 4rem);
   --spacing-editorial-gap: clamp(2rem, 4vw, 4rem);
 }
@@ -107,11 +111,11 @@ button {
 @media (prefers-reduced-motion: no-preference) {
   :root {
     --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
-    --motion-rise: 24px;
-    --motion-duration: 1062.5ms;
+    --motion-rise: 12px;
+    --motion-duration: 650ms;
     --photo-reveal-duration: 850ms;
     --hero-rise: 8px;
-    --hero-duration: 875ms;
+    --hero-duration: 650ms;
     --project-duration: 950ms;
   }
 
@@ -175,7 +179,7 @@ button {
   }
 
   @keyframes cover-reveal {
-    from { opacity: 0.88; transform: translateY(var(--hero-rise)); }
+    from { opacity: 0; transform: translateY(var(--hero-rise)); }
     to { opacity: 1; transform: translateY(0); }
   }
 
@@ -187,7 +191,7 @@ button {
   @media (max-width: 767px) {
     :root {
       --motion-rise: 16px;
-      --motion-duration: 937.5ms;
+      --motion-duration: 600ms;
       --photo-reveal-duration: 750ms;
       --hero-rise: 5px;
       --hero-duration: 750ms;
@@ -200,3 +204,13 @@ button {
     }
   }
 }
+
+/* Compact gallery and portrait: interaction stays optional. */
+.project-card { transition: transform 220ms ease, border-color 220ms ease; }
+@media (hover: hover) {
+  .project-card:hover { transform: translateY(-4px); border-color: var(--moss); }
+  .portrait-toggle:hover img { filter: grayscale(0); }
+}
+.portrait-toggle img { filter: grayscale(1); transition: filter 500ms ease; }
+.portrait-toggle[aria-pressed="true"] img { filter: grayscale(0); }
+::selection { background: var(--moss); color: var(--paper); }

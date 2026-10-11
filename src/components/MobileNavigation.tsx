@@ -3,12 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 
 const links = [
-  { href: "#servicos", label: "Serviços" },
   { href: "#projetos", label: "Projetos" },
-  { href: "#sobre", label: "Sobre" },
-  { href: "#metodo", label: "Método" },
-  { href: "#processo", label: "Processo" },
-  { href: "#duvidas", label: "Dúvidas" },
+  { href: "#sobre", label: "Sobre + serviços" },
 ];
 
 export default function MobileNavigation() {
