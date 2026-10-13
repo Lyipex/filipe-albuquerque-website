@@ -1,0 +1,88 @@
+/* Marginália: approved values, exposed through Tailwind v4 CSS-first theme. */
+:root {
+  --paper: #F3F0EA;
+  --ink: #414042;
+  --moss: #626044;
+  --gray: #898989;
+  --brown: #49372F;
+  --duration-interaction: 220ms;
+  --duration-portrait: 500ms;
+  --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-rise: 12px;
+  --motion-duration: 650ms;
+  --photo-reveal-duration: 850ms;
+  --hero-rise: 8px;
+  --hero-duration: 650ms;
+  --project-duration: 950ms;
+  --focus-width: 2px;
+  --focus-offset: 4px;
+  --page-gutter: 1.5rem;
+}
+
+
+/* ========================================
+   03. TAILWIND THEME
+======================================== */
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-moss: var(--moss);
+  --color-gray: var(--gray);
+  --color-brown: var(--brown);
+  --color-action: var(--moss);
+  --color-action-hover: var(--brown);
+  --color-rule: color-mix(in srgb, var(--ink) 20%, transparent);
+
+  --font-sans: var(--font-figtree);
+  --font-editorial: var(--font-instrument-serif);
+
+  /* Escala editorial: Hero > seção > projeto principal > títulos menores. */
+  --text-display: clamp(2.5rem, 1.75rem + 3.2vw, 4.5rem);
+  --text-section-title: clamp(2rem, 1.5rem + 1.75vw, 3rem);
+  --text-project-title: clamp(1.75rem, 1.25rem + 1.5vw, 2.75rem);
+  --text-secondary-title: clamp(1.5rem, 1.25rem + 0.5vw, 1.75rem);
+  --text-body: clamp(1rem, 0.95rem + 0.15vw, 1.125rem);
+  --text-lead: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+
+  --container-editorial: 77.5rem;
+  --container-header: 90rem;
+  --container-hero: 65.625rem;
+  --spacing-gutter: var(--page-gutter);
+  --spacing-control: 2.75rem;
+  --spacing-action-x: 1.5rem;
+  --spacing-action-y: 0.875rem;
+  --radius-control: 0px;
+  --radius-surface: 0px;
+  --text-nav: 0.8125rem;
+  --text-brand: 0.6875rem;
+  --text-brand-caption: 0.5625rem;
+  --leading-display: 1.08;
+  --leading-heading: 1.1;
+  --leading-copy: 1.75;
+  --tracking-display: -0.045em;
+  --tracking-heading: -0.04em;
+  --tracking-title: -0.025em;
+  --tracking-label: 0.1em;
+  --tracking-eyebrow: 0.16em;
+  --tracking-brand: 0.18em;
+  --tracking-brand-caption: 0.28em;
+  --spacing-section: clamp(3rem, 2rem + 2vw, 4.5rem);
+  --spacing-section-gap: clamp(2.5rem, 1.5rem + 2vw, 4rem);
+  --spacing-editorial-gap: clamp(2rem, 4vw, 4rem);
+}
+
+
+/* Keep the existing Tailwind lg/xl gutters and mobile motion timing. */
+@media (min-width: 64rem) { :root { --page-gutter: 2.5rem; } }
+@media (min-width: 80rem) { :root { --page-gutter: 3.5rem; } }
+@media (max-width: 47.999rem) {
+  :root {
+    --motion-rise: 16px;
+    --motion-duration: 600ms;
+    --photo-reveal-duration: 750ms;
+    --hero-rise: 5px;
+    --hero-duration: 750ms;
+    --project-duration: 800ms;
+  }
+}

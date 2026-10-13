@@ -2,15 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const links = [
-  { href: "#projetos", label: "Projetos" },
-  { href: "#sobre", label: "Sobre + serviços" },
-];
+import ActionLink from "./ActionLink";
+import { navigationLinks } from "@/lib/site";
 
 export default function MobileNavigation() {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const restoreScrollRef = useRef<(() => void) | null>(null);
+  const destinationRef = useRef<string | null>(null);
   const [open, setOpen] = useState(false);
 
   function unlockScroll() {
@@ -18,7 +17,8 @@ export default function MobileNavigation() {
     restoreScrollRef.current = null;
   }
 
-  function closeMenu() {
+  function closeMenu(destination?: string) {
+    destinationRef.current = destination ?? null;
     dialogRef.current?.close();
     // Restore before the anchor's default navigation so its destination is kept.
     unlockScroll();
@@ -70,7 +70,7 @@ export default function MobileNavigation() {
         aria-expanded={open}
         aria-controls="mobile-navigation"
         onClick={openMenu}
-        className="min-h-11 min-w-11 cursor-pointer border-b border-ink text-sm font-medium text-ink"
+        className="control min-w-control border-b border-ink text-sm font-medium text-ink"
       >
         Menu
       </button>
@@ -102,18 +102,21 @@ export default function MobileNavigation() {
         onClose={() => {
           unlockScroll();
           setOpen(false);
-          triggerRef.current?.focus({ preventScroll: true });
+          const destination = destinationRef.current;
+          destinationRef.current = null;
+          const target = destination ? document.getElementById(destination) : triggerRef.current;
+          if (target?.getClientRects().length) target.focus({ preventScroll: true });
         }}
       >
         <div className="mx-auto max-w-editorial">
           <div className="flex items-center justify-between gap-6">
-            <h2 id="mobile-navigation-title" className="text-sm font-medium text-ink/60">
+            <h2 id="mobile-navigation-title" className="text-sm font-medium text-ink/80">
               Navegação
             </h2>
             <button
               type="button"
-              onClick={closeMenu}
-              className="min-h-11 cursor-pointer px-2 text-sm font-medium"
+              onClick={() => closeMenu()}
+              className="control px-2 text-sm font-medium"
             >
               Fechar <span aria-hidden="true">×</span>
             </button>
@@ -121,25 +124,26 @@ export default function MobileNavigation() {
 
           <nav aria-label="Navegação mobile" className="mt-8">
             <ul className="border-t border-ink/15">
-              {links.map((link) => (
+              {navigationLinks.map((link) => (
                 <li key={link.href} className="border-b border-ink/15">
                   <a
                     href={link.href}
-                    onClick={closeMenu}
-                    className="block py-3 text-2xl font-medium tracking-[-0.025em] hover:text-moss"
+                    onClick={() => closeMenu(link.href.slice(1))}
+                    className="block py-3 text-2xl font-medium tracking-title hover:text-moss"
                   >
                     {link.label}
                   </a>
                 </li>
               ))}
             </ul>
-            <a
+            <ActionLink
+              variant="secondary"
               href="#contato"
-              onClick={closeMenu}
-              className="mt-8 inline-flex min-h-11 items-center gap-2 border-b border-moss text-base font-semibold text-moss"
+              onClick={() => closeMenu("contato")}
+              className="mt-8 gap-2 text-base"
             >
               Vamos conversar <span aria-hidden="true">↗</span>
-            </a>
+            </ActionLink>
           </nav>
         </div>
       </dialog>
