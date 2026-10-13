@@ -1,51 +1,5 @@
-/* ========================================
-   01. TAILWIND
-======================================== */
-
 @import "tailwindcss";
-
-
-/* ========================================
-   02. DESIGN TOKENS
-======================================== */
-
-:root {
-  --paper: #F3F0EA;
-  --ink: #414042;
-  --moss: #626044;
-  --gray: #898989;
-  --brown: #49372F;
-}
-
-
-/* ========================================
-   03. TAILWIND THEME
-======================================== */
-
-@theme inline {
-  --color-paper: var(--paper);
-  --color-ink: var(--ink);
-  --color-moss: var(--moss);
-  --color-gray: var(--gray);
-  --color-brown: var(--brown);
-
-  --font-sans: var(--font-figtree);
-  --font-editorial: var(--font-instrument-serif);
-
-  /* Escala editorial: Hero > seção > projeto principal > títulos menores. */
-  --text-display: clamp(2.5rem, 1.75rem + 3.2vw, 4.5rem);
-  --text-section-title: clamp(2rem, 1.5rem + 1.75vw, 3rem);
-  --text-project-title: clamp(1.75rem, 1.25rem + 1.5vw, 2.75rem);
-  --text-secondary-title: clamp(1.5rem, 1.25rem + 0.5vw, 1.75rem);
-  --text-body: clamp(1rem, 0.95rem + 0.15vw, 1.125rem);
-  --text-lead: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
-
-  --container-editorial: 77.5rem;
-  --spacing-section: clamp(3rem, 2rem + 2vw, 4.5rem);
-  --spacing-section-gap: clamp(2.5rem, 1.5rem + 2vw, 4rem);
-  --spacing-editorial-gap: clamp(2rem, 4vw, 4rem);
-}
-
+@import "./tokens.css";
 
 /* ========================================
    04. BASE
@@ -85,8 +39,8 @@ button {
 
 /* Foco consistente, inclusive em superfícies Papel e Tinta. */
 :where(a, button, summary):focus-visible {
-  outline: 2px solid currentColor;
-  outline-offset: 4px;
+  outline: var(--focus-width) solid var(--focus-color, currentColor);
+  outline-offset: var(--focus-offset);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -109,16 +63,6 @@ button {
 ======================================== */
 
 @media (prefers-reduced-motion: no-preference) {
-  :root {
-    --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
-    --motion-rise: 12px;
-    --motion-duration: 650ms;
-    --photo-reveal-duration: 850ms;
-    --hero-rise: 8px;
-    --hero-duration: 650ms;
-    --project-duration: 950ms;
-  }
-
   [data-motion="reveal"].motion-pending {
     opacity: 0;
     transform: translateY(var(--motion-rise));
@@ -130,7 +74,7 @@ button {
     will-change: opacity, transform;
   }
 
-  /* The About photograph shares this reveal with its surrounding copy. */
+  /* Reserved for existing reveal groups that preserve their content. */
   [data-motion="reveal"][data-motion-preserve].motion-running {
     animation-duration: var(--photo-reveal-duration);
   }
@@ -151,7 +95,7 @@ button {
   :where(header, footer, #inicio, #contato) a,
   header button {
     transition-property: color, background-color, border-color, opacity, translate;
-    transition-duration: 220ms;
+    transition-duration: var(--duration-interaction);
     transition-timing-function: var(--motion-ease);
   }
 
@@ -166,7 +110,7 @@ button {
   }
 
   #inicio a span[aria-hidden] {
-    transition: translate 220ms var(--motion-ease);
+    transition: translate var(--duration-interaction) var(--motion-ease);
   }
 
   #inicio a:is(:hover, :focus-visible) span[aria-hidden] {
@@ -189,15 +133,6 @@ button {
   }
 
   @media (max-width: 767px) {
-    :root {
-      --motion-rise: 16px;
-      --motion-duration: 600ms;
-      --photo-reveal-duration: 750ms;
-      --hero-rise: 5px;
-      --hero-duration: 750ms;
-      --project-duration: 800ms;
-    }
-
     #inicio a[href="#contato"]:is(:hover, :focus-visible),
     #contato a:is(:hover, :focus-visible) {
       translate: 0 -1px;
@@ -206,11 +141,66 @@ button {
 }
 
 /* Compact gallery and portrait: interaction stays optional. */
-.project-card { transition: transform 220ms ease, border-color 220ms ease; }
+.project-card { transition: transform var(--duration-interaction) ease, border-color var(--duration-interaction) ease; }
 @media (hover: hover) {
   .project-card:hover { transform: translateY(-4px); border-color: var(--moss); }
   .portrait-toggle:hover img { filter: grayscale(0); }
 }
-.portrait-toggle img { filter: grayscale(1); transition: filter 500ms ease; }
+.portrait-toggle img { filter: grayscale(1); transition: filter var(--duration-portrait) ease; }
 .portrait-toggle[aria-pressed="true"] img { filter: grayscale(0); }
 ::selection { background: var(--moss); color: var(--paper); }
+
+@layer components {
+  .action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: calc(var(--spacing) * 3);
+    min-height: var(--spacing-control);
+    max-width: 100%;
+    border-radius: var(--radius-control);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--text-sm--line-height);
+    transition: color var(--duration-interaction) var(--motion-ease),
+      background-color var(--duration-interaction) var(--motion-ease),
+      border-color var(--duration-interaction) var(--motion-ease);
+  }
+  .action-primary {
+    --focus-color: var(--moss);
+    padding: var(--spacing-action-y) var(--spacing-action-x);
+    color: var(--paper);
+    background: var(--moss);
+  }
+  .action-primary:is(:hover, :active) { background: var(--brown); }
+  .action-primary[data-tone="inverse"] {
+    --focus-color: var(--paper);
+    color: var(--ink);
+    background: var(--paper);
+  }
+  .action-primary[data-tone="inverse"]:is(:hover, :active) {
+    background: color-mix(in srgb, var(--paper) 90%, var(--ink));
+  }
+  .action-secondary { color: var(--moss); border-bottom: 1px solid currentColor; }
+  .action-secondary:is(:hover, :active) { color: var(--brown); }
+  .action-text { color: inherit; font-weight: inherit; }
+  .action-text:is(:hover, :active) { color: var(--moss); }
+  .action-text[data-tone="inverse"]:is(:hover, :active) { color: var(--paper); }
+  .control {
+    min-height: var(--spacing-control);
+    border-radius: var(--radius-control);
+    cursor: pointer;
+    transition: color var(--duration-interaction) var(--motion-ease);
+  }
+  .control:is(:hover, :active):not(:disabled) { color: var(--moss); }
+  .control:disabled { cursor: not-allowed; opacity: 0.5; }
+}
+
+/* A pressed portrait remains colored; keyboard toggles use the native button. */
+.portrait-toggle:disabled { cursor: not-allowed; opacity: 0.5; }
+@media (prefers-reduced-motion: reduce) {
+  .project-card:is(:hover, :focus-within) { transform: none; }
+}
+
+/* Long Portuguese headings must fit the approved type scale on narrow screens. */
+h1 { overflow-wrap: anywhere; hyphens: auto; }

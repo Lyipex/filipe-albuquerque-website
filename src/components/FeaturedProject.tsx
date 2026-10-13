@@ -24,8 +24,8 @@ const projects: Project[] = [
 export default function FeaturedProject() {
   return (
     <section
-      id="projetos"
-      className="bg-paper px-6 py-section text-ink lg:px-10 xl:px-14"
+      id="projetos" tabIndex={-1} aria-labelledby="projetos-title"
+      className="bg-paper px-gutter py-section text-ink"
     >
       <div className="mx-auto max-w-editorial">
         <p data-motion="reveal" className="text-sm font-medium text-moss">
@@ -33,10 +33,10 @@ export default function FeaturedProject() {
         </p>
 
         <div data-motion="reveal" data-motion-delay="40" className="mt-5 grid gap-5 border-t border-ink/15 pt-6 lg:grid-cols-2 lg:gap-editorial-gap">
-          <h2 className="max-w-2xl text-section-title font-medium leading-[1.08] text-balance tracking-[-0.045em]">
+          <h2 id="projetos-title" className="max-w-2xl text-section-title font-medium leading-display text-balance tracking-display">
             Três contextos. Um olhar atento.
           </h2>
-          <p className="max-w-[60ch] text-body leading-[1.75] text-ink/80 lg:justify-self-end">
+          <p className="max-w-[60ch] text-body leading-copy text-ink/80 lg:justify-self-end">
             Estudos de sites institucionais para diferentes negócios. Projetos conceito, sem vínculo com clientes reais.
           </p>
         </div>

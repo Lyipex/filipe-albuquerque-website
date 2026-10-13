@@ -1,6 +1,9 @@
+import ActionLink from "./ActionLink";
+import { contactHref } from "@/lib/site";
+
 export default function Footer() {
   return (
-    <footer data-motion="reveal" className="text-paper">
+    <div data-motion="reveal" className="text-paper">
       <div className="mx-auto max-w-editorial border-t border-paper/15 py-6">
         <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           {/* Identidade */}
@@ -16,12 +19,13 @@ export default function Footer() {
 
           {/* Contato */}
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
-            <a
-              href="mailto:fbalbuquerque@proton.me"
-              className="inline-flex min-h-11 items-center text-paper/80 transition-colors duration-300 hover:text-paper"
+            <ActionLink
+              tone="inverse"
+              href={contactHref}
+              className="text-paper/80"
             >
-              E-mail ↗
-            </a>
+              E-mail <span aria-hidden="true">↗</span>
+            </ActionLink>
 
           </div>
         </div>
@@ -30,14 +34,15 @@ export default function Footer() {
         <div className="mt-4 flex flex-col gap-2 text-xs text-paper/80 sm:flex-row sm:items-center sm:justify-between">
           <p>© 2026 Filipe Brito Albuquerque.</p>
 
-          <a
+          <ActionLink
+              tone="inverse"
             href="#inicio"
-            className="inline-flex min-h-11 items-center self-start transition-colors duration-300 hover:text-paper/70"
+            className="self-start text-xs"
           >
-            Voltar ao topo ↑
-          </a>
+            Voltar ao topo <span aria-hidden="true">↑</span>
+          </ActionLink>
         </div>
       </div>
-    </footer>
+    </div>
   );
 }

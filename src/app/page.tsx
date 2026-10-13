@@ -20,8 +20,8 @@ export default function Home() {
         <Hero />
         <FeaturedProject />
         <About/>
-        <ContactCTA />
       </main>
+      <ContactCTA />
       <MotionLayer />
     </>
   );
