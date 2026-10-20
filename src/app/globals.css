@@ -12,7 +12,7 @@ html {
 body {
   background: var(--paper);
   color: var(--ink);
-  font-family: var(--font-figtree), Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
 }
 
 * {
@@ -58,7 +58,7 @@ button {
 }
 
 /* ========================================
-   06. MARGINÁLIA — CAMADA DE MOTION
+   06. MARGINÁLIA - CAMADA DE MOTION
    Only classes armed by MotionLayer can hide content.
 ======================================== */
 
@@ -140,10 +140,7 @@ button {
   }
 }
 
-/* Compact gallery and portrait: interaction stays optional. */
-.project-card { transition: transform var(--duration-interaction) ease, border-color var(--duration-interaction) ease; }
 @media (hover: hover) {
-  .project-card:hover { transform: translateY(-4px); border-color: var(--moss); }
   .portrait-toggle:hover img { filter: grayscale(0); }
 }
 .portrait-toggle img { filter: grayscale(1); transition: filter var(--duration-portrait) ease; }
@@ -198,9 +195,6 @@ button {
 
 /* A pressed portrait remains colored; keyboard toggles use the native button. */
 .portrait-toggle:disabled { cursor: not-allowed; opacity: 0.5; }
-@media (prefers-reduced-motion: reduce) {
-  .project-card:is(:hover, :focus-within) { transform: none; }
-}
 
 /* Long Portuguese headings must fit the approved type scale on narrow screens. */
-h1 { overflow-wrap: anywhere; hyphens: auto; }
+h1, h2, h3 { overflow-wrap: anywhere; }

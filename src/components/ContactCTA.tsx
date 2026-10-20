@@ -9,10 +9,10 @@ export default function ContactCTA() {
       <div className="mx-auto max-w-editorial">
         <div data-motion="reveal" className="pb-10">
           <div>
-            <p className="text-sm font-medium text-paper/80">Nº 04 — Contato</p>
-            <h2 id="contato-title" className="mt-6 max-w-3xl text-section-title font-medium leading-heading tracking-heading">Seu próximo projeto começa <span className="font-editorial font-normal italic">com uma conversa.</span></h2>
-            <p className="mt-5 max-w-[48ch] text-body leading-7 text-paper/80">Conte sobre seu negócio e o site que você precisa.</p>
-            <ActionLink href={contactHref} variant="primary" tone="inverse" className="mt-6">Quero falar sobre meu projeto <span aria-hidden="true">↗</span></ActionLink>
+            <p className="text-xs font-medium uppercase tracking-eyebrow text-paper">Nº 05 - Contato</p>
+            <h2 id="contato-title" className="mt-6 max-w-3xl text-section-title font-medium leading-heading tracking-heading">Vamos conversar sobre o seu site?</h2>
+            <p className="mt-5 max-w-[48ch] text-body leading-7 text-paper/80">Conte o que sua empresa faz e o que precisa no site. Se já tiver um site ou uma data em mente, inclua essas informações no e-mail.</p>
+            <ActionLink href={contactHref} variant="primary" tone="inverse" className="mt-6">Solicitar orçamento por e-mail <span aria-hidden="true">↗</span></ActionLink>
           </div>
         </div>
         <Footer />

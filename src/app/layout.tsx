@@ -1,22 +1,12 @@
 import type { Metadata } from "next";
-import { Figtree, Instrument_Serif } from "next/font/google";
+import { Figtree } from "next/font/google";
 import "./globals.css";
+
+const figtree = Figtree({ variable: "--font-figtree", subsets: ["latin"] });
 
 const title = "Filipe Brito Albuquerque | Desenvolvimento Web";
 const description =
-  "Landing pages e sites profissionais desenvolvidos para apresentar negócios com clareza e transformar visitantes em oportunidades.";
-
-const figtree = Figtree({
-  variable: "--font-figtree",
-  subsets: ["latin"],
-});
-
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-instrument-serif",
-  subsets: ["latin"],
-  weight: "400",
-  style: "italic",
-});
+  "Desenvolvimento de sites institucionais e landing pages para empresas e profissionais. Conheça os serviços e solicite um orçamento.";
 
 export const metadata: Metadata = {
   title,
@@ -37,9 +27,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="pt-BR"
-      className={`${figtree.variable} ${instrumentSerif.variable} antialiased`}
-    >
+    <html lang="pt-BR" className={`${figtree.variable} antialiased`}>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

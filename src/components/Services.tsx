@@ -1,21 +1,57 @@
+import ActionLink from "./ActionLink";
+import styles from "./Services.module.css";
+
 const services = [
-  ["Landing pages", "Uma oferta, uma página, um próximo passo claro."],
-  ["Sites institucionais", "Seu negócio e seus serviços bem apresentados."],
-  ["Redesign e melhorias", "Mais clareza, usabilidade e responsividade para seu site."],
+  {
+    title: "Landing pages",
+    context: "Para divulgar um produto, serviço ou campanha",
+    description: "Uma página dedicada a uma oferta. Reúne a apresentação, os detalhes e as dúvidas mais comuns, com acesso ao contato ou à inscrição.",
+    scope: ["Apresentação da oferta e dos diferenciais", "Informações para quem está decidindo", "Botões de contato ou inscrição"],
+  },
+  {
+    title: "Sites institucionais",
+    context: "Para apresentar sua empresa e seus serviços",
+    description: "Um site com páginas para a empresa, os serviços e o contato. Indicado quando o visitante precisa conhecer seu trabalho e consultar informações antes de pedir um orçamento.",
+    scope: ["Organização das páginas e da navegação", "Conteúdo sobre a empresa e os serviços", "Canais de contato acessíveis no celular"],
+  },
+  {
+    title: "Redesign e melhorias",
+    context: "Para atualizar um site existente",
+    description: "Revisão do layout, do conteúdo e da navegação. Avalio o site atual para definir quais ajustes são necessários e o que pode ser aproveitado.",
+    scope: ["Revisão da apresentação e dos textos", "Correções na exibição em celular e desktop", "Ajustes de navegação e acesso ao contato"],
+  },
 ];
 
 export default function Services() {
   return (
-    <ul id="servicos" aria-label="Serviços" className="mt-6 border-t border-rule">
-      {services.map(([title, description], index) => (
-        <li key={title} className="flex gap-4 border-b border-rule py-4">
-          <span aria-hidden="true" className="pt-1 text-xs text-moss">0{index + 1}</span>
-          <div>
-            <h3 className="text-lg font-medium">{title}</h3>
-            <p className="mt-1 text-sm leading-6 text-ink/80">{description}</p>
-          </div>
-        </li>
-      ))}
-    </ul>
+    <section id="servicos" tabIndex={-1} aria-labelledby="servicos-title" className="bg-paper px-gutter py-section text-ink">
+      <div className="mx-auto max-w-editorial">
+        <p data-motion="reveal" className="text-xs font-medium uppercase tracking-eyebrow text-moss">Nº 03 - Serviços</p>
+        <div data-motion="reveal" className="mt-5 grid gap-5 border-t border-ink/15 pt-6 lg:grid-cols-2 lg:gap-editorial-gap">
+          <h2 id="servicos-title" className="max-w-2xl text-section-title font-medium leading-display text-balance tracking-display">Desenvolvimento e revisão de sites.</h2>
+          <p className="max-w-[60ch] text-body leading-copy text-ink/80 lg:justify-self-end">Criação de páginas para ofertas específicas, sites para empresas e melhorias em sites existentes. O formato depende do conteúdo e dos recursos que você precisa.</p>
+        </div>
+        <ul className={styles.list}>
+          {services.map((service) => (
+            <li key={service.title} data-motion="reveal" className={styles.service}>
+              <div>
+                <h3 className={styles.title}>{service.title}</h3>
+                <p className={styles.context}>{service.context}</p>
+              </div>
+              <div>
+                <p className={styles.description}>{service.description}</p>
+                <ul className={styles.scope} aria-label={`O que pode incluir: ${service.title}`}>
+                  {service.scope.map((item) => <li key={item}>{item}</li>)}
+                </ul>
+              </div>
+            </li>
+          ))}
+        </ul>
+        <div className={styles.contact}>
+          <p className="max-w-[52ch] text-sm leading-6 text-ink/80">O orçamento considera as páginas, os recursos e o prazo do projeto.</p>
+          <ActionLink href="#contato" variant="primary">Solicitar orçamento <span aria-hidden="true">↗</span></ActionLink>
+        </div>
+      </div>
+    </section>
   );
 }

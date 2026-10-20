@@ -8,45 +8,79 @@
   touch-action: pan-y pinch-zoom;
 }
 
-/* Hidden slides still size the shared rows, so every case uses the same frame. */
-.slides {
-  display: grid;
-  grid-template-rows: auto auto auto;
-  gap: 24px;
-}
-
+/* All projects share one frame; only the active slide is visible and interactive. */
+.slides { display: grid; }
 .slide {
   display: grid;
-  grid-area: 1 / 1 / 4 / 2;
-  grid-template-rows: subgrid;
+  grid-area: 1 / 1;
+  grid-template-rows: auto 1fr;
   min-width: 0;
   visibility: hidden;
   pointer-events: none;
 }
-
-.slide[aria-hidden="false"] {
-  visibility: visible;
-  pointer-events: auto;
+.slide[aria-hidden="false"] { visibility: visible; pointer-events: auto; }
+.visual {
+  position: relative;
+  min-width: 0;
+  aspect-ratio: 2 / 1;
+  overflow: hidden;
+  background: var(--moss);
+  color: var(--paper);
 }
-
+.placeholder {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(1.5rem, 4vw, 3.5rem);
+}
+.code { font-size: 0.8125rem; letter-spacing: 0.08em; }
+.area {
+  max-width: 20ch;
+  font-size: clamp(1.75rem, 4.5vw, 4rem);
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+.assetNote { max-width: 48ch; font-size: 0.75rem; line-height: 1.7; }
+.caption {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  padding: 1.75rem 0;
+}
+.navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-top: 1px solid var(--color-rule);
+  padding-top: 1rem;
+}
+.control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border: 1px solid var(--moss);
+  color: var(--moss);
+  background: transparent;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.control:hover { background: var(--moss); color: var(--paper); }
+@media (max-width: 47.999rem) {
+  .visual { aspect-ratio: 1 / 1; }
+  .caption { grid-template-columns: 1fr; gap: 1rem; }
+}
 @media (prefers-reduced-motion: no-preference) {
-  .slide[aria-hidden="false"][data-direction="next"] {
-    animation: project-next 260ms var(--motion-ease) both;
-  }
-
-  .slide[aria-hidden="false"][data-direction="previous"] {
-    animation: project-previous 260ms var(--motion-ease) both;
-  }
-
-  .control {
-    transition: color 220ms var(--motion-ease), border-color 220ms var(--motion-ease);
-  }
-
+  .slide[aria-hidden="false"][data-direction="next"] { animation: project-next 260ms var(--motion-ease) both; }
+  .slide[aria-hidden="false"][data-direction="previous"] { animation: project-previous 260ms var(--motion-ease) both; }
+  .control { transition: color 220ms var(--motion-ease), background-color 220ms var(--motion-ease); }
   @keyframes project-next {
     from { opacity: 0.8; transform: translateX(14px); }
     to { opacity: 1; transform: translateX(0); }
   }
-
   @keyframes project-previous {
     from { opacity: 0.8; transform: translateX(-14px); }
     to { opacity: 1; transform: translateX(0); }

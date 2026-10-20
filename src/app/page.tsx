@@ -3,6 +3,7 @@ import MotionLayer from '@/components/MotionLayer';
 import Hero from '@/components/Hero';
 import FeaturedProject from '@/components/FeaturedProject';
 import About from '@/components/About';
+import Services from '@/components/Services';
 import ContactCTA from '@/components/ContactCTA';
 
 export default function Home() {
@@ -19,7 +20,8 @@ export default function Home() {
       <main id="conteudo" tabIndex={-1}>
         <Hero />
         <FeaturedProject />
-        <About/>
+        <Services />
+        <About />
       </main>
       <ContactCTA />
       <MotionLayer />
