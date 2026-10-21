@@ -1,5 +1,9 @@
 .carousel:focus-visible { outline: 2px solid var(--moss); outline-offset: 4px; }
-.viewport { overflow: hidden; touch-action: pan-y pinch-zoom; }
+.viewport { overflow: clip; touch-action: pan-y pinch-zoom; }
+.explorationBar { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; padding-block: 0.5rem; background: var(--paper); }
+.explorationButton { min-height: 44px; padding: 0.5rem 0.75rem; border: 1px solid var(--moss); color: var(--moss); font-size: 0.875rem; cursor: pointer; flex-shrink: 0; }
+.explorationButton[aria-pressed="true"] { background: var(--moss); color: var(--paper); }
+.explorationButton:focus-visible { outline: 2px solid var(--moss); outline-offset: 3px; }
 .slides, .captions { display: grid; }
 .slide { grid-area: 1 / 1; min-width: 0; visibility: hidden; pointer-events: none; }
 .slide[aria-hidden="false"] { visibility: visible; pointer-events: auto; }
@@ -9,8 +13,7 @@
   width: calc(100% - 2rem);
   height: clamp(18rem, 62svh, 34rem);
   margin-inline: auto;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: clip;
   scrollbar-width: thin;
   scrollbar-color: var(--moss) #e6e3dc;
   background: var(--paper);
@@ -19,15 +22,15 @@
   container-type: inline-size;
 }
 .previewFrame:focus-visible { outline: 2px solid var(--moss); outline-offset: 4px; }
-@media (min-width: 48rem) and (hover: hover) and (pointer: fine) {
-  .previewFrame:is(:hover, :focus-visible) { width: 100%; height: clamp(20rem, 78svh, 44rem); }
+.previewFrame[data-exploring="true"] { overflow-y: auto; overflow-x: hidden; border-color: var(--moss); }
+@media (min-width: 48rem) {
+  .previewFrame[data-exploring="true"] { width: 100%; height: clamp(20rem, 78svh, 44rem); }
 }
 .screenshot { display: block; width: 100%; height: auto; }
 .placeholder { min-height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 1rem; padding: 2rem; background: var(--moss); color: var(--paper); }
 .placeholder p { font-size: var(--text-project-title); }
 .navigation { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-bottom: 0.75rem; }
 .hint { max-width: 50ch; margin-left: auto; font-size: 0.75rem; line-height: 1.6; color: var(--moss); }
-.touchHint { display: none; }
 .controls { display: flex; flex-shrink: 0; gap: 0.5rem; }
 .control { display: inline-flex; align-items: center; justify-content: center; width: 2.75rem; height: 2.75rem; border: 1px solid var(--moss); color: var(--moss); background: transparent; font-size: 1.25rem; cursor: pointer; }
 .control:hover { background: var(--moss); color: var(--paper); }
@@ -56,10 +59,6 @@
 .mockClosing { margin-top: 6cqw; padding: 5cqw 0; border-top: 1px solid #30291f30; }
 .mockClosing > p { max-width: 22ch; font-size: 4.2cqw; line-height: 1.1; letter-spacing: -0.03em; }
 .mockClosing > span { display: block; margin-top: 3cqw; font-size: max(8px, 1cqw); line-height: 1.6; }
-@media (hover: none) {
-  .desktopHint { display: none; }
-  .touchHint { display: inline; }
-}
 @media (max-width: 47.999rem) {
   .stage { padding: 0.5rem; }
   .previewFrame { width: 100%; height: clamp(16rem, 70vw, 22rem); }

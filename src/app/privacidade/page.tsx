@@ -29,10 +29,10 @@ export default function PrivacyPage() {
       <main id="conteudo" tabIndex={-1} className={styles.main}>
         <p className="text-xs font-medium uppercase tracking-eyebrow text-moss">Privacidade</p>
         <h1 className={styles.title}>Aviso de privacidade.</h1>
-        <p className={styles.date}>Atualizado em <time dateTime="2026-10-20">20 de outubro de 2026</time></p>
+        <p className={styles.date}>Atualizado em <time dateTime="2026-10-21">21 de outubro de 2026</time></p>
         <div className={styles.summary}>
           <p>Este aviso explica o uso dos dados de quem visita o site ou solicita um orçamento de desenvolvimento web e chatbots.</p>
-          <p>O formulário prepara uma mensagem no seu aplicativo de e-mail. Você revisa e envia por lá. Não há cadastro de clientes nem banco de dados do formulário neste site.</p>
+          <p>Ao enviar o formulário, seus dados são encaminhados ao servidor do site para validação e envio do pedido por e-mail. Você escolhe E-mail ou WhatsApp para receber o retorno. Não há cadastro de clientes nem armazenamento do conteúdo do pedido em banco de dados próprio.</p>
         </div>
         <nav aria-label="Conteúdo do aviso de privacidade" className={styles.topics}>
           {topics.map(([id, label]) => <a key={id} href={`#${id}`}>{label}</a>)}
@@ -46,10 +46,10 @@ export default function PrivacyPage() {
         <section id="dados" className={styles.section}>
           <h2>Dados e finalidade</h2>
           <ul>
-            <li><strong>Nome, sobrenome e serviços de interesse:</strong> obrigatórios no formulário para identificar o pedido e preparar a resposta.</li>
-            <li><strong>WhatsApp:</strong> opcional, para contato sobre o pedido, se você informar o número.</li>
+            <li><strong>Seu nome e serviços de interesse:</strong> obrigatórios no formulário para identificar o pedido e preparar a resposta.</li>
+            <li><strong>Canal de retorno e contato:</strong> a escolha entre WhatsApp e E-mail é obrigatória. Apenas o contato correspondente ao canal escolhido é enviado com o pedido e é obrigatório para permitir a resposta.</li>
             <li><strong>Descrição e links:</strong> opcionais, para entender o projeto e estimar o escopo.</li>
-            <li><strong>Endereço de e-mail e dados da mensagem:</strong> recebidos quando você envia o e-mail, para permitir a resposta e o acompanhamento da conversa.</li>
+            <li><strong>Dados técnicos de segurança:</strong> identificadores derivados do IP e do contato, além de uma assinatura do pedido, são utilizados para limitar tentativas e evitar envios repetidos. O serviço de proteção não recebe os campos do formulário em texto aberto.</li>
           </ul>
           <p>Essas informações são usadas para responder dúvidas, discutir o projeto e elaborar o orçamento solicitado. Não são utilizadas para envio de publicidade ou inclusão automática em listas de marketing.</p>
           <p>O atendimento e o orçamento se apoiam nos procedimentos preliminares de contratação solicitados por você (art. 7º, V, da LGPD). Obrigações legais e defesa de direitos podem exigir conservação específica (art. 7º, II e VI).</p>
@@ -58,12 +58,14 @@ export default function PrivacyPage() {
 
         <section id="envio" className={styles.section}>
           <h2>Envio e provedores</h2>
-          <p>Os campos são processados no navegador para montar a mensagem. O formulário não os envia para a hospedagem nem os salva em cookies ou armazenamento local. Ao clicar no botão, o conteúdo é repassado ao aplicativo de e-mail escolhido por você, que pode salvar um rascunho conforme suas configurações. A mensagem chega ao destinatário quando você confirma o envio nesse aplicativo.</p>
+          <p>Os campos permanecem no navegador enquanto você preenche o formulário e são enviados ao servidor da Vercel quando você solicita o orçamento. O servidor valida o pedido, verifica as proteções contra abuso e solicita o envio ao serviço de e-mail. O aplicativo de e-mail do visitante não é aberto. A confirmação significa que o serviço aceitou o pedido; não garante entrega à caixa de entrada. Se não houver confirmação, os campos continuam preenchidos para nova tentativa. Eles não são salvos em cookies ou armazenamento local e podem ser perdidos ao sair ou recarregar a página.</p>
           <ul>
-            <li><strong>Proton Mail:</strong> serviço utilizado para receber e manter a correspondência em fbalbuquerque@proton.me. Seu próprio provedor de e-mail também participa do envio.</li>
-            <li><strong>Vercel:</strong> hospeda e entrega as páginas do site. Pode tratar IP, data e hora de acesso, endereço solicitado, informações do navegador e registros técnicos para operação e segurança.</li>
+            <li><strong>Proton Mail:</strong> serviço utilizado para receber e manter a correspondência em fbalbuquerque@proton.me. Se você escrever diretamente, seu provedor de e-mail também participa do envio.</li>
+            <li><strong>Vercel:</strong> hospeda as páginas e processa os campos do formulário no servidor. Pode tratar IP, data e hora de acesso, endereço solicitado, informações do navegador e registros técnicos para operação e segurança.</li>
+            <li><strong>Resend:</strong> quando o envio direto está configurado, processa o nome, os serviços, a descrição e o contato escolhido para encaminhar o pedido ao e-mail de atendimento. Se você escolher E-mail, seu endereço também é usado como endereço de resposta da mensagem.</li>
+            <li><strong>Upstash Redis:</strong> quando o envio direto está configurado, mantém identificadores com assinatura criptográfica, contadores de tentativas e estado do envio para proteção contra abuso e duplicação. Não recebe nome, descrição, IP ou contato em texto aberto.</li>
           </ul>
-          <p>Esses provedores podem processar dados fora do Brasil. O Proton informa armazenamento na Suíça, Alemanha ou Noruega; a Vercel utiliza infraestrutura internacional. Consulte as informações dos provedores sobre o tratamento e os locais de processamento: <a href="https://proton.me/mail/privacy-policy" target="_blank" rel="noopener noreferrer">Proton Mail (abre em nova aba)</a> e <a href="https://vercel.com/legal/privacy-notice" target="_blank" rel="noopener noreferrer">Vercel (abre em nova aba)</a>.</p>
+          <p>O envio direto depende da configuração e disponibilidade desses serviços. Se estiver indisponível, o formulário informa a falha e permite nova tentativa ou contato direto por e-mail. Esses provedores podem processar dados fora do Brasil. Consulte suas informações sobre tratamento e locais de processamento: <a href="https://proton.me/mail/privacy-policy" target="_blank" rel="noopener noreferrer">Proton Mail</a>, <a href="https://vercel.com/legal/privacy-notice" target="_blank" rel="noopener noreferrer">Vercel</a>, <a href="https://resend.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">Resend</a> e <a href="https://upstash.com/trust/privacy.pdf" target="_blank" rel="noopener noreferrer">Upstash</a> (links abrem em nova aba).</p>
           <p>Se o atendimento prosseguir por WhatsApp, o aplicativo também tratará os dados dessa conversa segundo suas próprias condições. Os dados não são vendidos. Eventual fornecimento a autoridades ocorre quando exigido por obrigação legal ou ordem válida.</p>
         </section>
 
@@ -71,7 +73,8 @@ export default function PrivacyPage() {
           <h2>Prazos de conservação</h2>
           <p><strong>Orçamentos sem contratação:</strong> os e-mails e dados associados são mantidos por até seis meses após o último contato. Depois desse prazo, serão excluídos das caixas e registros de atendimento sob controle de Filipe, salvo necessidade específica de conservação prevista em lei.</p>
           <p><strong>Projetos contratados:</strong> os dados necessários à execução do serviço permanecem durante a relação contratual. Após seu término, apenas os registros necessários para obrigações legais e defesa de direitos são conservados pelos respectivos prazos aplicáveis.</p>
-          <p>Registros técnicos da hospedagem e cópias de segurança dos provedores seguem os ciclos de conservação e exclusão desses serviços. O prazo de seis meses do atendimento não significa exclusão imediata de todas as cópias de segurança mantidas pelos provedores.</p>
+          <p>Os contadores de tentativas da aplicação expiram em até 10 minutos. As assinaturas dos pedidos e seus estados de envio expiram em até 24 horas, para reconhecer repetições sem guardar o conteúdo do formulário no Redis. Esses prazos técnicos são diferentes do prazo de conservação do atendimento.</p>
+          <p>Registros técnicos, mensagens processadas pelos serviços de envio e cópias de segurança dos provedores seguem os ciclos de conservação e exclusão desses serviços. O prazo de seis meses do atendimento não significa exclusão imediata de todas as cópias de segurança mantidas pelos provedores.</p>
         </section>
 
         <section id="navegacao" className={styles.section}>

@@ -7,7 +7,15 @@
   border-radius: 1.5rem;
   background: color-mix(in srgb, var(--paper) 4%, transparent);
 }
-.names { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.fields { display: grid; gap: 1.25rem; min-width: 0; border: 0; padding: 0; }
+.channel { min-width: 0; border: 0; padding: 0; font-size: 0.875rem; }
+.channelOptions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.5rem; }
+.channelOption { display: flex; align-items: center; gap: 0.625rem; min-height: 44px; padding: 0.5rem 0.75rem; border: 1px solid color-mix(in srgb, var(--paper) 45%, var(--ink)); border-radius: 0.625rem; cursor: pointer; }
+.channelOption:has(:checked) { background: color-mix(in srgb, var(--paper) 10%, transparent); border-color: var(--paper); }
+.channelOption input { width: 1.125rem; height: 1.125rem; accent-color: var(--paper); }
+.trap { display: none; }
+.submit:disabled { opacity: 0.65; cursor: default; }
+.fields:disabled { opacity: 0.8; }
 .field { display: block; min-width: 0; font-size: 0.875rem; line-height: 1.5; }
 .required { color: var(--paper); }
 .optional { color: color-mix(in srgb, var(--paper) 75%, var(--ink)); font-size: 0.75rem; }
@@ -34,10 +42,9 @@
 .option:hover { background: color-mix(in srgb, var(--paper) 8%, transparent); }
 .option input { width: 1.125rem; height: 1.125rem; accent-color: var(--paper); flex-shrink: 0; }
 .hint { font-size: 0.75rem; line-height: 1.6; color: color-mix(in srgb, var(--paper) 80%, var(--ink)); }
-.hint:empty { display: none; }
+.hint:empty, .error:empty { display: none; }
 .submit { --focus-color: var(--paper); justify-self: end; border-radius: 0.625rem; text-align: left; cursor: pointer; }
 @media (max-width: 28rem) {
-  .names { grid-template-columns: 1fr; }
   .submit { justify-self: stretch; }
 }
 

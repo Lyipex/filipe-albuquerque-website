@@ -1,0 +1,21 @@
+.item { display: flow-root; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .item[data-animated] > * {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 500ms var(--motion-ease), transform 760ms var(--motion-ease);
+  }
+
+  .item[data-animated][data-visible="true"] > *,
+  .item[data-animated]:focus-within > * {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: var(--entry-delay, 0ms);
+  }
+
+  .item:nth-child(2) { --entry-delay: 110ms; }
+  .item:nth-child(3) { --entry-delay: 220ms; }
+  .item:nth-child(4) { --entry-delay: 330ms; }
+  .item:focus-within > * { transition: none; }
+}

@@ -1,6 +1,6 @@
 # Privacidade: práticas e manutenção
 
-Atualizado em 20/10/2026. Este registro acompanha o aviso público em `/privacidade`; não substitui o cumprimento das práticas descritas.
+Atualizado em 21/10/2026. Este registro acompanha o aviso público em `/privacidade`; não substitui o cumprimento das práticas descritas.
 
 ## Decisões confirmadas pelo responsável
 
@@ -13,10 +13,13 @@ Atualizado em 20/10/2026. Este registro acompanha o aviso público em `/privacid
 
 ## Funcionamento conferido no código
 
-- O formulário não usa endpoint, banco de dados, cookies ou localStorage para seus campos.
-- O botão de envio só é habilitado após a hidratação. Sem JavaScript, há um link direto de e-mail; a ação HTML também aponta para `mailto:` para evitar GET acidental com dados pessoais na URL da hospedagem.
-- O botão monta um `mailto:` e entrega os campos ao aplicativo de e-mail do visitante; o envio depende da confirmação nesse aplicativo. Provedores de e-mail podem sincronizar rascunhos antes do envio.
-- Nome, sobrenome e ao menos um serviço são obrigatórios. WhatsApp e descrição são opcionais.
+- O formulário usa `POST /api/orcamento`, JSON com limite de 16 KiB, validação no servidor e destino fixo no código. Não salva seus campos em cookies ou localStorage.
+- Seu nome, canal de retorno, o contato do canal escolhido e ao menos um serviço são obrigatórios. A descrição é opcional. O contato do outro canal não é transmitido.
+- O servidor encaminha e-mail pelo Resend somente com configuração completa. Remetente precisa de domínio autorizado; o endereço do visitante nunca é usado em From. Reply-To é preenchido apenas para a preferência E-mail validada.
+- O envio depende também do Redis da Upstash: reserva atômica por assinatura do pedido, limites de 5 tentativas por IP e 3 por contato a cada janela de 10 minutos. As assinaturas HMAC de IP/contato são pseudônimos, não anonimização irreversível. O Redis não recebe os campos em texto aberto.
+- Contadores expiram em 600 segundos a partir da primeira tentativa na janela. Estado de duplicação e identificador de idempotência expiram em 24 horas contadas da primeira reserva do pedido. Nenhum conteúdo do pedido é salvo nesse registro. A idempotência do Resend complementa a proteção para falhas de conexão e novas tentativas.
+- Confirmação só após o provedor aceitar a solicitação. Aceite não é garantia de entrega, leitura ou prazo de resposta. Dados são preservados no navegador após falha; sair/recarregar perde esse preenchimento.
+- Sem configuração, o endpoint retorna 503 e não envia. Simulação exige desenvolvimento local explícito, não roda em produção/Vercel e não envia mensagens reais. Veja `docs/contact-delivery.md`.
 - O aviso abre em nova aba a partir do formulário para preservar o preenchimento original.
 - Não há integração de analytics, anúncios ou pixels no código revisado. As imagens e fontes são servidas localmente. Isso não elimina os registros técnicos tratados pela Vercel.
 - Não foi adicionado aceite obrigatório de marketing nem consentimento genérico. O atendimento solicitado se fundamenta na etapa preliminar de contratação (LGPD, art. 7º, V).
@@ -28,9 +31,10 @@ Atualizado em 20/10/2026. Este registro acompanha o aviso público em `/privacid
 - Atender solicitações no canal informado, confirmar identidade com informação proporcional e registrar pedido, resposta e fundamento de eventual conservação. Observar os prazos legais aplicáveis.
 - Manter as contas de e-mail e hospedagem protegidas, com acesso restrito e autenticação forte. Verificar as configurações efetivamente habilitadas; o código não audita a conta.
 - Conferir o plano da Vercel, retenção de logs, integrações, exportação de logs e recursos de observabilidade efetivamente ligados na produção. A duração depende do recurso e do plano; não se afirmou um prazo único no aviso.
-- Verificar contratos de tratamento de dados e os mecanismos de transferência internacional aplicáveis à conta/produto usado em Vercel e Proton (LGPD, arts. 33 a 36 e normas da ANPD). O aviso informa os provedores e o processamento internacional; a implementação não verifica os contratos das contas nem certifica a conformidade desses mecanismos.
+- Verificar contratos de tratamento de dados e os mecanismos de transferência internacional aplicáveis à conta/produto usado em Vercel, Proton, Resend e Upstash (LGPD, arts. 33 a 36 e normas da ANPD). O aviso informa os provedores e o processamento internacional; a implementação não verifica os contratos das contas nem certifica a conformidade desses mecanismos.
+- Configurar e revisar retenção de mensagens, logs e visibilidade dos dados no Resend, além de região, contratos, controles e acessos no Upstash. Confirmar se os ciclos dos provedores atendem à operação; as expirações do Redis da aplicação não prometem apagar logs/backups dos provedores. Essas contas ainda não foram verificadas.
 - Antes de ativar atendimento por WhatsApp, identificar a conta, as integrações e as condições do provedor utilizadas. Não foi publicado um número de atendimento.
-- Reavaliar aviso, bases legais e eventuais escolhas do visitante antes de adicionar analytics, campanhas, CRM, chatbots no próprio portfólio ou um formulário com envio direto a servidor.
+- Reavaliar aviso, bases legais e eventuais escolhas do visitante antes de adicionar analytics, campanhas, CRM, chatbots no próprio portfólio ou mudar o processamento do formulário.
 
 ## Fontes verificadas
 
@@ -41,3 +45,6 @@ Atualizado em 20/10/2026. Este registro acompanha o aviso público em `/privacid
 - Proton Mail: https://proton.me/mail/privacy-policy
 
 A inclusão do aviso e da validação atende à parte implementável no site. Não equivale a uma certificação de conformidade de toda a operação ou das contas dos provedores.
+
+- Resend: https://resend.com/docs/api-reference/emails/send-email e https://resend.com/docs/dashboard/emails/idempotency-keys
+- Upstash: https://upstash.com/docs/redis/features/restapi e https://upstash.com/trust/privacy.pdf

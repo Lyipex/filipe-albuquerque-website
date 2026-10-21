@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useRef, useState } from "react";
+import { useId, useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
 import ActionLink from "./ActionLink";
 import ConceptPreview from "./ConceptPreview";
@@ -20,17 +20,36 @@ export type Project = {
 export default function ProjectCarousel({ projects }: { projects: readonly Project[] }) {
   const [active, setActive] = useState(0);
   const [direction, setDirection] = useState("next");
+  const [exploring, setExploring] = useState(false);
   const touchStart = useRef<{ x: number; y: number } | null>(null);
   const viewportId = useId();
   const hintId = useId();
   const previewRefs = useRef<(HTMLElement | null)[]>([]);
+  const explorationButtonRef = useRef<HTMLButtonElement>(null);
+  const pendingFocus = useRef<"preview" | "button" | null>(null);
+
+  useLayoutEffect(() => {
+    const target = pendingFocus.current === "preview" ? previewRefs.current[active]
+      : pendingFocus.current === "button" ? explorationButtonRef.current : null;
+    target?.focus({ preventScroll: true });
+    pendingFocus.current = null;
+  }, [active, exploring]);
 
   if (!projects.length) return null;
 
   function move(step: number) {
+    // Transfer focus only when its slide or caption is about to become inert.
+    if (document.activeElement?.closest('[aria-hidden="false"]')) pendingFocus.current = "preview";
+    setExploring(false);
     setDirection(step > 0 ? "next" : "previous");
     previewRefs.current.forEach((preview) => { if (preview) preview.scrollTop = 0; });
     setActive((current) => (current + step + projects.length) % projects.length);
+  }
+
+  function stopExploring() {
+    pendingFocus.current = "button";
+    previewRefs.current[active]?.scrollTo({ top: 0, behavior: "instant" });
+    setExploring(false);
   }
 
   return (
@@ -38,6 +57,12 @@ export default function ProjectCarousel({ projects }: { projects: readonly Proje
       className={`${styles.carousel} mt-8`}
       role="region" aria-roledescription="carrossel" aria-label="Prévias de projetos" tabIndex={0}
       onKeyDown={(event) => {
+        if (event.key === "Escape" && exploring) {
+          event.preventDefault();
+          event.stopPropagation();
+          stopExploring();
+          return;
+        }
         if (event.altKey || event.ctrlKey || event.metaKey) return;
         if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
           event.preventDefault();
@@ -50,14 +75,14 @@ export default function ProjectCarousel({ projects }: { projects: readonly Proje
           {String(active + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}
           <span className="sr-only"> - {projects[active].area}</span>
         </p>
-        <p id={hintId} className={styles.hint}><span className={styles.desktopHint}>Passe o cursor para ampliar. Role dentro da prévia para explorar.</span><span className={styles.touchHint}>Deslize dentro da prévia para explorar. Use as setas para trocar de projeto.</span></p>
+        <p id={hintId} className={styles.hint}>{exploring ? "Role dentro da prévia. Para voltar à página, use Sair da prévia ou Escape." : "A rolagem segue pela página. Ative Explorar prévia para ver a composição por dentro."}</p>
         {projects.length > 1 && <div className={styles.controls}>
           <button type="button" className={styles.control} aria-label="Projeto anterior" aria-controls={viewportId} onClick={() => move(-1)}><span aria-hidden="true">←</span></button>
           <button type="button" className={styles.control} aria-label="Próximo projeto" aria-controls={viewportId} onClick={() => move(1)}><span aria-hidden="true">→</span></button>
         </div>}
       </div>
       <div
-        id={viewportId} className={styles.viewport}
+        id={viewportId} className={styles.viewport} data-exploring={exploring}
         onTouchStart={(event) => {
           const touch = event.touches[0];
           touchStart.current = { x: touch.clientX, y: touch.clientY };
@@ -72,6 +97,20 @@ export default function ProjectCarousel({ projects }: { projects: readonly Proje
           touchStart.current = null;
         }}
       >
+        <div className={styles.explorationBar}>
+          <span className="text-xs text-moss" role="status">{exploring ? "Exploração ativa" : "Apresentação da prévia"}</span>
+          <button
+            ref={explorationButtonRef} type="button" className={styles.explorationButton}
+            aria-pressed={exploring} aria-controls={`${viewportId}-preview-${active}`}
+            onClick={() => {
+              if (exploring) stopExploring();
+              else {
+                pendingFocus.current = "preview";
+                setExploring(true);
+              }
+            }}
+          >{exploring ? "Sair da prévia" : "Explorar prévia"}</button>
+        </div>
         <div className={styles.slides}>
           {projects.map((project, index) => {
             const Frame = project.url ? "a" : "div";
@@ -80,10 +119,12 @@ export default function ProjectCarousel({ projects }: { projects: readonly Proje
                 <div className={styles.stage}>
                   <Frame
                     className={styles.previewFrame}
+                    id={`${viewportId}-preview-${index}`}
+                    data-exploring={exploring && index === active}
                     ref={(element: HTMLAnchorElement | HTMLDivElement | null) => { previewRefs.current[index] = element; }}
                     href={project.url} target={project.url ? "_blank" : undefined} rel={project.url ? "noopener noreferrer" : undefined}
                     tabIndex={0} role={project.url ? undefined : "region"}
-                    aria-label={project.url ? `Ver site ${project.area} (abre em nova aba)` : `Prévia ilustrativa de ${project.area}, com rolagem`}
+                    aria-label={project.url ? `Ver site ${project.area} (abre em nova aba)` : `Prévia ilustrativa de ${project.area}`}
                     aria-describedby={hintId}
                   >
                     {project.concept ? <ConceptPreview kind={project.concept} /> : project.image ? (
@@ -108,6 +149,7 @@ export default function ProjectCarousel({ projects }: { projects: readonly Proje
               <p className="max-w-[52ch] text-body leading-copy">{project.phrase}</p>
               {project.credit && <p className="mt-3 text-xs leading-5 text-ink/80">Foto de referência: <a className="underline underline-offset-4" href={project.credit.url} target="_blank" rel="noopener noreferrer">{project.credit.name} / Unsplash<span className="sr-only"> (abre em nova aba)</span></a></p>}
               {project.url && <ActionLink href={project.url} target="_blank" rel="noopener noreferrer" variant="secondary" className="mt-4" aria-label={`Ver site ${project.area} (abre em nova aba)`}>Ver site <span aria-hidden="true">↗</span></ActionLink>}
+              <ActionLink href="#contato" variant="secondary" className="mt-4">Conversar sobre meu projeto <span aria-hidden="true">↗</span></ActionLink>
             </div>
           </div>
         ))}
