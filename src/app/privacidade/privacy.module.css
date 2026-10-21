@@ -1,0 +1,17 @@
+.header { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; max-width: 90rem; margin-inline: auto; padding: 1.75rem var(--page-gutter); }
+.back { font-size: 0.875rem; text-decoration: underline; text-underline-offset: 0.25em; }
+.main { width: 100%; max-width: 58rem; margin-inline: auto; padding: 3rem var(--page-gutter) 5rem; }
+.title { margin-top: 1.5rem; font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 500; line-height: 1.08; letter-spacing: -0.04em; }
+.date { margin-top: 1rem; font-size: 0.8125rem; color: var(--moss); }
+.summary { margin-top: 2rem; border: 1px solid var(--color-rule); border-radius: 1rem; padding: clamp(1.25rem, 3vw, 2rem); background: color-mix(in srgb, var(--moss) 5%, var(--paper)); font-size: 1.0625rem; line-height: 1.75; }
+.summary p + p { margin-top: 1rem; }
+.topics { display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; margin-block: 2rem; font-size: 0.875rem; }
+.topics a, .section a { color: var(--moss); text-decoration: underline; text-underline-offset: 0.2em; overflow-wrap: anywhere; }
+.section { padding-top: 2rem; margin-top: 2rem; border-top: 1px solid var(--color-rule); scroll-margin-top: 1.5rem; }
+.section h2 { margin-bottom: 1.25rem; font-size: 1.625rem; font-weight: 500; line-height: 1.2; letter-spacing: -0.025em; }
+.section p, .section li { font-size: 1rem; line-height: 1.85; }
+.section p + p, .section ul + p, .section p + ul { margin-top: 1rem; }
+.section ul { padding-left: 1.25rem; list-style: disc; }
+.section li + li { margin-top: 0.75rem; }
+.section strong { font-weight: 600; }
+@media (max-width: 30rem) { .header { align-items: flex-start; } .header > a:first-child { max-width: 18ch; } .back { flex-shrink: 0; font-size: 0.75rem; } }

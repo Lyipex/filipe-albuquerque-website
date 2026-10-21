@@ -140,11 +140,18 @@ button {
   }
 }
 
-@media (hover: hover) {
-  .portrait-toggle:hover img { filter: grayscale(0); }
+.portrait-frame { position: relative; display: block; aspect-ratio: 1068 / 1600; overflow: hidden; }
+.portrait-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.portrait-colored { opacity: 0; transition: opacity var(--duration-portrait) ease; }
+@media (min-width: 48rem) and (hover: hover) and (pointer: fine) {
+  .portrait-toggle[data-color-ready="true"]:hover .portrait-colored { opacity: 1; }
 }
-.portrait-toggle img { filter: grayscale(1); transition: filter var(--duration-portrait) ease; }
-.portrait-toggle[aria-pressed="true"] img { filter: grayscale(0); }
+.portrait-toggle[data-color-ready="true"][aria-pressed="true"] .portrait-colored { opacity: 1; }
+.portrait-touch-hint { display: none; }
+@media (hover: none), (pointer: coarse), (max-width: 47.999rem) {
+  .portrait-mouse-hint { display: none; }
+  .portrait-touch-hint { display: inline; }
+}
 ::selection { background: var(--moss); color: var(--paper); }
 
 @layer components {
@@ -198,3 +205,16 @@ button {
 
 /* Long Portuguese headings must fit the approved type scale on narrow screens. */
 h1, h2, h3 { overflow-wrap: anywhere; }
+
+/* Reversible service entrances: scrolling upward moves each row back out to the right. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-service-motion].service-animated > div {
+    opacity: 0;
+    transform: translateX(64px);
+    transition: opacity 480ms var(--motion-ease), transform 600ms var(--motion-ease);
+  }
+  [data-service-motion].service-animated.service-visible > div {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

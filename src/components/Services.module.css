@@ -1,5 +1,6 @@
 .list {
   list-style: none;
+  overflow: clip;
   margin-top: 2rem;
 }
 .service {

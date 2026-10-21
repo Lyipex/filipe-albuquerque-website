@@ -1,46 +1,45 @@
 import ActionLink from "./ActionLink";
-import { contactHref } from "@/lib/site";
+import { contactHref, navigationLinks } from "@/lib/site";
+import styles from "./Footer.module.css";
 
-export default function Footer() {
+const services = [
+  { href: "#landing-pages", label: "Landing pages" },
+  { href: "#sites-institucionais", label: "Sites institucionais" },
+  { href: "#redesign", label: "Redesign e melhorias" },
+  { href: "#chatbots", label: "Chatbots" },
+];
+
+export default function Footer({ homePath = "" }: { homePath?: string }) {
   return (
-    <div data-motion="reveal" className="text-paper">
-      <div className="mx-auto max-w-editorial border-t border-paper/15 py-6">
-        <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-          {/* Identidade */}
-          <div>
-            <p className="text-base font-medium">
-              Filipe Brito Albuquerque
-            </p>
-
-            <p className="mt-1 text-sm text-paper/80">
-              Desenvolvimento Web
-            </p>
-          </div>
-
-          {/* Contato */}
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
-            <ActionLink
-              tone="inverse"
-              href={contactHref}
-              className="text-paper/80"
-            >
-              E-mail <span aria-hidden="true">↗</span>
-            </ActionLink>
-
+    <div className="text-paper">
+      <div className={styles.columns}>
+        <nav aria-labelledby="footer-navigation-title">
+          <h2 id="footer-navigation-title" className={styles.heading}>Navegue</h2>
+          <ul className={styles.links}>
+            <li><ActionLink tone="inverse" href={`${homePath}#inicio`}>Início</ActionLink></li>
+            {navigationLinks.map((link) => <li key={link.href}><ActionLink tone="inverse" href={`${homePath}${link.href}`}>{link.label}</ActionLink></li>)}
+          </ul>
+        </nav>
+        <nav aria-labelledby="footer-services-title">
+          <h2 id="footer-services-title" className={styles.heading}>Serviços</h2>
+          <ul className={styles.links}>
+            {services.map((service) => <li key={service.href}><ActionLink tone="inverse" href={`${homePath}${service.href}`}>{service.label}</ActionLink></li>)}
+          </ul>
+        </nav>
+        <div className={styles.contact}>
+          <h2 className={styles.heading}>Fale comigo</h2>
+          <div className={styles.links}>
+            <ActionLink tone="inverse" href={contactHref} className={styles.email}>fbalbuquerque@proton.me</ActionLink>
+            <ActionLink tone="inverse" href={`${homePath}#contato`} className="self-start">Solicitar orçamento <span aria-hidden="true">↗</span></ActionLink>
+            <p className={styles.caption}>Desenvolvimento web e chatbots.</p>
           </div>
         </div>
-
-        {/* Rodapé final */}
-        <div className="mt-4 flex flex-col gap-2 text-xs text-paper/80 sm:flex-row sm:items-center sm:justify-between">
-          <p>© 2026 Filipe Brito Albuquerque.</p>
-
-          <ActionLink
-              tone="inverse"
-            href="#inicio"
-            className="self-start text-xs"
-          >
-            Voltar ao topo <span aria-hidden="true">↑</span>
-          </ActionLink>
+      </div>
+      <div className={styles.bottom}>
+        <p>© 2026 Filipe Brito Albuquerque.</p>
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+          <ActionLink tone="inverse" href="/privacidade" className="text-xs">Privacidade</ActionLink>
+          <ActionLink tone="inverse" href={`${homePath}#inicio`} className="text-xs">Voltar ao topo <span aria-hidden="true">↑</span></ActionLink>
         </div>
       </div>
     </div>
