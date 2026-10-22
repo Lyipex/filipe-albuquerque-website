@@ -136,7 +136,7 @@ export default function ContactForm() {
         </div>
         <div className={styles.trap} aria-hidden="true"><label htmlFor={`${id}-website`}>Deixe este campo vazio</label><input id={`${id}-website`} name="website" tabIndex={-1} autoComplete="off" /></div>
       </fieldset>
-      <p id={`${id}-delivery`} className={styles.hint}>Seu pedido é enviado pelo site. Você recebe a confirmação quando o serviço de envio o aceita.</p>
+      <p id={`${id}-delivery`} className={styles.hint}>Após o envio, entrarei em contato pelo WhatsApp ou e-mail informado.</p>
       <p className={styles.hint}>Seus dados serão usados para responder ao pedido e preparar o orçamento. <Link href="/privacidade" target="_blank" rel="noopener noreferrer" className={styles.privacyLink}>Leia o aviso de privacidade<span className="sr-only"> (abre em nova aba)</span></Link>.</p>
       <button type="submit" disabled={!hydrated || status === "sending" || status === "success"} className={`action action-primary ${styles.submit}`}>{status === "sending" ? "Enviando pedido…" : "Enviar pedido de orçamento"} <span aria-hidden="true">↗</span></button>
       <noscript><p className={styles.hint}>Para usar o formulário, ative JavaScript. Você também pode escrever para <a href={contactHref} className={styles.privacyLink}>{contactEmail}</a>.</p></noscript>

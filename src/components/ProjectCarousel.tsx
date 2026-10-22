@@ -8,12 +8,13 @@ import styles from "./ProjectCarousel.module.css";
 
 export type Project = {
   code: string;
+  identification?: string;
   area: string;
   type: string;
   phrase: string;
   image?: { src: string; alt: string; width?: number; height?: number };
-  concept?: "eyewear" | "architecture";
-  credit?: { name: string; url: string };
+  concept?: "eyewear" | "architecture" | "podiatry";
+  credit?: { name: string; url: string; platform?: string };
   url?: string;
 };
 
@@ -37,9 +38,14 @@ export default function ProjectCarousel({ projects }: { projects: readonly Proje
 
   if (!projects.length) return null;
 
+  const previewAvailable = !!(projects[active].concept || projects[active].image);
+
   function move(step: number) {
     // Transfer focus only when its slide or caption is about to become inert.
-    if (document.activeElement?.closest('[aria-hidden="false"]')) pendingFocus.current = "preview";
+    const nextProject = projects[(active + step + projects.length) % projects.length];
+    const explorationControlWillDisappear = document.activeElement === explorationButtonRef.current
+      && !nextProject.concept && !nextProject.image;
+    if (document.activeElement?.closest('[aria-hidden="false"]') || explorationControlWillDisappear) pendingFocus.current = "preview";
     setExploring(false);
     setDirection(step > 0 ? "next" : "previous");
     touchStart.current = null;
@@ -80,7 +86,7 @@ export default function ProjectCarousel({ projects }: { projects: readonly Proje
           {String(active + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}
           <span className="sr-only"> - {projects[active].area}</span>
         </p>
-        <p id={hintId} className={styles.hint}>{exploring ? "Role dentro da prévia. Para voltar à página, use Sair da prévia ou Escape." : "A rolagem segue pela página. Ative Explorar prévia para ver a composição por dentro."}</p>
+        <p id={hintId} className={styles.hint}>{!previewAvailable ? "Prévia em preparação" : exploring ? "Role dentro da prévia. Para voltar à página, use Sair da prévia ou Escape." : "A rolagem segue pela página. Ative Explorar prévia para ver a composição por dentro."}</p>
         {projects.length > 1 && <div className={styles.controls}>
           <button type="button" className={styles.control} aria-label="Projeto anterior" aria-controls={viewportId} onClick={() => move(-1)}><span aria-hidden="true">←</span></button>
           <button type="button" className={styles.control} aria-label="Próximo projeto" aria-controls={viewportId} onClick={() => move(1)}><span aria-hidden="true">→</span></button>
@@ -108,7 +114,7 @@ export default function ProjectCarousel({ projects }: { projects: readonly Proje
       >
         <div className={styles.explorationBar}>
           <span className="text-xs text-moss" role="status">{exploring ? "Exploração ativa" : "Apresentação da prévia"}</span>
-          <button
+          {previewAvailable && <button
             ref={explorationButtonRef} type="button" className={styles.explorationButton}
             aria-pressed={exploring} aria-controls={`${viewportId}-preview-${active}`}
             onClick={() => {
@@ -119,7 +125,7 @@ export default function ProjectCarousel({ projects }: { projects: readonly Proje
                 setExploring(true);
               }
             }}
-          >{exploring ? "Sair da prévia" : "Explorar prévia"}</button>
+          >{exploring ? "Sair da prévia" : "Explorar prévia"}</button>}
         </div>
         <div className={styles.slides}>
           {projects.map((project, index) => {
@@ -138,7 +144,7 @@ export default function ProjectCarousel({ projects }: { projects: readonly Proje
                     aria-describedby={hintId}
                   >
                     <div className={styles.previewContent}>
-                      {project.concept ? <ConceptPreview kind={project.concept} /> : project.image ? (
+                      {project.concept ? <ConceptPreview kind={project.concept} title={project.area} identification={project.identification} type={project.type} description={project.phrase} /> : project.image ? (
                         <Image src={project.image.src} alt={project.image.alt} width={project.image.width ?? 1440} height={project.image.height ?? 3000} sizes="(min-width: 1400px) 1240px, 100vw" className={styles.screenshot} />
                       ) : <div className={styles.placeholder}><p>{project.area}</p><span>Prévia em preparação</span></div>}
                     </div>
@@ -153,13 +159,13 @@ export default function ProjectCarousel({ projects }: { projects: readonly Proje
         {projects.map((project, index) => (
           <div key={project.code} className={styles.caption} aria-hidden={index !== active} inert={index !== active}>
             <div>
-              <p className="text-xs uppercase tracking-label text-moss">{project.concept ? "Prévia ilustrativa" : "Projeto"}</p>
+              <p className="text-xs uppercase tracking-label text-moss">{project.identification ?? (project.concept ? "Prévia ilustrativa" : "Projeto")}</p>
               <h3 className="mt-3 text-project-title font-medium leading-heading tracking-title">{project.area}</h3>
               <p className="mt-3 text-sm">{project.type}</p>
             </div>
             <div>
               <p className="max-w-[52ch] text-body leading-copy">{project.phrase}</p>
-              {project.credit && <p className="mt-3 text-xs leading-5 text-ink/80">Foto de referência: <a className="underline underline-offset-4" href={project.credit.url} target="_blank" rel="noopener noreferrer">{project.credit.name} / Unsplash<span className="sr-only"> (abre em nova aba)</span></a></p>}
+              {project.credit && <p className="mt-3 text-xs leading-5 text-ink/80">Foto de referência: <a className="underline underline-offset-4" href={project.credit.url} target="_blank" rel="noopener noreferrer">{project.credit.name} / {project.credit.platform ?? "Unsplash"}<span className="sr-only"> (abre em nova aba)</span></a></p>}
               {project.url && <ActionLink href={project.url} target="_blank" rel="noopener noreferrer" variant="secondary" className="mt-4" aria-label={`Ver site ${project.area} (abre em nova aba)`}>Ver site <span aria-hidden="true">↗</span></ActionLink>}
               <ActionLink href="#contato" variant="secondary" className="mt-4">Conversar sobre meu projeto <span aria-hidden="true">↗</span></ActionLink>
             </div>

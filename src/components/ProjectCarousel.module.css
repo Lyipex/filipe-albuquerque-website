@@ -50,6 +50,7 @@
 .mockHeroCopy > p { margin-block: 2cqw 3cqw; font-size: 6.4cqw; line-height: 1.02; letter-spacing: -0.04em; font-weight: 500; }
 .mockCta { padding: 1.2cqw 2cqw; border: 1px solid #fff8eb90; font-size: max(8px, 1.1cqw); }
 .mockContent { padding: 6cqw 5cqw 0; }
+.podiatryDescription { max-width: 60ch; padding-bottom: 6cqw; font-size: max(14px, 1.4cqw); line-height: var(--leading-copy); }
 .mockSectionHeading { display: flex; justify-content: space-between; align-items: end; gap: 3cqw; margin-bottom: 3cqw; }
 .mockSectionHeading > p { font-size: 3.8cqw; line-height: 1.1; letter-spacing: -0.03em; }
 .mockSectionHeading > span { max-width: 23ch; font-size: max(9px, 1.2cqw); line-height: 1.6; }

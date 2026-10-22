@@ -9,8 +9,7 @@ export default function ContactCTA() {
           <div data-motion="reveal">
             <p className="text-xs font-medium uppercase tracking-eyebrow text-paper">Nº 05 - Contato</p>
             <h2 id="contato-title" className="mt-6 max-w-lg text-section-title font-medium leading-heading tracking-heading">Vamos conversar sobre o seu projeto?</h2>
-            <p className="mt-5 max-w-[40ch] text-body leading-7 text-paper/80">Conte o que você precisa no site ou no atendimento da sua empresa. Se já tiver uma data em mente, inclua na descrição.</p>
-            <p className="mt-6 max-w-[45ch] text-sm leading-6 text-paper/80">Os orçamentos são válidos por 20 dias corridos. Após esse prazo, valores e condições poderão ser revistos.</p>
+            <p className="mt-5 max-w-[40ch] text-body leading-7 text-paper/80">Conte um pouco sobre o que você tem em mente. Não precisa ter tudo definido agora. Com essas primeiras informações, podemos conversar e encontrar o melhor caminho para o seu projeto.</p>
           </div>
           <ContactForm />
         </div>
