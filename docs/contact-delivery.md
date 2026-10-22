@@ -25,6 +25,12 @@ O código confia no IP definido pela borda Vercel, `x-vercel-forwarded-for`, som
 
 Antes de ativar: verificar domínio/remetente no Resend e seu DNS; configurar as seis variáveis; confirmar permissões, região, retenção, contratos e transferência internacional dos provedores; testar em Preview com endereços oficiais de teste do provedor e rever o aviso. Não houve publicação neste trabalho. Não há prazo de resposta inventado.
 
+## Contato direto pelo WhatsApp
+
+A opção abaixo do formulário permanece visível, com a ação desabilitada e sem link quando `NEXT_PUBLIC_WHATSAPP_NUMBER` não está configurada ou seu formato é inválido. Para ativá-la, configurar o número comercial vinculado ao WhatsApp Business em formato internacional, somente dígitos (DDI, DDD e número, sem `+`, espaços ou pontuação; entre 8 e 15 dígitos), e gerar uma nova build/publicação. Não há número padrão nem fallback para número pessoal. Essa variável é pública e não deve conter credenciais.
+
+O link `wa.me` abre o atendimento da conta associada ao número, conforme o aplicativo disponível no dispositivo, com a mensagem preenchida: “Olá! Conheci a Marginália pelo site e gostaria de conversar sobre um projeto.” O visitante confirma o envio no WhatsApp. O link não cria uma conta Business, não envia mensagens automaticamente e não altera o envio do formulário.
+
 ## Proteções e limites
 
 - Limite real de leitura do corpo: 16 KiB, inclusive sem Content-Length. Nome até 120 caracteres, descrição até 2.000, e-mail até 254, telefone até 30 caracteres com 10–15 dígitos. Serviços limitados à lista conhecida. Nome e cabeçalhos não aceitam quebras de linha.
