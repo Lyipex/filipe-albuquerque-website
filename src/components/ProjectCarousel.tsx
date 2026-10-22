@@ -42,13 +42,15 @@ export default function ProjectCarousel({ projects }: { projects: readonly Proje
     if (document.activeElement?.closest('[aria-hidden="false"]')) pendingFocus.current = "preview";
     setExploring(false);
     setDirection(step > 0 ? "next" : "previous");
-    previewRefs.current.forEach((preview) => { if (preview) preview.scrollTop = 0; });
+    touchStart.current = null;
+    previewRefs.current.forEach((preview) => preview?.scrollTo({ top: 0, left: 0, behavior: "instant" }));
     setActive((current) => (current + step + projects.length) % projects.length);
   }
 
   function stopExploring() {
     pendingFocus.current = "button";
-    previewRefs.current[active]?.scrollTo({ top: 0, behavior: "instant" });
+    touchStart.current = null;
+    previewRefs.current[active]?.scrollTo({ top: 0, left: 0, behavior: "instant" });
     setExploring(false);
   }
 
@@ -64,6 +66,9 @@ export default function ProjectCarousel({ projects }: { projects: readonly Proje
           return;
         }
         if (event.altKey || event.ctrlKey || event.metaKey) return;
+        // On mobile, arrow keys inside the enlarged canvas pan it instead of changing slides.
+        if (exploring && window.matchMedia("(max-width: 47.999rem)").matches
+          && event.target instanceof Node && previewRefs.current[active]?.contains(event.target)) return;
         if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
           event.preventDefault();
           move(event.key === "ArrowRight" ? 1 : -1);
@@ -84,6 +89,10 @@ export default function ProjectCarousel({ projects }: { projects: readonly Proje
       <div
         id={viewportId} className={styles.viewport} data-exploring={exploring}
         onTouchStart={(event) => {
+          if (exploring && window.matchMedia("(max-width: 47.999rem)").matches) {
+            touchStart.current = null;
+            return;
+          }
           const touch = event.touches[0];
           touchStart.current = { x: touch.clientX, y: touch.clientY };
         }}
@@ -105,6 +114,7 @@ export default function ProjectCarousel({ projects }: { projects: readonly Proje
             onClick={() => {
               if (exploring) stopExploring();
               else {
+                touchStart.current = null;
                 pendingFocus.current = "preview";
                 setExploring(true);
               }
@@ -127,9 +137,11 @@ export default function ProjectCarousel({ projects }: { projects: readonly Proje
                     aria-label={project.url ? `Ver site ${project.area} (abre em nova aba)` : `Prévia ilustrativa de ${project.area}`}
                     aria-describedby={hintId}
                   >
-                    {project.concept ? <ConceptPreview kind={project.concept} /> : project.image ? (
-                      <Image src={project.image.src} alt={project.image.alt} width={project.image.width ?? 1440} height={project.image.height ?? 3000} sizes="(min-width: 1400px) 1240px, 100vw" className={styles.screenshot} />
-                    ) : <div className={styles.placeholder}><p>{project.area}</p><span>Prévia em preparação</span></div>}
+                    <div className={styles.previewContent}>
+                      {project.concept ? <ConceptPreview kind={project.concept} /> : project.image ? (
+                        <Image src={project.image.src} alt={project.image.alt} width={project.image.width ?? 1440} height={project.image.height ?? 3000} sizes="(min-width: 1400px) 1240px, 100vw" className={styles.screenshot} />
+                      ) : <div className={styles.placeholder}><p>{project.area}</p><span>Prévia em preparação</span></div>}
+                    </div>
                   </Frame>
                 </div>
               </div>

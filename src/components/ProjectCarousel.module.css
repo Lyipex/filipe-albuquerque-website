@@ -27,6 +27,7 @@
   .previewFrame[data-exploring="true"] { width: 100%; height: clamp(20rem, 78svh, 44rem); }
 }
 .screenshot { display: block; width: 100%; height: auto; }
+.previewContent { display: contents; }
 .placeholder { min-height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 1rem; padding: 2rem; background: var(--moss); color: var(--paper); }
 .placeholder p { font-size: var(--text-project-title); }
 .navigation { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-bottom: 0.75rem; }
@@ -66,6 +67,22 @@
   .navigation { flex-wrap: wrap; }
   .hint { order: 3; flex-basis: 100%; max-width: none; }
   .controls { margin-left: auto; }
+  /* Only the reading mode gets a wider canvas; the portfolio keeps its normal layout. */
+  .viewport[data-exploring="true"] { touch-action: pan-x pan-y pinch-zoom; }
+  .previewFrame[data-exploring="true"] {
+    height: clamp(16rem, 65svh, 32rem);
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+  .previewFrame[data-exploring="true"] .previewContent {
+    display: block;
+    width: 60rem;
+    min-height: 100%;
+    container-type: inline-size;
+  }
+  .previewFrame[data-exploring="true"] :is(.mockHeader, .mockHeroCopy > span:first-child, .mockCta, .mockSectionHeading > span, .mockGrid p, .mockClosing > span) {
+    font-size: max(14px, 0.875rem);
+  }
 }
 @media (prefers-reduced-motion: no-preference) {
   .previewFrame { transition: width 260ms var(--motion-ease), height 260ms var(--motion-ease); }
