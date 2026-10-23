@@ -37,7 +37,7 @@ export default function Portrait() {
   }, []);
 
   return (
-    <button type="button" aria-label="Alternar fotografia entre preto e branco e cores" aria-pressed={color && colorReady} aria-describedby={descriptionId} data-color-ready={colorReady} onClick={() => setManualColor(!color)} className="portrait-toggle block w-full cursor-pointer text-left">
+    <button type="button" aria-label="Alternar fotografia entre preto e branco e cores" aria-pressed={color && colorReady} aria-describedby={descriptionId} data-color-ready={colorReady} data-manual-color={manualColor ?? undefined} onClick={() => setManualColor(!color)} className="portrait-toggle block w-full cursor-pointer text-left">
       <span ref={frameRef} className="portrait-frame">
         <Image src={monochrome} alt="Filipe Brito Albuquerque" sizes="(min-width: 768px) 420px, 100vw" className="portrait-monochrome" />
         <Image src={colored} alt="" aria-hidden="true" sizes="(min-width: 768px) 420px, 100vw" className="portrait-colored" onLoad={() => setColorReady(true)} />

@@ -86,7 +86,6 @@ export default function ProjectCarousel({ projects }: { projects: readonly Proje
           {String(active + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}
           <span className="sr-only"> - {projects[active].area}</span>
         </p>
-        <p id={hintId} className={styles.hint}>{!previewAvailable ? "Prévia em preparação" : exploring ? "Role dentro da prévia. Para voltar à página, use Sair da prévia ou Escape." : "A rolagem segue pela página. Ative Explorar prévia para ver a composição por dentro."}</p>
         {projects.length > 1 && <div className={styles.controls}>
           <button type="button" className={styles.control} aria-label="Projeto anterior" aria-controls={viewportId} onClick={() => move(-1)}><span aria-hidden="true">←</span></button>
           <button type="button" className={styles.control} aria-label="Próximo projeto" aria-controls={viewportId} onClick={() => move(1)}><span aria-hidden="true">→</span></button>
@@ -113,7 +112,7 @@ export default function ProjectCarousel({ projects }: { projects: readonly Proje
         }}
       >
         <div className={styles.explorationBar}>
-          <span className="text-xs text-moss" role="status">{exploring ? "Exploração ativa" : "Apresentação da prévia"}</span>
+          <p id={hintId} className="text-xs leading-5 text-moss" role="status">{!previewAvailable ? "Prévia em preparação" : exploring ? "Role a prévia. Saia pelo botão ou Escape." : "Ative para rolar dentro da prévia."}</p>
           {previewAvailable && <button
             ref={explorationButtonRef} type="button" className={styles.explorationButton}
             aria-pressed={exploring} aria-controls={`${viewportId}-preview-${active}`}

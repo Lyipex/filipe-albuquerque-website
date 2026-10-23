@@ -144,7 +144,7 @@ button {
 .portrait-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .portrait-colored { opacity: 0; transition: opacity var(--duration-portrait) ease; }
 @media (min-width: 48rem) and (hover: hover) and (pointer: fine) {
-  .portrait-toggle[data-color-ready="true"]:hover .portrait-colored { opacity: 1; }
+  .portrait-toggle[data-color-ready="true"]:not([data-manual-color]):hover .portrait-colored { opacity: 1; }
 }
 .portrait-toggle[data-color-ready="true"][aria-pressed="true"] .portrait-colored { opacity: 1; }
 .portrait-touch-hint { display: none; }

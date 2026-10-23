@@ -19,25 +19,25 @@ export default function ContactCTA() {
   return (
     <footer id="contato" tabIndex={-1} aria-labelledby="contato-title" className="bg-ink px-gutter pt-section text-paper">
       <div className="mx-auto max-w-editorial">
-        <div className="grid items-start gap-10 pb-12 lg:grid-cols-2 lg:gap-20">
+        <div className="grid items-start gap-10 pb-12 lg:grid-cols-2 lg:gap-x-20">
           <div data-motion="reveal">
             <p className="text-xs font-medium uppercase tracking-eyebrow text-paper">Nº 05 - Contato</p>
             <h2 id="contato-title" className="mt-6 max-w-lg text-section-title font-medium leading-heading tracking-heading">Vamos conversar sobre o seu projeto?</h2>
             <p className="mt-5 max-w-[40ch] text-body leading-7 text-paper/80">Conte um pouco sobre o que você tem em mente. Não precisa ter tudo definido agora. Com essas primeiras informações, podemos conversar e encontrar o melhor caminho para o seu projeto.</p>
           </div>
-          <div>
+          <div className="lg:col-start-2 lg:row-start-1 lg:row-span-2">
             <ContactForm />
-            <div className="mt-6">
-              <div className="flex items-center gap-4 text-xs text-paper/60">
-                <span aria-hidden="true" className="h-px flex-1 bg-paper/20" />
-                <span>ou</span>
-                <span aria-hidden="true" className="h-px flex-1 bg-paper/20" />
-              </div>
-              <p className="mt-6 text-sm font-medium">Prefere falar pelo WhatsApp?</p>
-              {whatsappUrl ? <ActionLink href={whatsappUrl} target="_blank" rel="noopener noreferrer" variant="secondary" tone="inverse" className="mt-4">
-                {whatsappAction}<span className="sr-only"> (abre em nova aba)</span>
-              </ActionLink> : <button type="button" disabled data-tone="inverse" className="action action-secondary mt-4 cursor-not-allowed opacity-60">{whatsappAction}</button>}
+          </div>
+          <div className="-mt-4 lg:col-start-1 lg:row-start-2 lg:mt-0 lg:self-end">
+            <div className="flex items-center gap-4 text-xs text-paper/60">
+              <span aria-hidden="true" className="h-px flex-1 bg-paper/20" />
+              <span>ou</span>
+              <span aria-hidden="true" className="h-px flex-1 bg-paper/20" />
             </div>
+            <p className="mt-6 text-sm font-medium">Prefere falar pelo WhatsApp?</p>
+            {whatsappUrl ? <ActionLink href={whatsappUrl} target="_blank" rel="noopener noreferrer" variant="secondary" tone="inverse" className="mt-4">
+              {whatsappAction}<span className="sr-only"> (abre em nova aba)</span>
+            </ActionLink> : <button type="button" disabled data-tone="inverse" className="action action-secondary mt-4 cursor-not-allowed opacity-60">{whatsappAction}</button>}
           </div>
         </div>
         <Footer />
