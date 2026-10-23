@@ -9,6 +9,7 @@ import Link from "next/link";
 const subscribeToHydration = () => () => {};
 const clientReady = () => true;
 const serverReady = () => false;
+const successMessage = "Obrigado pelo contato. Vou analisar suas informações e retornar para conversarmos sobre seu projeto.";
 
 export default function ContactForm() {
   const id = useId();
@@ -83,7 +84,7 @@ export default function ContactForm() {
         return;
       }
       setStatus("success");
-      setMessage(result.simulation ? "Simulação concluída: pedido aceito no teste. Nenhuma mensagem real foi enviada." : "Pedido aceito pelo serviço de envio. O canal escolhido foi informado para o retorno. Isso não garante a entrega do e-mail.");
+      setMessage(result.simulation ? "Simulação concluída: pedido aceito no teste. Nenhuma mensagem real foi enviada." : successMessage);
       requestAnimationFrame(() => statusRef.current?.focus());
     } catch {
       showErrors(form, {}, `Não foi possível confirmar o envio. Seus dados continuam preenchidos. Confira sua conexão e tente novamente ou escreva para ${contactEmail}.`);
@@ -154,10 +155,12 @@ export default function ContactForm() {
       </fieldset>
       <p id={`${id}-delivery`} className={styles.hint}>Após o envio, entrarei em contato pelo WhatsApp ou e-mail informado.</p>
       <p className={styles.hint}>Seus dados serão usados para responder ao pedido e preparar o orçamento. <Link href="/privacidade" target="_blank" rel="noopener noreferrer" className={styles.privacyLink}>Leia o aviso de privacidade<span className="sr-only"> (abre em nova aba)</span></Link>.</p>
-      <button type="submit" disabled={!hydrated || status === "sending" || status === "success"} className={`action action-primary ${styles.submit}`}>{status === "sending" ? "Enviando pedido…" : "Enviar pedido de orçamento"} <span aria-hidden="true">↗</span></button>
+      <button type="submit" disabled={!hydrated || status === "sending" || status === "success"} className={`action action-primary ${styles.submit}`}>{status === "sending" ? "Enviando pedido…" : "Enviar mensagem"} <span aria-hidden="true">↗</span></button>
       <noscript><p className={styles.hint}>Para usar o formulário, ative JavaScript. Você também pode escrever para <a href={contactHref} className={styles.privacyLink}>{contactEmail}</a>.</p></noscript>
       <p ref={errorRef} tabIndex={-1} role="alert" className={styles.error}>{status === "error" ? message : ""}</p>
-      <p ref={statusRef} tabIndex={-1} role="status" aria-live="polite" aria-atomic="true" className={styles.hint}>{status === "sending" || status === "success" ? message : ""}</p>
+      <p ref={statusRef} tabIndex={-1} role="status" aria-live="polite" aria-atomic="true" className={styles.hint}>
+        {status === "success" && message === successMessage ? <><strong className="block">Mensagem enviada com sucesso!</strong>{message}</> : status === "sending" || status === "success" ? message : ""}
+      </p>
     </form>
   );
 }
