@@ -39,5 +39,5 @@ export default function AboutTextMotion({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  return <div ref={ref}>{children}</div>;
+  return <div ref={ref} className="lg:-translate-y-14">{children}</div>;
 }

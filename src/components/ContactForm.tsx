@@ -32,6 +32,12 @@ export default function ContactForm() {
     setMessage("");
   }
 
+  function changeChannel(value: typeof channel) {
+    setChannel(value);
+    edit("replyChannel");
+    setErrors((current) => ({ ...current, replyContact: undefined }));
+  }
+
   function showErrors(form: HTMLFormElement, fieldErrors: ContactErrors, text: string) {
     setErrors(fieldErrors);
     setStatus("error");
@@ -101,7 +107,17 @@ export default function ContactForm() {
           <legend>Como prefere receber meu retorno? <span aria-hidden="true">*</span></legend>
           <div className={styles.channelOptions}>
             {([["whatsapp", "WhatsApp"], ["email", "E-mail"]] as const).map(([value, label]) => <label key={value} className={styles.channelOption}>
-              <input type="radio" name="replyChannel" value={value} checked={channel === value} required onChange={() => { setChannel(value); edit("replyChannel"); setErrors((current) => ({ ...current, replyContact: undefined })); }} />
+              <input
+                type="radio" name="replyChannel" value={value} checked={channel === value} required
+                onClick={() => { if (channel === value) changeChannel(""); }}
+                onKeyDown={(event) => {
+                  if (event.key === " " && channel === value) {
+                    event.preventDefault();
+                    changeChannel("");
+                  }
+                }}
+                onChange={() => changeChannel(value)}
+              />
               {label}
             </label>)}
           </div>

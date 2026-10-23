@@ -9,10 +9,10 @@ export default function Hero() {
           Sites para empresas e profissionais.
         </h1>
         <div data-motion="hero" data-motion-delay="140" className="mt-10 flex flex-col justify-between gap-7 lg:flex-row lg:items-end">
-          <p className="max-w-[60ch] text-body leading-7 text-ink/80">Desenvolvo sites para empresas e profissionais que querem apresentar seu trabalho com clareza. Cada projeto começa com uma conversa para entender o que você precisa.</p>
+          <p className="max-w-[60ch] text-body leading-7 text-ink/80">Seu site deve apresentar seu trabalho com clareza e facilitar o contato com seus clientes. Antes de desenvolver, procuro entender seu negócio e o que você precisa comunicar.</p>
           <div className="flex flex-wrap items-center gap-6">
             <ActionLink href="#projetos" variant="secondary">Ver projetos <span aria-hidden="true">↓</span></ActionLink>
-            <ActionLink href="#contato" variant="primary">Solicitar orçamento <span aria-hidden="true">↗</span></ActionLink>
+            <ActionLink href="#contato" variant="primary">Vamos conversar <span aria-hidden="true">↗</span></ActionLink>
           </div>
         </div>
       </div>

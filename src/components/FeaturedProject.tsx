@@ -8,7 +8,6 @@ const projects: Project[] = [
     type: "Loja virtual",
     phrase: "Um projeto de loja virtual que estou preparando para explorar como apresentar produtos, organizar um catálogo e tornar a experiência de compra mais simples. O segmento e as funcionalidades serão definidos durante o planejamento.",
     concept: "eyewear",
-    credit: { name: "Kaboompics", url: "https://www.pexels.com/photo/stylish-eyeglasses-placed-on-beige-surface-4226877/", platform: "Pexels" },
   },
   {
     code: "FA / 02",
@@ -17,7 +16,6 @@ const projects: Project[] = [
     type: "Site institucional e portfólio",
     phrase: "Cada projeto de arquitetura conta uma história. A ideia é criar um espaço digital que apresente projetos de arquitetura e interiores, valorizando cada trabalho e facilitando o primeiro contato do profissional com seus futuros clientes.",
     concept: "architecture",
-    credit: { name: "Dmitriy Frantsev", url: "https://unsplash.com/photos/white-concrete-house-RjchshCSDGU" },
   },
   {
     code: "FA / 03",

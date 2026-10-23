@@ -39,7 +39,7 @@ export default function Services() {
         <p data-motion="reveal" className="text-xs font-medium uppercase tracking-eyebrow text-moss">Nº 03 - Serviços</p>
         <div data-motion="reveal" className="mt-5 grid gap-5 border-t border-ink/15 pt-6 lg:grid-cols-2 lg:gap-editorial-gap">
           <h2 id="servicos-title" className="max-w-2xl text-section-title font-medium leading-display text-balance tracking-display">Sites pensados para o seu negócio.</h2>
-          <p className="max-w-[60ch] text-body leading-copy text-ink/80 lg:justify-self-end">Se você precisa de um site para apresentar seu trabalho, divulgar seus serviços ou receber contatos, posso ajudar. Desenvolvo cada projeto com atenção à apresentação, à navegação e à experiência de quem vai visitar seu site.</p>
+          <p className="max-w-[60ch] text-body leading-copy text-ink/80 lg:justify-self-end">Cada negócio tem suas particularidades. Antes de começar um site, procuro entender seus serviços, seu público e as informações que precisam estar em destaque. A partir daí, organizo o conteúdo e desenvolvo a página pensando em quem vai utilizá-la.</p>
         </div>
         <ul className={styles.list}>
           {services.map((service) => (
@@ -59,7 +59,7 @@ export default function Services() {
         </ul>
         <div className={styles.contact}>
           <p className="max-w-[52ch] text-sm leading-6 text-ink/80">O orçamento considera as páginas, os recursos e o prazo do projeto.</p>
-          <ActionLink href="#contato" variant="primary">Solicitar orçamento <span aria-hidden="true">↗</span></ActionLink>
+          <ActionLink href="#contato" variant="primary">Vamos conversar <span aria-hidden="true">↗</span></ActionLink>
         </div>
       </div>
     </section>
