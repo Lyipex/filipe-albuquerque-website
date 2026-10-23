@@ -1,13 +1,14 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import Footer from "@/components/Footer";
 import { contactHref } from "@/lib/site";
+import { pageMetadata } from "@/lib/seo";
 import styles from "./privacy.module.css";
 
-export const metadata: Metadata = {
-  title: "Privacidade | Filipe Brito Albuquerque",
-  description: "Como os dados de contato e pedidos de orçamento são utilizados, com quem são compartilhados e como exercer seus direitos.",
-};
+export const metadata = pageMetadata(
+  "Privacidade | Marginália",
+  "Como os dados de contato e pedidos de orçamento são utilizados, com quem são compartilhados e como exercer seus direitos.",
+  "/privacidade",
+);
 
 const topics = [
   ["responsavel", "Responsável e contato"],

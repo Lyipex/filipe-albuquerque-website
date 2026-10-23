@@ -1,29 +1,14 @@
-import type { Metadata } from "next";
 import { Figtree } from "next/font/google";
+import { pageMetadata } from "@/lib/seo";
 import "./globals.css";
 
 const figtree = Figtree({ variable: "--font-figtree", subsets: ["latin"] });
 
-const title = "Filipe Brito Albuquerque | Desenvolvimento Web";
-const description =
-  "Desenvolvimento de sites institucionais e landing pages para empresas e profissionais. Conheça os serviços e solicite um orçamento.";
-
-export const metadata: Metadata = {
-  title,
-  description,
-  openGraph: {
-    title,
-    description,
-    siteName: "Filipe Brito Albuquerque",
-    locale: "pt_BR",
-    type: "website",
-  },
-  twitter: {
-    card: "summary",
-    title,
-    description,
-  },
-};
+export const metadata = pageMetadata(
+  "Marginália | Sites e soluções digitais",
+  "Sites institucionais, landing pages, redesign e chatbots para empresas e profissionais, com atenção ao conteúdo, à navegação e ao contato com clientes.",
+  "/",
+);
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
