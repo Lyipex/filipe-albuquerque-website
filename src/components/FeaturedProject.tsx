@@ -4,7 +4,7 @@ const projects: (Project & { enabled?: boolean })[] = [
   {
     code: "FA / 01",
     identification: "PROJETO DEMONSTRATIVO · EM PLANEJAMENTO",
-    area: "Loja virtual — projeto demonstrativo",
+    area: "Loja virtual - projeto demonstrativo",
     type: "Loja virtual",
     phrase: "Um projeto de loja virtual que estou preparando para explorar como apresentar produtos, organizar um catálogo e tornar a experiência de compra mais simples. O segmento e as funcionalidades serão definidos durante o planejamento.",
     concept: "eyewear",
