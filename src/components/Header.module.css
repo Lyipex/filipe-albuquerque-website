@@ -2,6 +2,41 @@
   transition: color var(--duration-interaction) var(--motion-ease);
 }
 
+.underline {
+  position: relative;
+  display: inline-block;
+}
+
+.underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.25em;
+  height: 1px;
+  background: var(--moss);
+  pointer-events: none;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 225ms var(--motion-ease);
+}
+
+.link:is(:focus-visible, :active) .underline::after {
+  transform: scaleX(1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .link:hover .underline::after {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .underline::after {
+    transition: none;
+  }
+}
+
 @media (min-width: 64rem) and (prefers-reduced-motion: no-preference) {
   .link {
     animation: navigation-enter 600ms var(--motion-ease) both;

@@ -27,7 +27,7 @@ export default function Header() {
           aria-label="Navegação principal"
         >
           {navigationLinks.map((link) => (
-            <ActionLink key={link.href} href={link.href} className={`text-nav ${styles.link}`}>{link.label}</ActionLink>
+            <ActionLink key={link.href} href={link.href} className={`text-nav ${styles.link}`}><span className={styles.underline}>{link.label}</span></ActionLink>
           ))}
         </nav>
 

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 import ActionLink from "./ActionLink";
 import { navigationLinks } from "@/lib/site";
+import styles from "./Header.module.css";
 
 export default function MobileNavigation() {
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -129,9 +130,9 @@ export default function MobileNavigation() {
                   <a
                     href={link.href}
                     onClick={() => closeMenu(link.href.slice(1))}
-                    className="block py-3 text-2xl font-medium tracking-title hover:text-moss"
+                    className={`block py-3 text-2xl font-medium tracking-title hover:text-moss ${styles.link}`}
                   >
-                    {link.label}
+                    <span className={styles.underline}>{link.label}</span>
                   </a>
                 </li>
               ))}
