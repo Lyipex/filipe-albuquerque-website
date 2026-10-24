@@ -294,3 +294,79 @@ test('runtime Netlify exige destinatário válido e preserva configurações de 
     }
   }
 });
+
+test('diagnóstico de inicialização registra só códigos e nomes, mantendo o 503 genérico', async () => {
+  const settings = {
+    NODE_ENV: 'production', SITE_ID: 'private-site-id', URL: origin, CONTACT_TEST_MODE: '1',
+    RESEND_API_KEY: 'private-api-key', CONTACT_FROM_EMAIL: 'private-from@example.com',
+    CONTACT_TO_EMAIL: 'private-to@example.com', CONTACT_ALLOWED_ORIGIN: origin,
+    CONTACT_HASH_SECRET: 'private-secret-with-at-least-32-characters',
+    UPSTASH_REDIS_REST_URL: 'https://private.upstash.io', UPSTASH_REDIS_REST_TOKEN: 'private-token',
+  };
+  const keys = [...Object.keys(settings), 'VERCEL'];
+  const previous = Object.fromEntries(keys.map(key => [key, process.env[key]]));
+  const originalError = console.error;
+  const originalFetch = globalThis.fetch;
+  const logs = [];
+  console.error = (...args) => logs.push(args);
+  globalThis.fetch = async () => { throw new Error('Unexpected network request'); };
+  function reset() {
+    Object.assign(process.env, settings);
+    delete process.env.VERCEL;
+    logs.length = 0;
+  }
+  async function expectFailure(code, variable, req = request()) {
+    const response = await createContactHandler(contactDependencies)(req);
+    assert.equal(response.status, 503);
+    assert.deepEqual(await response.json(), {
+      message: 'O envio pelo site está temporariamente indisponível. Seus dados foram preservados. Tente novamente ou escreva para fbalbuquerque@proton.me.',
+    });
+    assert.deepEqual(logs, [['[contact:init]', { code, ...(variable ? { variable } : {}) }]]);
+  }
+  try {
+    reset();
+    assert.ok(contactDependencies(request()));
+    assert.deepEqual(logs, []);
+    for (const key of ['RESEND_API_KEY', 'CONTACT_FROM_EMAIL', 'CONTACT_TO_EMAIL', 'CONTACT_ALLOWED_ORIGIN', 'CONTACT_HASH_SECRET', 'UPSTASH_REDIS_REST_URL', 'UPSTASH_REDIS_REST_TOKEN']) {
+      for (const value of [undefined, '']) {
+        reset();
+        if (value === undefined) delete process.env[key];
+        else process.env[key] = value;
+        await expectFailure('CONTACT_CONFIG_MISSING', key);
+      }
+    }
+    const invalid = [
+      ['CONTACT_FROM_EMAIL', 'private-from@example.com\r\nprivate-data', 'CONTACT_EMAIL_INVALID'],
+      ['CONTACT_TO_EMAIL', ' private-to@example.com ', 'CONTACT_EMAIL_INVALID'],
+      ['CONTACT_HASH_SECRET', 'short-private-secret', 'CONTACT_SECRET_INVALID'],
+      ...['private-invalid-origin', 'http://portfolio.example.com', origin + '/', origin + '/path'].map(value => ['CONTACT_ALLOWED_ORIGIN', value, 'CONTACT_ORIGIN_INVALID']),
+      ...['private-invalid-url', 'http://private.upstash.io', 'https://private.example.com', 'https://private-user:private-password@private.upstash.io'].map(value => ['UPSTASH_REDIS_REST_URL', value, 'CONTACT_UPSTASH_URL_INVALID']),
+    ];
+    for (const [key, value, code] of invalid) {
+      reset();
+      process.env[key] = value;
+      await expectFailure(code, key);
+    }
+    for (const key of ['SITE_ID', 'URL']) {
+      reset();
+      delete process.env[key];
+      await expectFailure('CONTACT_HOSTING_UNRECOGNIZED');
+    }
+    reset();
+    process.env.NODE_ENV = 'development';
+    delete process.env.SITE_ID;
+    await expectFailure('CONTACT_SIMULATION_REJECTED');
+    logs.length = 0;
+    await expectFailure('CONTACT_SIMULATION_ORIGIN_INVALID', undefined, new Request('http://localhost:3001/api/orcamento', { headers: { origin: 'private-invalid-origin' } }));
+    logs.length = 0;
+    assert.equal(contactDependencies(new Request('http://localhost:3001/api/orcamento')).simulation, true);
+    assert.deepEqual(logs, []);
+  } finally {
+    console.error = originalError;
+    globalThis.fetch = originalFetch;
+    for (const key of keys) {
+      if (previous[key] === undefined) delete process.env[key];
+      else process.env[key] = previous[key];
+    }
+  }
+});
