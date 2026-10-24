@@ -1,7 +1,7 @@
 import "server-only";
 import { createHmac } from "node:crypto";
 import { isIP } from "node:net";
-import { buildContactEmail, contactLimits, validateContact, type ContactRequest } from "../contact";
+import { buildContactEmail, contactLimits, validateContact, validEmail, type ContactRequest } from "../contact";
 import { contactEmail } from "../site";
 import type { ContactGuard } from "./contact-guard";
 
@@ -11,6 +11,7 @@ export type ContactDependencies = {
   guard: ContactGuard;
   send: (request: ContactRequest, token: string) => Promise<void>;
   vercel: boolean;
+  netlify?: boolean;
   simulation?: boolean;
 };
 
@@ -53,12 +54,15 @@ export function createContactHandler(getDependencies: (request: Request) => Cont
     if (!raw || typeof raw !== "object" || Array.isArray(raw) || ("website" in raw && raw.website !== "")) return json(422, { message: "Não foi possível validar o pedido. Revise os campos e tente novamente." });
     const { data, errors } = validateContact(raw);
     if (!data) return json(422, { message: "Revise os campos indicados antes de enviar.", fieldErrors: errors });
-    const forwarded = request.headers.get("x-vercel-forwarded-for")?.split(",")[0].trim() ?? "";
-    if (dependencies.vercel && !isIP(forwarded)) return json(503, { message: "O envio está indisponível neste momento. Seus dados continuam preenchidos; tente novamente mais tarde." });
+    const forwarded = dependencies.netlify
+      ? request.headers.get("x-nf-client-connection-ip")?.trim() ?? ""
+      : request.headers.get("x-vercel-forwarded-for")?.split(",")[0].trim() ?? "";
+    const hosted = dependencies.vercel || dependencies.netlify;
+    if (hosted && !isIP(forwarded)) return json(503, { message: "O envio está indisponível neste momento. Seus dados continuam preenchidos; tente novamente mais tarde." });
     const digest = (value: string) => createHmac("sha256", dependencies.secret).update(value).digest("hex");
     const fingerprint = digest(JSON.stringify(data));
     let reservation;
-    try { reservation = await dependencies.guard.reserve(fingerprint, digest(dependencies.vercel ? forwarded : "local"), digest(`${data.replyChannel}:${data.replyContact.toLowerCase()}`)); }
+    try { reservation = await dependencies.guard.reserve(fingerprint, digest(hosted ? forwarded : "local"), digest(`${data.replyChannel}:${data.replyContact.toLowerCase()}`)); }
     catch { return json(503, { message: "A proteção de envio está temporariamente indisponível. Nenhum novo envio foi iniciado. Tente novamente mais tarde." }); }
     const accepted = () => json(200, { accepted: true, ...(dependencies.simulation ? { simulation: true } : {}) });
     if (reservation.status === "accepted") return accepted();
@@ -75,11 +79,12 @@ export function createContactHandler(getDependencies: (request: Request) => Cont
   };
 }
 
-export function resendSender(apiKey: string, from: string) {
+export function resendSender(apiKey: string, from: string, to: string) {
+  if (!to || !validEmail(to)) throw new Error("invalid_recipient");
   return async (request: ContactRequest, token: string) => {
     const response = await fetch("https://api.resend.com/emails", {
       method: "POST", headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json", "Idempotency-Key": `quote/${token}` },
-      body: JSON.stringify({ from, to: [contactEmail], ...buildContactEmail(request) }),
+      body: JSON.stringify({ from, to: [to], ...buildContactEmail(request) }),
       signal: AbortSignal.timeout(10000), cache: "no-store",
     });
     if (!response.ok) throw new Error("delivery_unconfirmed");

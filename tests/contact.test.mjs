@@ -148,7 +148,7 @@ test('confirma após aceite mesmo que a persistência posterior falhe', async ()
   assert.equal(f.sent.length, 1);
 });
 
-test('transporte Resend usa destino fixo, From autorizado e cabeçalho de idempotência', async () => {
+test('transporte Resend usa destino explícito, From autorizado e cabeçalho de idempotência', async () => {
   const original = globalThis.fetch;
   const calls = [];
   globalThis.fetch = async (url, options) => {
@@ -157,10 +157,10 @@ test('transporte Resend usa destino fixo, From autorizado e cabeçalho de idempo
     return Response.json({ id: 'fake-accepted-id' });
   };
   try {
-    const send = resendSender('fake-test-key', 'Marginália <orcamento@example.com>');
+    const send = resendSender('fake-test-key', 'Marginália <orcamento@example.com>', 'destino@example.com');
     await send(validateContact(valid).data, 'same-token');
     const body = JSON.parse(calls[0].body);
-    assert.deepEqual(body.to, ['fbalbuquerque@proton.me']);
+    assert.deepEqual(body.to, ['destino@example.com']);
     assert.equal(body.from, 'Marginália <orcamento@example.com>');
     assert.equal(body.reply_to, valid.replyContact);
     assert.equal(calls[0].headers['Idempotency-Key'], 'quote/same-token');
@@ -209,4 +209,88 @@ test('modo de simulação nunca ativa na Vercel ou em produção', () => {
     assert.equal(contactDependencies(new Request('http://public.example.com/api/orcamento')), null);
     assert.equal(contactDependencies(new Request('http://127.0.0.1:3001/api/orcamento')).simulation, true);
   } finally { for (const key of keys) { if (previous[key] === undefined) delete process.env[key]; else process.env[key] = previous[key]; } }
+});
+
+test('Netlify exige seu IP confiável e mantém origem e hash por IP no rate limiting', async () => {
+  const f = fixture();
+  f.dependencies.vercel = false;
+  f.dependencies.netlify = true;
+  const hashes = [];
+  const reserve = f.dependencies.guard.reserve;
+  f.dependencies.guard.reserve = async (...args) => { hashes.push(args[1]); return reserve(...args); };
+  assert.equal((await post(f.handler)).status, 503);
+  assert.equal((await post(f.handler, valid, { 'x-forwarded-for': '192.0.2.9' })).status, 503);
+  for (const ip of ['invalid', '192.0.2.1, 192.0.2.2', '']) {
+    assert.equal((await post(f.handler, valid, { 'x-nf-client-connection-ip': ip })).status, 503);
+  }
+  assert.equal((await post(f.handler, valid, { 'x-nf-client-connection-ip': '192.0.2.1', Origin: 'https://outro.example.com' })).status, 403);
+  assert.equal(hashes.length, 0);
+  assert.equal(f.sent.length, 0);
+  assert.equal((await post(f.handler, valid, { 'x-nf-client-connection-ip': '192.0.2.1' })).status, 200);
+  assert.equal((await post(f.handler, { ...valid, description: 'Outro pedido' }, { 'x-nf-client-connection-ip': '2001:db8::1' })).status, 200);
+  assert.match(hashes[0], /^[a-f0-9]{64}$/);
+  assert.notEqual(hashes[0], hashes[1]);
+});
+
+test('destinatário ausente ou inválido não cria transporte Resend', () => {
+  for (const to of [undefined, '', 'invalid', 'a@example.com\r\nBcc: b@example.com']) {
+    assert.throws(() => resendSender('fake-key', 'Marginália <from@example.com>', to), /invalid_recipient/);
+  }
+});
+
+test('runtime Netlify exige destinatário válido e preserva configurações de segurança', async () => {
+  const settings = {
+    NODE_ENV: 'production', SITE_ID: 'fake-netlify-site', URL: origin,
+    RESEND_API_KEY: 'fake-key', CONTACT_FROM_EMAIL: 'from@example.com', CONTACT_TO_EMAIL: 'destino@example.com',
+    CONTACT_ALLOWED_ORIGIN: origin, CONTACT_HASH_SECRET: 'fake-secret-with-at-least-32-characters',
+    UPSTASH_REDIS_REST_URL: 'https://fake.upstash.io', UPSTASH_REDIS_REST_TOKEN: 'fake-token',
+    CONTACT_TEST_MODE: '1',
+  };
+  const keys = [...Object.keys(settings), 'VERCEL'];
+  const previous = Object.fromEntries(keys.map(key => [key, process.env[key]]));
+  const originalFetch = globalThis.fetch;
+  let calls = 0;
+  globalThis.fetch = async (_url, options) => {
+    calls++;
+    const body = JSON.parse(options.body);
+    assert.deepEqual(body.to, ['destino@example.com']);
+    assert.equal(body.from, 'Marginália <from@example.com>');
+    return Response.json({ id: 'fake-id' });
+  };
+  try {
+    Object.assign(process.env, settings);
+    delete process.env.VERCEL;
+    const dependencies = contactDependencies(request());
+    assert.equal(dependencies.netlify, true);
+    assert.equal(dependencies.vercel, false);
+    assert.ok(!dependencies.simulation);
+    await dependencies.send(validateContact(valid).data, 'fake-token');
+    assert.equal(calls, 1);
+    for (const value of [undefined, '', 'invalid', 'a@example.com\r\nBcc: b@example.com']) {
+      if (value === undefined) delete process.env.CONTACT_TO_EMAIL;
+      else process.env.CONTACT_TO_EMAIL = value;
+      assert.equal(contactDependencies(request()), null);
+      assert.equal((await createContactHandler(contactDependencies)(request())).status, 503);
+    }
+    process.env.CONTACT_TO_EMAIL = settings.CONTACT_TO_EMAIL;
+    for (const key of ['RESEND_API_KEY', 'CONTACT_FROM_EMAIL', 'CONTACT_ALLOWED_ORIGIN', 'CONTACT_HASH_SECRET', 'UPSTASH_REDIS_REST_URL', 'UPSTASH_REDIS_REST_TOKEN']) {
+      delete process.env[key];
+      assert.equal(contactDependencies(request()), null);
+      process.env[key] = settings[key];
+    }
+    process.env.CONTACT_ALLOWED_ORIGIN = 'http://portfolio.example.com';
+    assert.equal(contactDependencies(request()), null);
+    process.env.CONTACT_ALLOWED_ORIGIN = settings.CONTACT_ALLOWED_ORIGIN;
+    delete process.env.SITE_ID;
+    assert.equal(contactDependencies(request()), null);
+    process.env.VERCEL = '1';
+    assert.equal(contactDependencies(request()).vercel, true);
+    assert.equal(calls, 1);
+  } finally {
+    globalThis.fetch = originalFetch;
+    for (const key of keys) {
+      if (previous[key] === undefined) delete process.env[key];
+      else process.env[key] = previous[key];
+    }
+  }
 });

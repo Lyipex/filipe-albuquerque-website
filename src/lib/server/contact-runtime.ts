@@ -5,7 +5,9 @@ import { redisContactGuard } from "./contact-guard";
 import { simulationDependencies } from "./contact-simulation";
 
 export function contactDependencies(request: Request): ContactDependencies | null {
-  const localDevelopment = process.env.NODE_ENV === "development" && !process.env.VERCEL;
+  // SITE_ID and URL are read-only Netlify variables available in Functions at runtime.
+  const netlify = !!process.env.SITE_ID && !!process.env.URL;
+  const localDevelopment = process.env.NODE_ENV === "development" && !process.env.VERCEL && !netlify;
   if (localDevelopment && process.env.CONTACT_TEST_MODE === "1") {
     const url = new URL(request.url);
     // Test mode cannot be activated by a form field, query string or request header.
@@ -16,18 +18,18 @@ export function contactDependencies(request: Request): ContactDependencies | nul
     } catch { return null; }
     return null;
   }
-  const { RESEND_API_KEY, CONTACT_FROM_EMAIL, CONTACT_ALLOWED_ORIGIN, CONTACT_HASH_SECRET, UPSTASH_REDIS_REST_URL, UPSTASH_REDIS_REST_TOKEN } = process.env;
-  if (!RESEND_API_KEY || !CONTACT_FROM_EMAIL || !validEmail(CONTACT_FROM_EMAIL) || !CONTACT_ALLOWED_ORIGIN || !CONTACT_HASH_SECRET || CONTACT_HASH_SECRET.length < 32 || !UPSTASH_REDIS_REST_URL || !UPSTASH_REDIS_REST_TOKEN) return null;
+  const { RESEND_API_KEY, CONTACT_FROM_EMAIL, CONTACT_TO_EMAIL, CONTACT_ALLOWED_ORIGIN, CONTACT_HASH_SECRET, UPSTASH_REDIS_REST_URL, UPSTASH_REDIS_REST_TOKEN } = process.env;
+  if (!RESEND_API_KEY || !CONTACT_FROM_EMAIL || !validEmail(CONTACT_FROM_EMAIL) || !CONTACT_TO_EMAIL || !validEmail(CONTACT_TO_EMAIL) || !CONTACT_ALLOWED_ORIGIN || !CONTACT_HASH_SECRET || CONTACT_HASH_SECRET.length < 32 || !UPSTASH_REDIS_REST_URL || !UPSTASH_REDIS_REST_TOKEN) return null;
   try {
     const origin = new URL(CONTACT_ALLOWED_ORIGIN);
     const redisUrl = new URL(UPSTASH_REDIS_REST_URL);
     if (origin.origin !== CONTACT_ALLOWED_ORIGIN || origin.protocol !== "https:" || redisUrl.protocol !== "https:" || !redisUrl.hostname.endsWith(".upstash.io") || redisUrl.username || redisUrl.password) return null;
-    // IP trust is tied to Vercel's edge. Do not trust arbitrary forwarded headers on another host.
-    if (!process.env.VERCEL && !localDevelopment) return null;
+    // Trust only the identified hosting provider's client-IP header.
+    if (!process.env.VERCEL && !netlify && !localDevelopment) return null;
     return {
-      origin: origin.origin, secret: CONTACT_HASH_SECRET, vercel: !!process.env.VERCEL,
+      origin: origin.origin, secret: CONTACT_HASH_SECRET, vercel: !!process.env.VERCEL, netlify,
       guard: redisContactGuard(redisUrl.origin, UPSTASH_REDIS_REST_TOKEN),
-      send: resendSender(RESEND_API_KEY, `Marginália <${CONTACT_FROM_EMAIL}>`),
+      send: resendSender(RESEND_API_KEY, `Marginália <${CONTACT_FROM_EMAIL}>`, CONTACT_TO_EMAIL),
     };
   } catch { return null; }
 }
