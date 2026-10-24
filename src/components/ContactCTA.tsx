@@ -3,7 +3,10 @@ import ContactForm from "./ContactForm";
 import ActionLink from "./ActionLink";
 
 export default function ContactCTA() {
-  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.trim();
+  const whatsappValue = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.trim() ?? "";
+  const whatsappNumber = /^\+?[\d\s().-]+$/.test(whatsappValue)
+    ? whatsappValue.replace(/\D/g, "")
+    : "";
   const whatsappUrl = whatsappNumber && /^[1-9]\d{7,14}$/.test(whatsappNumber)
     ? `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Olá! Conheci a Marginália pelo site e gostaria de conversar sobre um projeto.")}`
     : null;
