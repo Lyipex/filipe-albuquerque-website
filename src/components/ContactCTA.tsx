@@ -8,7 +8,7 @@ export default function ContactCTA() {
     ? whatsappValue.replace(/\D/g, "")
     : "";
   const whatsappUrl = whatsappNumber && /^[1-9]\d{7,14}$/.test(whatsappNumber)
-    ? `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Olá! Conheci a Marginália pelo site e gostaria de conversar sobre um projeto.")}`
+    ? `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Olá, Filipe! Conheci seu trabalho pelo site e gostaria de conversar sobre um projeto.")}`
     : null;
   const whatsappAction = <>
     <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4 shrink-0">
