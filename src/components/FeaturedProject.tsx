@@ -35,7 +35,7 @@ export default function FeaturedProject() {
         <p data-motion="reveal" className="text-xs font-medium uppercase tracking-eyebrow text-moss">Nº 02 - Projetos</p>
         <div data-motion="reveal" data-motion-delay="40" className="mt-5 grid gap-5 border-t border-ink/15 pt-6 lg:grid-cols-2 lg:gap-editorial-gap">
           <h2 id="projetos-title" className="max-w-2xl text-section-title font-medium leading-display text-balance tracking-display">Projetos e ideias em desenvolvimento.</h2>
-          <p className="max-w-[60ch] text-body leading-copy text-ink/80 lg:justify-self-end">Estou preparando projetos para diferentes tipos de negócio, cada um com suas próprias necessidades. Por enquanto, você pode conhecer as primeiras ideias e acompanhar como elas vão ganhar forma.</p>
+          <p className="max-w-[60ch] text-body leading-copy text-ink/80 lg:justify-self-end">Preparo projetos para diferentes tipos de negócio, cada um com suas próprias necessidades. Conheça, as primeiras ideias e acompanhe como elas ganharam forma.</p>
         </div>
         <ProjectCarousel projects={projects.filter((project) => project.enabled !== false)} />
       </div>
