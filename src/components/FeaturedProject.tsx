@@ -1,6 +1,6 @@
 import ProjectCarousel, { type Project } from "./ProjectCarousel";
 
-const projects: Project[] = [
+const projects: (Project & { enabled?: boolean })[] = [
   {
     code: "FA / 01",
     identification: "PROJETO DEMONSTRATIVO · EM PLANEJAMENTO",
@@ -19,6 +19,7 @@ const projects: Project[] = [
   },
   {
     code: "FA / 03",
+    enabled: false,
     identification: "PROJETO REAL · EM PLANEJAMENTO",
     area: "Site de podologia",
     type: "Site institucional",
@@ -36,7 +37,7 @@ export default function FeaturedProject() {
           <h2 id="projetos-title" className="max-w-2xl text-section-title font-medium leading-display text-balance tracking-display">Projetos e ideias em desenvolvimento.</h2>
           <p className="max-w-[60ch] text-body leading-copy text-ink/80 lg:justify-self-end">Estou preparando projetos para diferentes tipos de negócio, cada um com suas próprias necessidades. Por enquanto, você pode conhecer as primeiras ideias e acompanhar como elas vão ganhar forma.</p>
         </div>
-        <ProjectCarousel projects={projects} />
+        <ProjectCarousel projects={projects.filter((project) => project.enabled !== false)} />
       </div>
     </section>
   );

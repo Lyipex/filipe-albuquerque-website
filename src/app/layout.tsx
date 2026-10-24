@@ -5,7 +5,7 @@ import "./globals.css";
 const figtree = Figtree({ variable: "--font-figtree", subsets: ["latin"] });
 
 export const metadata = pageMetadata(
-  "Marginália | Sites e soluções digitais",
+  "Filipe Albuquerque | Sites e Soluções Digitais",
   "Sites institucionais, landing pages, redesign e chatbots para empresas e profissionais, com atenção ao conteúdo, à navegação e ao contato com clientes.",
   "/",
 );
