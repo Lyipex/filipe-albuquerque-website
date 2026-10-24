@@ -27,7 +27,7 @@ const nextConfig: NextConfig = {
     return [{
       source: "/:path*",
       headers: [
-        { key: "X-Robots-Tag", value: "noindex, nofollow" },
+        { key: "X-Robots-Tag", value: process.env.NODE_ENV === "production" ? "index, follow" : "noindex, nofollow" },
         { key: "Content-Security-Policy", value: contentSecurityPolicy },
         { key: "X-Frame-Options", value: "DENY" },
         { key: "X-Content-Type-Options", value: "nosniff" },
