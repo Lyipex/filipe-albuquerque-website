@@ -187,6 +187,10 @@ button {
   }
   .action-secondary { color: var(--moss); border-bottom: 1px solid currentColor; }
   .action-secondary:is(:hover, :active) { color: var(--brown); }
+  .action-secondary[data-tone="inverse"] { --focus-color: var(--paper); color: var(--paper); }
+  .action-secondary[data-tone="inverse"]:is(:hover, :active) {
+    color: color-mix(in srgb, var(--paper) 90%, var(--ink));
+  }
   .action-text { color: inherit; font-weight: inherit; }
   .action-text:is(:hover, :active) { color: var(--moss); }
   .action-text[data-tone="inverse"]:is(:hover, :active) { color: var(--paper); }

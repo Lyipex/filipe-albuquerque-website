@@ -45,7 +45,7 @@ export function buildContactEmail(request: ContactRequest) {
   return {
     subject: `Pedido de orçamento | ${request.services.join(", ")}`,
     text: [
-      "PEDIDO DE ORÇAMENTO | MARGINÁLIA", "",
+      "PEDIDO DE ORÇAMENTO | FA WEB STUDIO", "",
       `Nome: ${request.fullName}`,
       `Serviços: ${request.services.join(", ")}`,
       `Canal de retorno: ${request.replyChannel === "email" ? "E-mail" : "WhatsApp"}`,

@@ -1,5 +1,5 @@
 import ActionLink from "./ActionLink";
-import { contactHref, navigationLinks } from "@/lib/site";
+import { contactEmail, contactHref, navigationLinks } from "@/lib/site";
 import styles from "./Footer.module.css";
 
 const services = [
@@ -29,7 +29,7 @@ export default function Footer({ homePath = "" }: { homePath?: string }) {
         <div className={styles.contact}>
           <h2 className={styles.heading}>Fale comigo</h2>
           <div className={styles.links}>
-            <ActionLink tone="inverse" href={contactHref} className={styles.email}>fbalbuquerque@proton.me</ActionLink>
+            <ActionLink tone="inverse" href={contactHref} className={styles.email}>{contactEmail}</ActionLink>
             <ActionLink tone="inverse" href={`${homePath}#contato`} className="self-start">Solicitar orçamento <span aria-hidden="true">↗</span></ActionLink>
             <p className={styles.caption}>Desenvolvimento web e chatbots.</p>
           </div>

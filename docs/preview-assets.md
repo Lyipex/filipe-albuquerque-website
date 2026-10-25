@@ -11,3 +11,7 @@ As composições de e-commerce de óculos e arquitetura são referências ilustr
 - A fotografia original dos óculos e a de arquitetura têm licença Unsplash de uso gratuito. https://unsplash.com/license
 
 Os créditos estão junto às respectivas prévias. Os arquivos são servidos localmente, sem requisições de imagem a terceiros. Substituir por capturas e URLs reais em `FeaturedProject.tsx` quando os sites estiverem prontos; remover `concept` e preencher `image` e `url` para habilitar a prévia da captura e o link ao site.
+
+## Pendência de materiais de Isabela Cerqueira
+
+As imagens provisórias do projeto de Isabela Cerqueira serão substituídas pelas oficiais, fornecidas e aprovadas pela cliente, com autorização de uso e créditos conferidos. A identidade visual poderá ser revista após eventual rebranding aprovado. Este registro não troca os arquivos atuais nem antecipa uma decisão de marca. Ver entregas de mockups e preview no [roadmap](roadmap.md).

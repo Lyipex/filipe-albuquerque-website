@@ -1,11 +1,11 @@
 import Link from "next/link";
 import Footer from "@/components/Footer";
-import { contactHref } from "@/lib/site";
+import { contactEmail, contactHref } from "@/lib/site";
 import { pageMetadata } from "@/lib/seo";
 import styles from "./privacy.module.css";
 
 export const metadata = pageMetadata(
-  "Privacidade | Marginália",
+  "Privacidade | Filipe Albuquerque",
   "Como os dados de contato e pedidos de orçamento são utilizados, com quem são compartilhados e como exercer seus direitos.",
   "/privacidade",
 );
@@ -30,7 +30,7 @@ export default function PrivacyPage() {
       <main id="conteudo" tabIndex={-1} className={styles.main}>
         <p className="text-xs font-medium uppercase tracking-eyebrow text-moss">Privacidade</p>
         <h1 className={styles.title}>Aviso de privacidade.</h1>
-        <p className={styles.date}>Atualizado em <time dateTime="2026-10-21">21 de outubro de 2026</time></p>
+        <p className={styles.date}>Atualizado em <time dateTime="2026-10-24">24 de outubro de 2026</time></p>
         <div className={styles.summary}>
           <p>Este aviso explica o uso dos dados de quem visita o site ou solicita um orçamento de desenvolvimento web e chatbots.</p>
           <p>Ao enviar o formulário, seus dados são encaminhados ao servidor do site para validação e envio do pedido por e-mail. Você escolhe E-mail ou WhatsApp para receber o retorno. Não há cadastro de clientes nem armazenamento do conteúdo do pedido em banco de dados próprio.</p>
@@ -41,7 +41,7 @@ export default function PrivacyPage() {
 
         <section id="responsavel" className={styles.section}>
           <h2>Responsável e contato</h2>
-          <p>Filipe Brito Albuquerque é o responsável pelas decisões sobre o uso dos dados recebidos para atendimento e orçamento. O contato para assuntos de privacidade é <a href={contactHref}>fbalbuquerque@proton.me</a>.</p>
+          <p>Filipe Brito Albuquerque é o responsável pelas decisões sobre o uso dos dados recebidos para atendimento e orçamento. O contato para assuntos de privacidade é <a href={contactHref}>{contactEmail}</a>.</p>
         </section>
 
         <section id="dados" className={styles.section}>
@@ -59,14 +59,14 @@ export default function PrivacyPage() {
 
         <section id="envio" className={styles.section}>
           <h2>Envio e provedores</h2>
-          <p>Os campos permanecem no navegador enquanto você preenche o formulário e são enviados ao servidor da Vercel quando você solicita o orçamento. O servidor valida o pedido, verifica as proteções contra abuso e solicita o envio ao serviço de e-mail. O aplicativo de e-mail do visitante não é aberto. A confirmação significa que o serviço aceitou o pedido; não garante entrega à caixa de entrada. Se não houver confirmação, os campos continuam preenchidos para nova tentativa. Eles não são salvos em cookies ou armazenamento local e podem ser perdidos ao sair ou recarregar a página.</p>
+          <p>Os campos permanecem no navegador enquanto você preenche o formulário e são enviados ao servidor da Netlify quando você solicita o orçamento. O servidor valida o pedido, verifica as proteções contra abuso e solicita o envio ao serviço de e-mail. O aplicativo de e-mail do visitante não é aberto. A confirmação significa que o serviço aceitou o pedido; não garante entrega à caixa de entrada. Se não houver confirmação, os campos continuam preenchidos para nova tentativa. Eles não são salvos em cookies ou armazenamento local e podem ser perdidos ao sair ou recarregar a página.</p>
           <ul>
-            <li><strong>Proton Mail:</strong> serviço utilizado para receber e manter a correspondência em fbalbuquerque@proton.me. Se você escrever diretamente, seu provedor de e-mail também participa do envio.</li>
-            <li><strong>Vercel:</strong> hospeda as páginas e processa os campos do formulário no servidor. Pode tratar IP, data e hora de acesso, endereço solicitado, informações do navegador e registros técnicos para operação e segurança.</li>
+            <li><strong>Gmail (Google):</strong> serviço utilizado para receber e manter a correspondência enviada diretamente para <a href={contactHref}>{contactEmail}</a> e os pedidos encaminhados pelo formulário à caixa de atendimento. Se você escrever diretamente, seu provedor de e-mail também participa do envio.</li>
+            <li><strong>Netlify:</strong> hospeda as páginas e processa os campos do formulário no servidor. Pode tratar IP, data e hora de acesso, endereço solicitado, informações do navegador e registros técnicos para operação e segurança.</li>
             <li><strong>Resend:</strong> quando o envio direto está configurado, processa o nome, os serviços, a descrição e o contato escolhido para encaminhar o pedido ao e-mail de atendimento. Se você escolher E-mail, seu endereço também é usado como endereço de resposta da mensagem.</li>
             <li><strong>Upstash Redis:</strong> quando o envio direto está configurado, mantém identificadores com assinatura criptográfica, contadores de tentativas e estado do envio para proteção contra abuso e duplicação. Não recebe nome, descrição, IP ou contato em texto aberto.</li>
           </ul>
-          <p>O envio direto depende da configuração e disponibilidade desses serviços. Se estiver indisponível, o formulário informa a falha e permite nova tentativa ou contato direto por e-mail. Esses provedores podem processar dados fora do Brasil. Consulte suas informações sobre tratamento e locais de processamento: <a href="https://proton.me/mail/privacy-policy" target="_blank" rel="noopener noreferrer">Proton Mail</a>, <a href="https://vercel.com/legal/privacy-notice" target="_blank" rel="noopener noreferrer">Vercel</a>, <a href="https://resend.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">Resend</a> e <a href="https://upstash.com/trust/privacy.pdf" target="_blank" rel="noopener noreferrer">Upstash</a> (links abrem em nova aba).</p>
+          <p>O envio direto depende da configuração e disponibilidade desses serviços. Se estiver indisponível, o formulário informa a falha e permite nova tentativa ou contato direto por e-mail. Esses provedores podem processar dados fora do Brasil. Consulte suas informações sobre tratamento e locais de processamento: <a href="https://policies.google.com/privacy?hl=pt-BR" target="_blank" rel="noopener noreferrer">Google (Gmail)</a>, <a href="https://www.netlify.com/privacy/" target="_blank" rel="noopener noreferrer">Netlify</a>, <a href="https://resend.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">Resend</a> e <a href="https://upstash.com/trust/privacy.pdf" target="_blank" rel="noopener noreferrer">Upstash</a> (links abrem em nova aba).</p>
           <p>Se o atendimento prosseguir por WhatsApp, o aplicativo também tratará os dados dessa conversa segundo suas próprias condições. Os dados não são vendidos. Eventual fornecimento a autoridades ocorre quando exigido por obrigação legal ou ordem válida.</p>
         </section>
 
@@ -87,7 +87,7 @@ export default function PrivacyPage() {
         <section id="direitos" className={styles.section}>
           <h2>Seus direitos</h2>
           <p>Nos termos da LGPD, você pode pedir confirmação e acesso aos dados, correção, informações sobre compartilhamento e, quando aplicável, portabilidade, anonimização, bloqueio ou exclusão. Pode também questionar tratamento irregular e exercer direitos relativos ao consentimento quando essa for a base utilizada.</p>
-          <p>Envie sua solicitação gratuitamente para <a href={contactHref}>fbalbuquerque@proton.me</a>, indicando o pedido e o contato utilizado na conversa. Poderão ser solicitadas apenas as informações necessárias para confirmar sua identidade. A resposta observará os prazos legais e explicará eventual limitação de atendimento.</p>
+          <p>Envie sua solicitação gratuitamente para <a href={contactHref}>{contactEmail}</a>, indicando o pedido e o contato utilizado na conversa. Poderão ser solicitadas apenas as informações necessárias para confirmar sua identidade. A resposta observará os prazos legais e explicará eventual limitação de atendimento.</p>
           <p>Você também pode recorrer à <a href="https://www.gov.br/anpd/pt-br/canais_atendimento/cidadao-titular-de-dados/denuncia-peticao-de-titular-referente-lgpd" target="_blank" rel="noopener noreferrer">Agência Nacional de Proteção de Dados (abre em nova aba)</a>.</p>
         </section>
 

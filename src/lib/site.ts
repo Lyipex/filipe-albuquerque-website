@@ -1,4 +1,4 @@
-export const contactEmail = "fbalbuquerque@proton.me";
+export const contactEmail = "falbuquerqueah@gmail.com";
 export const contactHref = `mailto:${contactEmail}`;
 
 export const navigationLinks = [

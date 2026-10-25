@@ -55,7 +55,7 @@ export function contactDependencies(request: Request): ContactDependencies | nul
     return {
       origin: origin.origin, secret: CONTACT_HASH_SECRET, vercel: !!process.env.VERCEL, netlify,
       guard: redisContactGuard(redisUrl.origin, UPSTASH_REDIS_REST_TOKEN),
-      send: resendSender(RESEND_API_KEY, `Marginália <${CONTACT_FROM_EMAIL}>`, CONTACT_TO_EMAIL),
+      send: resendSender(RESEND_API_KEY, `FA Web Studio <${CONTACT_FROM_EMAIL}>`, CONTACT_TO_EMAIL),
     };
   } catch { return initializationFailure("CONTACT_INIT_FAILED"); }
 }

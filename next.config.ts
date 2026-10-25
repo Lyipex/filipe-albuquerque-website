@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
 const isDevelopment = process.env.NODE_ENV === "development";
+const isProduction = process.env.NODE_ENV === "production"
+  && (!process.env.CONTEXT || process.env.CONTEXT === "production");
 const contentSecurityPolicy = [
   "default-src 'self'",
   // Static App Router pages require inline hydration scripts; nonces would require dynamic rendering.
@@ -27,7 +29,7 @@ const nextConfig: NextConfig = {
     return [{
       source: "/:path*",
       headers: [
-        { key: "X-Robots-Tag", value: process.env.NODE_ENV === "production" ? "index, follow" : "noindex, nofollow" },
+        { key: "X-Robots-Tag", value: isProduction ? "index, follow" : "noindex, nofollow" },
         { key: "Content-Security-Policy", value: contentSecurityPolicy },
         { key: "X-Frame-Options", value: "DENY" },
         { key: "X-Content-Type-Options", value: "nosniff" },

@@ -19,7 +19,8 @@ export function resolveSiteUrl(value?: string): URL {
 }
 
 export const siteUrl = resolveSiteUrl();
-const isProduction = process.env.NODE_ENV === "production";
+const isProduction = process.env.NODE_ENV === "production"
+  && (!process.env.CONTEXT || process.env.CONTEXT === "production");
 
 export function pageMetadata(title: string, description: string, path: string): Metadata {
   const url = new URL(path, siteUrl).href;

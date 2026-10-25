@@ -4,6 +4,7 @@ import { validateContact, buildContactEmail, contactLimits } from '../src/lib/co
 import { createContactHandler, resendSender } from '../src/lib/server/contact-handler.ts';
 import { redisContactGuard, reserveScript, finishScript } from '../src/lib/server/contact-guard.ts';
 import { contactDependencies } from '../src/lib/server/contact-runtime.ts';
+import { contactEmail } from '../src/lib/site.ts';
 
 const valid = { fullName: 'Pessoa Teste', replyChannel: 'email', replyContact: 'pessoa@example.com', services: ['Chatbots', 'Landing pages'], description: 'Descrição de teste.\nSem mensagem real.', website: '' };
 const origin = 'https://portfolio.example.com';
@@ -48,6 +49,7 @@ test('normaliza campos, ordena serviços e prepara conteúdo com Reply-To só pa
   const email = buildContactEmail(result.data);
   assert.match(email.subject, /Pedido de orçamento \| Landing pages, Chatbots/);
   assert.match(email.text, /Contato para retorno: pessoa@example.com/);
+  assert.match(email.text, /^PEDIDO DE ORÇAMENTO \| FA WEB STUDIO/);
   assert.equal(email.reply_to, 'pessoa@example.com');
   const phone = validateContact({ ...valid, replyChannel: 'whatsapp', replyContact: '+55 (11) 99999-0000' }).data;
   assert.equal(phone.replyContact, '+5511999990000');
@@ -157,11 +159,11 @@ test('transporte Resend usa destino explícito, From autorizado e cabeçalho de 
     return Response.json({ id: 'fake-accepted-id' });
   };
   try {
-    const send = resendSender('fake-test-key', 'Marginália <orcamento@example.com>', 'destino@example.com');
+    const send = resendSender('fake-test-key', 'FA Web Studio <orcamento@example.com>', 'destino@example.com');
     await send(validateContact(valid).data, 'same-token');
     const body = JSON.parse(calls[0].body);
     assert.deepEqual(body.to, ['destino@example.com']);
-    assert.equal(body.from, 'Marginália <orcamento@example.com>');
+    assert.equal(body.from, 'FA Web Studio <orcamento@example.com>');
     assert.equal(body.reply_to, valid.replyContact);
     assert.equal(calls[0].headers['Idempotency-Key'], 'quote/same-token');
     assert.ok(!body.html);
@@ -234,7 +236,7 @@ test('Netlify exige seu IP confiável e mantém origem e hash por IP no rate lim
 
 test('destinatário ausente ou inválido não cria transporte Resend', () => {
   for (const to of [undefined, '', 'invalid', 'a@example.com\r\nBcc: b@example.com']) {
-    assert.throws(() => resendSender('fake-key', 'Marginália <from@example.com>', to), /invalid_recipient/);
+    assert.throws(() => resendSender('fake-key', 'FA Web Studio <from@example.com>', to), /invalid_recipient/);
   }
 });
 
@@ -254,7 +256,7 @@ test('runtime Netlify exige destinatário válido e preserva configurações de 
     calls++;
     const body = JSON.parse(options.body);
     assert.deepEqual(body.to, ['destino@example.com']);
-    assert.equal(body.from, 'Marginália <from@example.com>');
+    assert.equal(body.from, 'FA Web Studio <from@example.com>');
     return Response.json({ id: 'fake-id' });
   };
   try {
@@ -319,7 +321,7 @@ test('diagnóstico de inicialização registra só códigos e nomes, mantendo o 
     const response = await createContactHandler(contactDependencies)(req);
     assert.equal(response.status, 503);
     assert.deepEqual(await response.json(), {
-      message: 'O envio pelo site está temporariamente indisponível. Seus dados foram preservados. Tente novamente ou escreva para fbalbuquerque@proton.me.',
+      message: `O envio pelo site está temporariamente indisponível. Seus dados foram preservados. Tente novamente ou escreva para ${contactEmail}.`,
     });
     assert.deepEqual(logs, [['[contact:init]', { code, ...(variable ? { variable } : {}) }]]);
   }

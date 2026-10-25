@@ -1,41 +1,19 @@
-# SEO provisório da Marginália
+# SEO do site de Filipe Albuquerque
 
-## Endereço do site
+Atualizado em 24/10/2026.
 
-Definir apenas `SITE_URL` na Vercel para mudar a base dos canonicals, Open Graph,
-sitemap e referência ao sitemap no robots.txt. O valor deve ser uma origem HTTPS
-pública, sem credenciais, porta, caminho, parâmetros ou fragmentos. Uma barra
-final é aceita. Valores ausentes ou inválidos usam o endereço provisório:
+A página principal usa `Filipe Albuquerque | Sites e Soluções Digitais`; a privacidade, `Privacidade | Filipe Albuquerque`. `og:site_name` usa a identidade pública completa.
 
-```text
-SITE_URL=https://filipe-albuquerque-website.vercel.app
-```
+A origem `https://filipealbuquerque.netlify.app` está fixada em `src/lib/seo.ts`. `SITE_URL` não é consultada pelo código atual. Canonical, metadataBase, og:url, sitemap e referência no robots usam essa origem; previews não substituem a URL pública.
 
-Após mudar a variável, fazer uma nova build/publicação. Não usar `VERCEL_URL`
-como fallback: URLs de Preview não devem substituir a origem canônica.
+## Indexação
 
-## Indexação bloqueada
+Metadados e `X-Robots-Tag` permitem indexação quando `NODE_ENV=production` e `CONTEXT` está ausente ou é `production`. `deploy-preview`, `branch-deploy` e `dev` recebem `noindex, nofollow`. Um servidor Node de produção sem `CONTEXT` continua indexável. `noindex` não é controle de acesso para conteúdo privado.
 
-Todas as páginas recebem `noindex, nofollow` nos metadados; todas as respostas
-recebem o cabeçalho HTTP `X-Robots-Tag: noindex, nofollow`. Trocar `SITE_URL`
-não remove esses bloqueios. Antes de liberar a indexação do domínio definitivo,
-revisar explicitamente os metadados em `src/lib/seo.ts` e o cabeçalho em
-`next.config.ts`.
+O robots permite rastreamento das páginas e bloqueia `/api/`. O sitemap inclui apenas `/` e `/privacidade`, sem datas inventadas.
 
-O robots.txt permite o rastreamento das páginas para que os buscadores possam
-ler `noindex`; `/api/` permanece bloqueado. `noindex` não é uma diretiva válida
-do robots.txt para o Google. Referência:
-[Google Search Central](https://developers.google.com/search/docs/crawling-indexing/block-indexing).
-O sitemap contém somente `/` e `/privacidade`, sem datas de atualização inventadas.
-Ele está preparado para a migração, mas não libera a indexação.
+Não há imagem OG/Twitter própria aprovada; o cartão usa `summary`. Criar esse ativo é decisão de marca, não correção obrigatória.
 
-## Pendências para o domínio definitivo
+Após publicação autorizada, conferir HTML/cabeçalhos de produção e preview, robots, sitemap e compartilhamento. Mudança futura de domínio exige rever a origem canônica, redirecionamentos e `CONTACT_ALLOWED_ORIGIN`, controle de segurança independente.
 
-- Ativar o domínio e HTTPS na hospedagem, atualizar `SITE_URL` e publicar novamente.
-- Redirecionar o endereço provisório para o definitivo e revisar o bloqueio de
-  indexação somente quando o site estiver pronto.
-- Não há imagem OG/Twitter própria: os metadados usam o cartão `summary`, sem
-  imagem genérica ou foto de projeto apresentada como imagem da marca.
-- O formulário usa `CONTACT_ALLOWED_ORIGIN` separadamente como controle de
-  segurança. Sua atualização na migração continua necessária, conforme
-  `docs/contact-delivery.md`; a configuração do formulário não foi alterada.
+Referências: [contextos Netlify](https://docs.netlify.com/build/configure-builds/environment-variables/) e [indexação Google](https://developers.google.com/search/docs/crawling-indexing/block-indexing).
