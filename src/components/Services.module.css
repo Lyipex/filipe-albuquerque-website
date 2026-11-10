@@ -1,24 +1,39 @@
+.section { padding-block: clamp(4rem, 7vw, 7rem); }
+.intro { display: grid; grid-template-columns: 1.1fr 0.9fr; align-items: start; gap: var(--spacing-editorial-gap); margin-top: 1.5rem; }
+.heading { max-width: 17ch; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2.5rem, 4.6vw, 4.5rem); font-weight: 400; line-height: 1.02; letter-spacing: -0.045em; text-wrap: balance; }
+.introduction { max-width: 58ch; font-size: var(--text-body); line-height: var(--leading-copy); color: color-mix(in srgb, var(--ink) 80%, var(--paper)); }
+@media (max-width: 47.999rem) { .intro { grid-template-columns: 1fr; gap: 1.5rem; } }
 .list {
   list-style: none;
-  overflow: clip;
-  margin-top: 1.125rem;
+  margin-top: clamp(2.5rem, 5vw, 5rem);
+  border-top: 1px solid var(--color-rule);
 }
-.service {
+.service { border-bottom: 1px solid var(--color-rule); }
+.accordion { min-width: 0; }
+.trigger {
+  display: block;
+  padding-block: clamp(1.5rem, 2.5vw, 2.5rem);
+  cursor: pointer;
+  list-style: none;
+}
+.trigger::-webkit-details-marker { display: none; }
+.trigger:focus-visible { outline: 2px solid var(--moss); outline-offset: -2px; }
+.trigger:hover, .accordion[open] > .trigger { color: var(--moss); }
+.panel {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
   gap: var(--spacing-editorial-gap);
-  padding-block: 1.40625rem;
-  border-bottom: 1px solid var(--color-rule);
+  padding-bottom: clamp(2rem, 3.5vw, 3.5rem);
 }
 .title {
-  font-size: max(1.25rem, calc(var(--text-project-title) * 0.5625));
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 3.6vw, 3.5rem);
   line-height: var(--leading-heading);
   letter-spacing: var(--tracking-title);
-  font-weight: 500;
+  font-weight: 400;
 }
 .context {
   max-width: 38ch;
-  margin-top: 0.421875rem;
   color: var(--moss);
   font-size: 0.875rem;
   line-height: 1.6;
@@ -31,7 +46,7 @@
 .scope {
   list-style: disc;
   padding-left: 1.125rem;
-  margin-top: 0.5625rem;
+  margin-top: 1.25rem;
   color: color-mix(in srgb, var(--ink) 80%, var(--paper));
   font-size: 0.875rem;
   line-height: 1.65;
@@ -43,9 +58,9 @@
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
-  padding-top: 1.125rem;
+  padding-top: 2rem;
 }
 @media (max-width: 47.999rem) {
-  .service { grid-template-columns: 1fr; gap: 0.703125rem; padding-block: 1.125rem; }
+  .panel { grid-template-columns: 1fr; gap: 1rem; }
   .contact { align-items: flex-start; flex-direction: column; }
 }

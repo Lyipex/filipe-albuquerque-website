@@ -1,3 +1,5 @@
+import SectionLabel from "./SectionLabel";
+import styles from "./FeaturedProject.module.css";
 import ProjectCarousel, { type Project } from "./ProjectCarousel";
 
 const projects: (Project & { enabled?: boolean })[] = [
@@ -30,12 +32,12 @@ const projects: (Project & { enabled?: boolean })[] = [
 
 export default function FeaturedProject() {
   return (
-    <section id="projetos" tabIndex={-1} aria-labelledby="projetos-title" className="bg-paper px-gutter py-section text-ink">
+    <section id="projetos" tabIndex={-1} aria-labelledby="projetos-title" className={`${styles.section} bg-paper px-gutter text-ink`}>
       <div className="mx-auto max-w-editorial">
-        <p data-motion="reveal" className="text-xs font-medium uppercase tracking-eyebrow text-moss">Nº 02 - Projetos</p>
-        <div data-motion="reveal" data-motion-delay="40" className="mt-5 grid gap-5 border-t border-ink/15 pt-6 lg:grid-cols-2 lg:gap-editorial-gap">
-          <h2 id="projetos-title" className="max-w-2xl text-section-title font-medium leading-display text-balance tracking-display">Projetos e ideias em desenvolvimento.</h2>
-          <p className="max-w-[60ch] text-body leading-copy text-ink/80 lg:justify-self-end">Preparo projetos para diferentes tipos de negócio, cada um com suas próprias necessidades. Conheça, as primeiras ideias e acompanhe como elas ganharam forma.</p>
+        <SectionLabel data-motion="reveal">Projetos</SectionLabel>
+        <div data-motion="reveal" data-motion-delay="40" className={styles.intro}>
+          <h2 id="projetos-title" className={styles.heading}>Projetos e ideias em desenvolvimento.</h2>
+          <p className={styles.description}>Preparo projetos para diferentes tipos de negócio, cada um com suas próprias necessidades. Conheça, as primeiras ideias e acompanhe como elas ganharam forma.</p>
         </div>
         <ProjectCarousel projects={projects.filter((project) => project.enabled !== false)} />
       </div>

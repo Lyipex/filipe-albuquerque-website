@@ -1,3 +1,16 @@
+.section { padding-block: clamp(4rem, 7vw, 7rem) clamp(5rem, 9vw, 9rem); }
+.layout { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); column-gap: clamp(2.5rem, 8vw, 8rem); border-top: 1px solid var(--color-rule); padding-top: clamp(3rem, 5vw, 5rem); }
+.eyebrow { grid-column: 2; margin-bottom: 1.75rem; }
+.composition { display: contents; }
+.portrait { grid-column: 1; grid-row: 1 / 3; width: 100%; max-width: 420px; }
+.composition > div:last-child { grid-column: 2; align-self: center; transform: none; }
+.heading { max-width: 7ch; font-family: Georgia, "Times New Roman", serif; font-size: clamp(3.5rem, 6.5vw, 6.5rem); font-weight: 400; line-height: 0.98; letter-spacing: -0.05em; }
+@media (max-width: 47.999rem) {
+  .layout { grid-template-columns: 1fr; }
+  .eyebrow { grid-column: 1; grid-row: 2; margin-bottom: 24px; }
+  .portrait { grid-column: 1; grid-row: 1; width: 85%; margin-bottom: 2.5rem; }
+  .composition > div:last-child { grid-column: 1; grid-row: 3; }
+}
 .item { display: flow-root; }
 
 @media (prefers-reduced-motion: no-preference) {

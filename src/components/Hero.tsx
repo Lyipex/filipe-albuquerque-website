@@ -4,7 +4,6 @@ export default function Hero() {
   return (
     <section id="inicio" tabIndex={-1} aria-labelledby="inicio-title" className="bg-paper px-gutter pb-section pt-36 text-ink lg:pt-44">
       <div className="mx-auto max-w-editorial">
-        <p data-motion="hero" className="text-xs font-medium uppercase tracking-eyebrow text-moss">Nº 01 - Desenvolvimento web</p>
         <h1 id="inicio-title" data-motion="hero" data-motion-delay="70" className="mt-7 max-w-[1000px] text-display font-medium leading-display tracking-display text-balance">
           Sites para empresas e profissionais.
         </h1>

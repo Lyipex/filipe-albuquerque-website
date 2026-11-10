@@ -7,11 +7,11 @@
 .slides, .captions { display: grid; }
 .slide { grid-area: 1 / 1; min-width: 0; visibility: hidden; pointer-events: none; }
 .slide[aria-hidden="false"] { visibility: visible; pointer-events: auto; }
-.stage { padding: 1.5rem; background: #e6e3dc; }
+.stage { padding: 0; }
 .previewFrame {
   display: block;
-  width: calc(100% - 2rem);
-  height: clamp(18rem, 62svh, 34rem);
+  width: 100%;
+  height: clamp(22rem, 40vw, 34rem);
   margin-inline: auto;
   overflow: clip;
   scrollbar-width: thin;
@@ -61,7 +61,7 @@
 .mockClosing > p { max-width: 22ch; font-size: 4.2cqw; line-height: 1.1; letter-spacing: -0.03em; }
 .mockClosing > span { display: block; margin-top: 3cqw; font-size: max(8px, 1cqw); line-height: 1.6; }
 @media (max-width: 47.999rem) {
-  .stage { padding: 0.5rem; }
+  .stage { padding: 0; }
   .previewFrame { width: 100%; height: clamp(16rem, 70vw, 22rem); }
   .caption { grid-template-columns: 1fr; gap: 1rem; }
   .navigation { flex-wrap: wrap; }
@@ -98,4 +98,19 @@
   .slide[aria-hidden="false"][data-direction="previous"] { animation: project-previous 260ms var(--motion-ease) both; }
   @keyframes project-next { from { opacity: 0.8; transform: translateX(14px); } to { opacity: 1; transform: translateX(0); } }
   @keyframes project-previous { from { opacity: 0.8; transform: translateX(-14px); } to { opacity: 1; transform: translateX(0); } }
+}
+
+/* Keep the existing preview controls and reading mode in an editorial spread. */
+.carousel { border-top: 1px solid var(--color-rule); padding-top: 1rem; }
+.navigation { padding-bottom: 1rem; }
+.control { border-color: var(--color-rule); }
+.caption { padding-top: 2rem; }
+.caption h3 { font-family: Georgia, "Times New Roman", serif; font-weight: 400; font-size: clamp(2rem, 3vw, 3rem); line-height: 1.05; letter-spacing: -0.035em; }
+@media (min-width: 64rem) {
+  .carousel { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); column-gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+  .navigation { grid-column: 1 / -1; }
+  .viewport { grid-column: 1; }
+  .captions { grid-column: 2; padding-top: 3rem; }
+  .caption { grid-template-columns: 1fr; gap: 2rem; padding-top: 0; }
+  .previewFrame[data-exploring="true"] { height: clamp(26rem, 78svh, 44rem); }
 }

@@ -1,0 +1,21 @@
+.section { padding-block: clamp(4rem, 7vw, 7rem); }
+.intro {
+  display: grid;
+  grid-template-columns: 1.35fr 0.65fr;
+  align-items: end;
+  gap: clamp(2rem, 6vw, 6rem);
+  margin-block: 1.5rem 3rem;
+}
+.heading {
+  max-width: 18ch;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.5rem, 4.6vw, 4.5rem);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+.description { max-width: 42ch; font-size: var(--text-body); line-height: var(--leading-copy); color: color-mix(in srgb, var(--ink) 80%, var(--paper)); }
+@media (max-width: 47.999rem) {
+  .intro { grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+}
