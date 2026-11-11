@@ -1,0 +1,42 @@
+.portrait {
+  padding-top: 1.5rem;
+}
+
+.outline {
+  width: 84%;
+  margin-inline: auto;
+  transform: rotate(-2.5deg);
+  transform-origin: center;
+  padding: 7px;
+  border: 1px solid var(--moss);
+  border-radius: 26px;
+}
+
+.photo {
+  display: grid;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 18px;
+  background: var(--paper);
+  line-height: 0;
+}
+
+.photo > span {
+  border-radius: inherit;
+}
+
+.hint {
+  margin-top: 2.75rem;
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .outline {
+    animation: portrait-float 6s ease-in-out infinite;
+  }
+
+  @keyframes portrait-float {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 0 -18px; }
+  }
+}

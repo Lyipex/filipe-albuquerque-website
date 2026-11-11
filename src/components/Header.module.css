@@ -1,15 +1,51 @@
 .header { position: absolute; inset: 1.5rem var(--page-gutter) auto; z-index: 50; color: var(--ink); }
 .inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; max-width: 77.5rem; margin-inline: auto; padding-block: 0.5rem 1.5rem; border-bottom: 1px solid #26292325; }
 .brand { display: flex; align-items: center; min-height: 2.75rem; }
-.brandCopy { display: flex; flex-direction: column; gap: 0.15rem; }
-.brandCopy > span:first-child { font-size: 0.9rem; font-weight: 500; text-transform: none; letter-spacing: -0.025em; }
-.brandCopy > span:last-child { margin-top: 0; font-size: 0.7rem; font-weight: 400; text-transform: none; letter-spacing: 0; opacity: 0.65; }
+.brandCopy { display: flex; flex-direction: column; gap: .55rem; }
+.brandCopy > span:first-child { font-size: .75rem; font-weight: 600; line-height: 1.3; text-transform: uppercase; letter-spacing: .18em; }
+.brandCopy > span:last-child { font-size: .6rem; font-weight: 400; line-height: 1.3; text-transform: uppercase; letter-spacing: .25em; opacity: .7; }
 .inner > nav { gap: 2rem; }
 .inner > nav > a { min-height: 2.75rem; color: #4f534a; font-size: 0.8rem; font-weight: 400; }
 .inner > nav > a:last-child { color: #262923; }
-.inner > div > button { color: #262923; border: 0; border-bottom: 1px solid #26292360; border-radius: 0; padding-inline: 0.25rem; font-size: 0.75rem; }
+.inner > div > .menuToggle { display: grid; place-items: center; width: 44px; min-height: 44px; padding: 0; color: #262923; border: 0; border-radius: .35rem; }
+.menuIcon { display: grid; justify-items: end; gap: 5px; }
+.menuIcon > span { display: block; width: 22px; height: 2px; background: currentColor; }
+.menuIcon > span:nth-child(2) { width: 18px; }
 .link { transition: color var(--duration-interaction) var(--motion-ease); }
 .underline { position: relative; display: inline-block; }
 .underline::after { content: ""; position: absolute; inset: auto 0 -0.25em; height: 1px; background: currentColor; pointer-events: none; transform: scaleX(0); transform-origin: left; transition: transform 225ms var(--motion-ease); }
 .link:is(:hover, :focus-visible) .underline::after { transform: scaleX(1); }
-@media (max-width: 767px) { .header { top: 1rem; } .inner { gap: 1rem; padding-bottom: 1rem; } .brandCopy > span:first-child { font-size: 0.8rem; } .brandCopy > span:last-child { font-size: 0.65rem; } }
+@media (max-width: 767px) { .header { top: 1rem; } .inner { gap: 1rem; padding-bottom: 1rem; } .brandCopy > span:first-child { font-size: .65rem; } .brandCopy > span:last-child { font-size: .55rem; } }
+
+/* Entrance and selection share the site's existing easing curve. */
+.link { border-radius: .35rem; transition: color 250ms var(--motion-ease), background-color 300ms var(--motion-ease), padding 350ms var(--motion-ease); }
+.underline::after { transform-origin: right; transition-duration: 350ms; }
+.link:is(:hover, :focus-visible, [aria-current="location"]) .underline::after { transform: scaleX(1); transform-origin: left; }
+.inner > nav > .link { padding-inline: .65rem; }
+.inner > nav { gap: .7rem; }
+.inner > nav > .link:is(:hover, [aria-current="location"]) { background: #26292308; }
+.mobileMenu nav li > .link { position: relative; padding-right: 2.5rem; }
+.mobileMenu nav li > .link .menuArrow { position: absolute; right: .5rem; top: 50%; font-size: .55em; opacity: 0; transform: translate(-8px, -50%); transition: opacity 300ms var(--motion-ease), transform 350ms var(--motion-ease); }
+.mobileMenu nav li > .link:is(:hover, :focus-visible, [aria-current="location"]) { padding-left: .75rem; background: #26292305; }
+.mobileMenu nav li > .link:is(:hover, :focus-visible, [aria-current="location"]) .menuArrow { opacity: 1; transform: translate(0, -50%); }
+@media (prefers-reduced-motion: no-preference) {
+  .brand, .inner > div, .inner > nav > .link { animation: menu-enter 650ms var(--motion-ease) both; }
+  .inner > nav > .link:nth-child(1) { animation-delay: 80ms; }
+  .inner > nav > .link:nth-child(2) { animation-delay: 140ms; }
+  .inner > nav > .link:nth-child(3) { animation-delay: 200ms; }
+  .inner > nav > .link:nth-child(4) { animation-delay: 260ms; }
+  .mobileMenu[open] { animation: menu-panel-enter 450ms var(--motion-ease) both; }
+  .mobileMenu[open]::backdrop { animation: menu-backdrop-enter 350ms ease both; }
+  .mobileMenu[open] nav li { animation: menu-item-enter 650ms var(--motion-ease) both; }
+  .mobileMenu[open] nav li:nth-child(1) { animation-delay: 80ms; }
+  .mobileMenu[open] nav li:nth-child(2) { animation-delay: 140ms; }
+  .mobileMenu[open] nav li:nth-child(3) { animation-delay: 200ms; }
+  .mobileMenu[open] nav li:nth-child(4) { animation-delay: 260ms; }
+  @keyframes menu-enter { from { opacity: 0; translate: 0 -10px; } to { opacity: 1; translate: 0 0; } }
+  @keyframes menu-panel-enter { from { opacity: 0; translate: 0 -1rem; } to { opacity: 1; translate: 0 0; } }
+  @keyframes menu-item-enter { from { opacity: 0; translate: 24px 0; } to { opacity: 1; translate: 0 0; } }
+  @keyframes menu-backdrop-enter { from { opacity: 0; } to { opacity: 1; } }
+}
+@media (prefers-reduced-motion: reduce) {
+  .link, .underline::after, .mobileMenu nav li > .link .menuArrow, .menuIcon > span { transition: none; }
+}

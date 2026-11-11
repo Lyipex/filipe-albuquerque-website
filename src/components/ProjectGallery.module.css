@@ -6,82 +6,47 @@
   background: #fff;
   color: var(--text);
   border: 1px solid #deddd8;
+  border-radius: 1.5rem;
 }
-.topline { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem clamp(1.25rem, 3vw, 3rem); font-size: .75rem; }
+.track { border-radius: 1rem; }
+.arrows button { border-radius: .5rem; }
+.topline { display: flex; align-items: center; justify-content: space-between; padding: .75rem clamp(1.25rem, 3vw, 3rem); font-size: .75rem; }
 .counter { display: flex; align-items: baseline; gap: .5rem; font-variant-numeric: tabular-nums; }
 .counter strong { font-size: 1.25rem; font-weight: 450; letter-spacing: -.04em; }
 .counter > span { color: var(--muted); font-size: .7rem; }
-.track { position: relative; display: flex; gap: 1.25rem; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 1.5rem clamp(1.25rem, 3vw, 3rem); scroll-padding-inline: clamp(1.25rem, 3vw, 3rem); background: var(--surface); cursor: grab; }
+.track { position: relative; min-width: 0; margin-inline: clamp(1.25rem, 3vw, 3rem); background: var(--surface); cursor: grab; }
 .track::-webkit-scrollbar { display: none; }
-.track::after { content: ""; flex: 0 0 14%; }
-.track[data-dragging="true"] { cursor: grabbing; scroll-snap-type: none; user-select: none; }
-.track[data-dragging="true"] .artwork { cursor: grabbing; }
-.slide { flex: 0 0 84%; min-width: 0; scroll-snap-align: start; }
-.artwork { position: relative; display: block; width: 100%; height: clamp(23rem, 38vw, 35rem); overflow: hidden; background: #e3e0da; cursor: pointer; text-align: left; transform: scale(.96); transform-origin: left center; transition: transform 650ms cubic-bezier(.2,.65,.25,1); }
-.slide[data-active="true"] .artwork { transform: scale(1); }
-.cover { object-fit: cover; object-position: center 68%; transition: filter 600ms ease; }
-.slide:not([data-active="true"]) .cover { filter: saturate(.5); }
-.slide[data-kind="architecture"] .cover { object-position: center 58%; }
-.imageIndex { position: absolute; top: 1.25rem; left: 1.25rem; display: grid; place-items: center; width: 2.25rem; height: 2.25rem; background: #fff; color: #222221; font-size: .75rem; font-variant-numeric: tabular-nums; }
-.imageLabel { position: absolute; left: 1.25rem; bottom: 1.25rem; color: #222221; background: #ffffffed; font-size: .65rem; padding: .6rem .75rem; }
-.controls { display: flex; align-items: center; justify-content: space-between; margin: 0 clamp(1.25rem, 3vw, 3rem); padding-block: 1rem; border-bottom: 1px solid var(--line); }
-.index { display: flex; gap: 1rem; }
-.index button { display: flex; align-items: center; gap: .6rem; min-height: 44px; color: var(--muted); font-size: .65rem; cursor: pointer; }
-.index i { display: block; height: 1px; width: 1.5rem; background: #b7b5b0; transition: width 400ms ease, background 400ms ease; }
-.index [aria-current="true"] { color: var(--text); }
-.index [aria-current="true"] i { width: clamp(2rem, 6vw, 6rem); background: var(--text); }
+.track[data-dragging] { cursor: grabbing; user-select: none; }
+.slide { min-width: 0; }
+.controls { display: flex; align-items: center; justify-content: space-between; margin: 0 clamp(1.25rem, 3vw, 3rem); padding-block: .75rem; border-bottom: 1px solid var(--line); }
+.index { display: flex; align-items: center; gap: .25rem; }
+.index button { display: grid; place-items: center; width: 44px; height: 44px; cursor: pointer; }
+.index button::after { content: ""; display: block; width: .5rem; height: .5rem; border-radius: 999px; background: #b7b5b0; transition: width 250ms ease, background 250ms ease; }
+.index button[data-current]::after { width: 1.5rem; background: var(--moss); }
 .arrows { display: flex; gap: .5rem; }
 .arrows button { display: grid; place-items: center; width: 52px; height: 44px; border: 1px solid #cecdc8; font-size: 1.4rem; cursor: pointer; transition: background 200ms, color 200ms; }
 .arrows button:last-child:not(:disabled) { background: var(--text); color: #fff; border-color: var(--text); }
 .arrows button:hover:not(:disabled) { background: #deddd8; color: #222221; }
 .arrows button:disabled { opacity: .3; cursor: default; }
-.caption { display: grid; grid-template-columns: .9fr 1.1fr; gap: 3rem; min-height: 15rem; padding: 2rem clamp(1.25rem, 3vw, 3rem) 2.75rem; }
+.caption { display: grid; grid-template-columns: .9fr 1.1fr; gap: 3rem; min-height: 0; padding: 1.5rem clamp(1.25rem, 3vw, 3rem) 2rem; }
 .projectHeading h3 { font-size: clamp(1.75rem, 3vw, 3rem); font-weight: 450; letter-spacing: -.045em; line-height: 1.12; max-width: 22ch; text-wrap: pretty; }
 .status { margin-top: 1.25rem; font-size: .65rem; line-height: 1.6; color: var(--muted); text-transform: lowercase; }
 .projectInfo > p { font-size: .875rem; color: #5d5c58; line-height: 1.85; max-width: 60ch; }
 .links { display: flex; flex-wrap: wrap; gap: .75rem 1.75rem; align-items: center; margin-top: 1.5rem; }
-.links > button { display: inline-flex; align-items: center; gap: 2rem; min-height: 44px; border-bottom: 1px solid var(--text); cursor: pointer; font-size: .8rem; }
-.links > button span { font-size: 1.2rem; transition: transform 220ms ease; }
-.links > button:hover span { transform: translate(3px, -3px); }
-.links > button:active, .arrows button:active:not(:disabled) { transform: translateY(1px); }
 .links > a { font-size: .7rem; color: var(--muted); }
 .credit { margin-top: 1rem; font-size: .65rem !important; }
 .credit a { text-decoration: underline; }
-.preview { margin: 0 clamp(1.25rem, 3vw, 3rem) 2rem; height: min(70svh, 45rem); overflow-y: auto; overscroll-behavior: contain; container-type: inline-size; }
-.fullImage { width: 100%; height: auto; }
 .carousel :is(button, a, [tabindex]):focus-visible { outline: 2px solid #222221; outline-offset: 4px; }
-.slide[data-kind="marketing"] .cover { object-fit: contain; object-position: right center; padding: 5rem 2rem 5rem 55%; filter: grayscale(1); background: #e3e0da; }
-.studioCover { position: absolute; inset: 0; padding: 2rem 3rem; color: #222221; display: flex; flex-direction: column; justify-content: space-between; }
-.studioCover > span { align-self: center; font-size: 1.5rem; font-weight: 600; letter-spacing: -.06em; }
-.studioCover > p { font-size: clamp(2rem, 4vw, 4rem); letter-spacing: -.055em; line-height: 1.05; }
-.studioCover em { font-family: var(--font-editorial); font-weight: 400; }
-.studioCover small { font-size: .65rem; align-self: flex-end; }
-.slide[data-kind="marketing"] .imageLabel { display: none; }
 @media (prefers-reduced-motion: no-preference) {
   .reveal { animation: caption-in 450ms ease both; }
   @keyframes caption-in { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
 }
 @media (max-width: 767px) {
-  .topline { padding-block: 1rem; font-size: .7rem; }
-  .track { gap: .75rem; padding-block: 1rem; }
-  .slide { flex-basis: 90%; }
-  .track::after { flex-basis: 7%; }
-  .artwork { height: clamp(19rem, 95vw, 24rem); }
-  .imageIndex { left: 1rem; top: 1rem; width: 1.75rem; height: 1.75rem; font-size: .6rem; }
-  .imageLabel { left: 1rem; bottom: 1rem; font-size: .6rem; }
-  .index { gap: .65rem; }
-  .index button { gap: .35rem; }
-  .index i { width: .75rem; }
+  .topline { padding-block: .75rem; font-size: .7rem; }
   .arrows button { width: 44px; }
-  .caption { grid-template-columns: 1fr; min-height: 0; gap: 1.5rem; padding-top: 1.5rem; padding-bottom: 2rem; }
+  .caption { grid-template-columns: 1fr; min-height: 0; gap: 1.25rem; padding-top: 1.25rem; padding-bottom: 1.5rem; }
   .projectHeading h3 { font-size: 2rem; }
   .status { margin-top: .75rem; }
   .projectInfo > p { font-size: .85rem; }
-  .slide[data-kind="eyewear"] .cover { object-position: 53% 68%; }
-  .slide[data-kind="marketing"] .cover { padding: 5rem 2rem 10rem; object-position: center; }
-  .studioCover { padding: 1.25rem; }
-  .studioCover > span { align-self: flex-end; font-size: 1.15rem; }
-  .studioCover > p { margin-top: auto; margin-bottom: 1.5rem; font-size: clamp(1.8rem, 8vw, 2.6rem); }
-  .studioCover small { align-self: flex-start; font-size: .6rem; }
 }
 @media (prefers-reduced-motion: reduce) { .carousel * { transition: none; animation: none; } }

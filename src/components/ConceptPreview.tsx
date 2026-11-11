@@ -2,17 +2,18 @@ import Image from "next/image";
 import styles from "./ProjectCarousel.module.css";
 
 /** Temporary visual references, not screenshots of delivered client work. */
-export default function ConceptPreview({ kind, title, identification, type, reading = false }: {
+export default function ConceptPreview({ kind, title, identification, type, reading = false, device }: {
   kind: "eyewear" | "architecture" | "podiatry" | "marketing";
   title: string;
   identification?: string;
   type: string;
   description: string;
   reading?: boolean;
+  device?: "desktop" | "mobile";
 }) {
   if (kind === "marketing") {
     return (
-      <div className={`${styles.concept} ${styles.marketing}`} aria-hidden="true" data-reading={reading}>
+      <div className={`${styles.concept} ${styles.marketing}`} aria-hidden="true" data-reading={reading} data-device={device}>
         <div className={styles.marketingHeader}><span>studio<span className={styles.brandDot}>.</span></span><span>Estratégia & comunicação</span><span>Vamos conversar ↗</span></div>
         <div className={styles.marketingHero}>
           <div className={styles.marketingCopy}>
@@ -34,7 +35,7 @@ export default function ConceptPreview({ kind, title, identification, type, read
   }
   if (kind === "podiatry") {
     return (
-      <div className={`${styles.concept} ${styles.architecture}`} aria-hidden="true" data-reading={reading}>
+      <div className={`${styles.concept} ${styles.architecture}`} aria-hidden="true" data-reading={reading} data-device={device}>
         <div className={styles.mockHeader}>
           <span>{title}</span>
           <span>{type}</span>
@@ -56,7 +57,7 @@ export default function ConceptPreview({ kind, title, identification, type, read
   const eyewear = kind === "eyewear";
   const src = eyewear ? "/images/preview-oculos-kaboompics.jpg" : "/images/preview-arquitetura.jpg";
   return (
-    <div className={`${styles.concept} ${eyewear ? styles.eyewear : styles.architecture}`} aria-hidden="true" data-reading={reading}>
+    <div className={`${styles.concept} ${eyewear ? styles.eyewear : styles.architecture}`} aria-hidden="true" data-reading={reading} data-device={device}>
       <div className={styles.mockHeader}>
         <span>{eyewear ? "ÓTICA / ESTUDO" : "ARQUITETURA / ESTUDO"}</span>
         <span>{eyewear ? "Coleções · Sobre · Contato" : "Projetos · Escritório · Contato"}</span>

@@ -189,3 +189,47 @@
   .concept[data-reading="true"] .marketingClosing > p { font-size: 2rem; }
   .concept[data-reading="true"] .marketingClosing > span { margin-top: 1rem; font-size: 0.8rem; }
 }
+
+/* Device previews scale with their own screen, independently of the page viewport. */
+.concept[data-device] .mockHeader { font-size: 1.25cqw; }
+.concept[data-device] .mockHeroCopy > span:first-child { font-size: 1.2cqw; }
+.concept[data-device] .mockCta { font-size: 1.4cqw; }
+.concept[data-device] .mockSectionHeading > span,
+.concept[data-device] .mockGrid p,
+.concept[data-device] .mockClosing > span { font-size: 1.5cqw; }
+.concept[data-device="mobile"] .mockHeader { padding: 6cqw; font-size: 3cqw; }
+.concept[data-device="mobile"] .mockHeader > span:last-child { display: none; }
+.concept[data-device="mobile"] .heroPhoto { height: 120cqw; }
+.concept[data-device="mobile"] .mockHeroCopy { padding: 7cqw; }
+.concept[data-device="mobile"] .mockHeroCopy > span:first-child { font-size: 2.8cqw; }
+.concept[data-device="mobile"] .mockHeroCopy > p { margin-block: 6cqw 8cqw; font-size: 13cqw; }
+.concept[data-device="mobile"] .mockCta { padding: 3cqw 4cqw; font-size: 3cqw; }
+.concept[data-device="mobile"] .mockContent { padding: 9cqw 6cqw 0; }
+.concept[data-device="mobile"] .mockSectionHeading { display: block; }
+.concept[data-device="mobile"] .mockSectionHeading > p { font-size: 8cqw; }
+.concept[data-device="mobile"] .mockSectionHeading > span { display: block; max-width: none; margin-top: 4cqw; font-size: 3.5cqw; }
+.concept[data-device="mobile"] .mockGrid { grid-template-columns: 1fr; gap: 6cqw; }
+.concept[data-device="mobile"] .cardPhoto { height: 60cqw; }
+.concept[data-device="mobile"] .mockGrid p { font-size: 3.5cqw; }
+.concept[data-device] .marketingHeader > span:not(:first-child),
+.concept[data-device] .marketingCopy > span:first-child,
+.concept[data-device] .marketingArt > span,
+.concept[data-device] .marketingStrip,
+.concept[data-device] .marketingWork span,
+.concept[data-device] .marketingClosing > span { font-size: 1.1cqw; }
+.concept[data-device] .marketingCta { font-size: 1.3cqw; }
+.concept[data-device="mobile"] .marketingHeader { padding: 6cqw; }
+.concept[data-device="mobile"] .marketingHeader > span:first-child { font-size: 9cqw; }
+.concept[data-device="mobile"] .marketingHeader > span:nth-child(2) { display: none; }
+.concept[data-device="mobile"] .marketingHeader > span:last-child { font-size: 3cqw; }
+.concept[data-device="mobile"] .marketingHero { grid-template-columns: 1fr; padding: 9cqw 6cqw; gap: 8cqw; }
+.concept[data-device="mobile"] .marketingCopy > span:first-child { font-size: 3cqw; }
+.concept[data-device="mobile"] .marketingCopy > p { margin-top: 6cqw; font-size: 12cqw; }
+.concept[data-device="mobile"] .marketingCta { max-width: 60cqw; margin-top: 8cqw; padding-block: 3cqw; font-size: 3.5cqw; }
+.concept[data-device="mobile"] .marketingArt { max-width: 70cqw; margin-inline: auto; }
+.concept[data-device="mobile"] .marketingArt > span { font-size: 3cqw; }
+.concept[data-device="mobile"] .marketingStrip { flex-wrap: wrap; padding: 5cqw; font-size: 2.8cqw; }
+.concept[data-device="mobile"] .marketingWork { grid-template-columns: 1fr; gap: 5cqw; padding: 6cqw; }
+.concept[data-device="mobile"] .marketingWork > div { padding: 6cqw; min-height: 60cqw; }
+.concept[data-device="mobile"] .marketingWork span { font-size: 3cqw; }
+.concept[data-device="mobile"] .marketingWork p { font-size: 9cqw; }

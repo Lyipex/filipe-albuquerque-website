@@ -44,7 +44,7 @@ export default function Services() {
         </div>
         <ul className={styles.list}>
           {services.map((service, index) => (
-            <li key={service.title} id={service.id} tabIndex={-1} className={styles.service}>
+            <li key={service.title} id={service.id} tabIndex={-1} data-service-motion className={styles.service}>
               <details className={styles.accordion}>
                 <summary className={styles.trigger}>
                   <span className={styles.number} aria-hidden="true">0{index + 1}</span>
