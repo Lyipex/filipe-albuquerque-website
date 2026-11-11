@@ -1,3 +1,4 @@
+import SectionLabel from "./SectionLabel";
 import Footer from "./Footer";
 import ContactForm from "./ContactForm";
 import ActionLink from "./ActionLink";
@@ -24,7 +25,7 @@ export default function ContactCTA() {
       <div className="mx-auto max-w-editorial">
         <div className="grid items-start gap-10 pb-12 lg:grid-cols-2 lg:gap-x-20">
           <div data-motion="reveal">
-            <p className="text-xs font-medium uppercase tracking-eyebrow text-paper">Nº 05 - Contato</p>
+            <SectionLabel tone="inverse" className="h-4">Contato</SectionLabel>
             <h2 id="contato-title" className="mt-6 max-w-lg text-section-title font-medium leading-heading tracking-heading">Conte um pouco sobre seu projeto</h2>
             <p className="mt-5 max-w-[40ch] text-body leading-7 text-paper/80">Conte um pouco sobre o que você tem em mente. Não precisa ter tudo definido agora. Com essas primeiras informações, podemos conversar e encontrar o melhor caminho para o seu projeto.</p>
           </div>

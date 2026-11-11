@@ -1,3 +1,4 @@
+import SectionLabel from "./SectionLabel";
 const questions = [
   {
     question: "Quanto custa desenvolver um site?",
@@ -39,12 +40,10 @@ export default function FAQ() {
     >
       <div className="mx-auto max-w-editorial">
         {/* Identificação da seção */}
-        <p data-motion="reveal" className="text-sm font-medium text-ink/60">
-          Nº 07 - Dúvidas
-        </p>
+        <SectionLabel data-motion="reveal">Dúvidas</SectionLabel>
 
         {/* Título */}
-        <div data-motion="reveal" data-motion-delay="40" className="mt-8 border-t border-ink/15 pt-6">
+        <div data-motion="reveal" data-motion-delay="40" className="mt-6 md:mt-8 md:border-t md:border-ink/15 md:pt-6">
           <h2 className="max-w-4xl text-section-title font-medium leading-[1.08] text-balance tracking-[-0.045em]">
             Antes de começarmos, talvez você{" "}
             <span className="font-editorial font-normal">queira saber.</span>

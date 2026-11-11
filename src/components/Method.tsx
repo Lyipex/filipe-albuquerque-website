@@ -1,3 +1,4 @@
+import SectionLabel from "./SectionLabel";
 export default function Method() {
   return (
     <section
@@ -6,12 +7,10 @@ export default function Method() {
     >
       <div className="mx-auto max-w-editorial">
         {/* Identificação da seção */}
-        <p data-motion="reveal" className="text-sm font-medium text-paper/50">
-          Nº 05 - Método
-        </p>
+        <SectionLabel data-motion="reveal" tone="inverse">Método</SectionLabel>
 
         {/* Título */}
-        <div data-motion="reveal" data-motion-delay="40" className="mt-8 border-t border-paper/15 pt-6">
+        <div data-motion="reveal" data-motion-delay="40" className="mt-6 md:mt-8 md:border-t md:border-paper/15 md:pt-6">
           <h2 className="max-w-4xl text-section-title font-medium leading-[1.08] text-balance tracking-[-0.045em]">
             Engenharia também é uma{" "}
             <span className="font-editorial font-normal">forma de pensar.</span>

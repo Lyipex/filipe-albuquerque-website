@@ -1,0 +1,27 @@
+/* Editorial V3 styles stop at this wrapper; ContactCTA and Footer stay outside it. */
+.home {
+  --paper: #f5f4ef;
+  --ink: #262923;
+  --moss: #794b38;
+  --brown: #51382d;
+  --color-rule: #26292325;
+  --radius-control: 2px;
+  --spacing-control: 2.75rem;
+  --spacing-section: clamp(4rem, 7vw, 7rem);
+  --page-gutter: clamp(1.25rem, 5.5vw, 6rem);
+  position: relative;
+  overflow: clip;
+  background: var(--paper);
+}
+.home :global(section[id]) { scroll-margin-top: 2rem; }
+.home :global(.action-primary) { gap: 2rem; min-height: 3rem; padding: 0.9rem 1.2rem; border-radius: 2px; background: #262923; color: #f5f4ef; font-size: 0.8rem; font-weight: 400; }
+.home :global(.action-primary > span[aria-hidden="true"]) { display: inline; width: auto; height: auto; background: none; border-radius: 0; font-size: 1rem; transition: transform 300ms var(--motion-ease); }
+.home :global(.action-primary:hover) { background: #41473b; }
+.home :global(.action-primary:hover > span[aria-hidden="true"]) { transform: translate(2px, -2px); }
+.home :global(.action-primary:active) { transform: scale(0.98); }
+.home :global(.action-secondary) { min-height: 2.75rem; gap: 1.5rem; border-radius: 0; font-size: 0.8rem; font-weight: 400; color: inherit; border-bottom-color: #26292350; }
+.home :global(#mobile-navigation) { background: #f5f4ef; color: #262923; padding: 2rem var(--page-gutter); }
+.home :global(#mobile-navigation h2), .home :global(#mobile-navigation nav a), .home :global(#mobile-navigation button) { color: #262923; }
+.home :global(#mobile-navigation nav) { margin-top: 3rem; }
+.home :global(#mobile-navigation nav li a) { padding-block: .8rem; font-size: clamp(2rem, 6vw, 3.25rem); font-weight: 400; letter-spacing: -0.05em; }
+.home :global(#mobile-navigation::backdrop) { background: #26292388; }

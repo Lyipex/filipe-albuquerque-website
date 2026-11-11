@@ -1,8 +1,9 @@
-import { Figtree } from "next/font/google";
+import { Figtree, Instrument_Serif } from "next/font/google";
 import { pageMetadata } from "@/lib/seo";
 import "./globals.css";
 
 const figtree = Figtree({ variable: "--font-figtree", subsets: ["latin"] });
+const editorial = Instrument_Serif({ variable: "--font-editorial", subsets: ["latin"], weight: "400", style: ["normal", "italic"] });
 
 export const metadata = pageMetadata(
   "Filipe Albuquerque | Sites e Soluções Digitais",
@@ -12,7 +13,7 @@ export const metadata = pageMetadata(
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="pt-BR" className={`${figtree.variable} antialiased`}>
+    <html lang="pt-BR" className={`${figtree.variable} ${editorial.variable} antialiased`}>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

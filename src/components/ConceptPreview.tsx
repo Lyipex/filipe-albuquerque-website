@@ -2,16 +2,40 @@ import Image from "next/image";
 import styles from "./ProjectCarousel.module.css";
 
 /** Temporary visual references, not screenshots of delivered client work. */
-export default function ConceptPreview({ kind, title, identification, type }: {
-  kind: "eyewear" | "architecture" | "podiatry";
+export default function ConceptPreview({ kind, title, identification, type, reading = false, device }: {
+  kind: "eyewear" | "architecture" | "podiatry" | "marketing";
   title: string;
   identification?: string;
   type: string;
   description: string;
+  reading?: boolean;
+  device?: "desktop" | "mobile";
 }) {
+  if (kind === "marketing") {
+    return (
+      <div className={`${styles.concept} ${styles.marketing}`} aria-hidden="true" data-reading={reading} data-device={device}>
+        <div className={styles.marketingHeader}><span>studio<span className={styles.brandDot}>.</span></span><span>Estratégia & comunicação</span><span>Vamos conversar ↗</span></div>
+        <div className={styles.marketingHero}>
+          <div className={styles.marketingCopy}>
+            <span>MARKETING COM INTENÇÃO</span>
+            <p>Ideias claras.<br /><em>Marcas presentes.</em></p>
+            <span className={styles.marketingCta}>Conheça o studio <span>↗</span></span>
+          </div>
+          <div className={styles.marketingArt}><Image src="/images/preview-studio-marketing.svg" alt="" width={640} height={640} sizes="(min-width: 768px) 35vw, 45vw" /><span>Estratégia encontra expressão.</span></div>
+        </div>
+        <div className={styles.marketingStrip}><span>ESTRATÉGIA</span><span>IDENTIDADE</span><span>CONTEÚDO</span><span>PRESENÇA DIGITAL</span></div>
+        <div className={styles.marketingWork}>
+          <div><span>01 / DIREÇÃO</span><p>O que sua marca<br /><em>quer dizer?</em></p></div>
+          <div><span>02 / EXPRESSÃO</span><p>Uma linguagem<br /><em>que é sua.</em></p></div>
+          <div><span>03 / CONEXÃO</span><p>Conteúdo para<br /><em>criar relações.</em></p></div>
+        </div>
+        <div className={styles.marketingClosing}><p>Boas ideias começam<br />com uma conversa.</p><span>Conceito demonstrativo de um studio de marketing.</span></div>
+      </div>
+    );
+  }
   if (kind === "podiatry") {
     return (
-      <div className={`${styles.concept} ${styles.architecture}`} aria-hidden="true">
+      <div className={`${styles.concept} ${styles.architecture}`} aria-hidden="true" data-reading={reading} data-device={device}>
         <div className={styles.mockHeader}>
           <span>{title}</span>
           <span>{type}</span>
@@ -33,7 +57,7 @@ export default function ConceptPreview({ kind, title, identification, type }: {
   const eyewear = kind === "eyewear";
   const src = eyewear ? "/images/preview-oculos-kaboompics.jpg" : "/images/preview-arquitetura.jpg";
   return (
-    <div className={`${styles.concept} ${eyewear ? styles.eyewear : styles.architecture}`} aria-hidden="true">
+    <div className={`${styles.concept} ${eyewear ? styles.eyewear : styles.architecture}`} aria-hidden="true" data-reading={reading} data-device={device}>
       <div className={styles.mockHeader}>
         <span>{eyewear ? "ÓTICA / ESTUDO" : "ARQUITETURA / ESTUDO"}</span>
         <span>{eyewear ? "Coleções · Sobre · Contato" : "Projetos · Escritório · Contato"}</span>

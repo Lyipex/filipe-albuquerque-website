@@ -26,6 +26,7 @@ npm run start
 - `POST /api/orcamento`: validação, proteção Upstash e envio Resend.
 - `/robots.txt` e `/sitemap.xml`: gerados pela configuração de SEO.
 - `src/lib/server/`: integrações exclusivas do servidor.
+- `src/components/ui/`: bases reutilizáveis de interface, acessíveis pelo alias `@/components/ui` (estrutura compatível com o caminho de componentes do shadcn). O `carousel-1.tsx` adapta o Ark UI com rótulos em português; `ProjectGallery.tsx` aplica os projetos e os estilos em CSS Modules. Não é necessário inicializar o shadcn para usar este componente: TypeScript e Tailwind já estão configurados.
 - `tests/`: testes locais de contato e SEO.
 
 A integração Next.js da Netlify provisiona as funções. Não usar exportação estática, que removeria o endpoint. Domínio canônico: `https://filipealbuquerque.netlify.app`.
