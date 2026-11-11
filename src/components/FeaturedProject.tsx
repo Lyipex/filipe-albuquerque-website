@@ -1,6 +1,7 @@
 import SectionLabel from "./SectionLabel";
 import styles from "./FeaturedProject.module.css";
-import ProjectCarousel, { type Project } from "./ProjectCarousel";
+import type { Project } from "./ProjectCarousel";
+import ProjectGallery from "./ProjectGallery";
 
 const projects: (Project & { enabled?: boolean })[] = [
   {
@@ -18,6 +19,14 @@ const projects: (Project & { enabled?: boolean })[] = [
     type: "Site institucional e portfólio",
     phrase: "Cada projeto de arquitetura conta uma história. A ideia é criar um espaço digital que apresente projetos de arquitetura e interiores, valorizando cada trabalho e facilitando o primeiro contato do profissional com seus futuros clientes.",
     concept: "architecture",
+  },
+  {
+    code: "FA / 04",
+    identification: "PROJETO DEMONSTRATIVO · EM PLANEJAMENTO",
+    area: "Studio de marketing",
+    type: "Site institucional e portfólio",
+    phrase: "Uma proposta visual para um studio de marketing: apresentar sua estratégia, seus serviços e seus projetos com uma identidade própria. Este conceito explora como aproximar o trabalho criativo de marcas que procuram uma nova presença digital.",
+    concept: "marketing",
   },
   {
     code: "FA / 03",
@@ -39,7 +48,7 @@ export default function FeaturedProject() {
           <h2 id="projetos-title" className={styles.heading}>Projetos e ideias em desenvolvimento.</h2>
           <p className={styles.description}>Preparo projetos para diferentes tipos de negócio, cada um com suas próprias necessidades. Conheça, as primeiras ideias e acompanhe como elas ganharam forma.</p>
         </div>
-        <ProjectCarousel projects={projects.filter((project) => project.enabled !== false)} />
+        <ProjectGallery projects={projects.filter((project) => project.enabled !== false)} />
       </div>
     </section>
   );

@@ -43,20 +43,20 @@ export default function Services() {
           <p className={styles.introduction}>Cada negócio tem suas particularidades. Antes de começar um site, procuro entender seus serviços, seu público e as informações que precisam estar em destaque. A partir daí, organizo o conteúdo e desenvolvo a página pensando em quem vai utilizá-la.</p>
         </div>
         <ul className={styles.list}>
-          {services.map((service) => (
+          {services.map((service, index) => (
             <li key={service.title} id={service.id} tabIndex={-1} className={styles.service}>
               <details className={styles.accordion}>
                 <summary className={styles.trigger}>
+                  <span className={styles.number} aria-hidden="true">0{index + 1}</span>
                   <h3 className={styles.title}>{service.title}</h3>
+                  <span className={styles.context}>{service.context}</span>
+                  <span className={styles.expand} aria-hidden="true"><span /><span /></span>
                 </summary>
                 <div className={styles.panel}>
-                  <p className={styles.context}>{service.context}</p>
-                  <div>
-                    <p className={styles.description}>{service.description}</p>
-                    <ul className={styles.scope} aria-label={`O que pode incluir: ${service.title}`}>
-                      {service.scope.map((item) => <li key={item}>{item}</li>)}
-                    </ul>
-                  </div>
+                  <p className={styles.description}>{service.description}</p>
+                  <ul className={styles.scope} aria-label={`O que pode incluir: ${service.title}`}>
+                    {service.scope.map((item) => <li key={item}>{item}</li>)}
+                  </ul>
                 </div>
               </details>
             </li>
@@ -64,7 +64,7 @@ export default function Services() {
         </ul>
         <div className={styles.contact}>
           <p className="max-w-[52ch] text-sm leading-6 text-ink/80">O orçamento considera as páginas, os recursos e o prazo do projeto.</p>
-          <ActionLink href="#contato" variant="primary">Vamos conversar <span aria-hidden="true">↗</span></ActionLink>
+          <ActionLink href="#contato" variant="secondary">Vamos conversar <span aria-hidden="true">↗</span></ActionLink>
         </div>
       </div>
     </section>

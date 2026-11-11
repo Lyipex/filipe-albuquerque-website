@@ -5,25 +5,27 @@ import styles from "./Header.module.css";
 
 export default function Header() {
   return (
-    <header className="absolute inset-x-0 top-0 z-50">
-      <div className="mx-auto flex max-w-header items-center justify-between px-gutter py-7">
+    <header className={styles.header}>
+      <div className={styles.inner}>
 
         <a
           href="#sobre"
-          className="flex min-h-control flex-col justify-center"
+          className={styles.brand}
           aria-label="Filipe Brito Albuquerque - Sobre"
         >
-          <span className="text-brand font-semibold uppercase tracking-brand text-ink">
+          <span className={styles.brandCopy}>
+          <span className="text-brand font-semibold uppercase tracking-brand">
             Filipe Brito Albuquerque
           </span>
 
-          <span className="mt-1.5 text-brand-caption font-medium uppercase tracking-brand-caption text-ink/80">
+          <span className="mt-1.5 text-brand-caption font-medium uppercase tracking-brand-caption opacity-60">
             Sites e soluções digitais
+          </span>
           </span>
         </a>
 
         <nav
-          className="ml-auto hidden items-center gap-8 text-nav font-medium text-ink/80 lg:flex"
+          className="ml-auto hidden items-center gap-8 text-nav font-medium lg:flex"
           aria-label="Navegação principal"
         >
           {navigationLinks.map((link) => (
