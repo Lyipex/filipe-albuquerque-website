@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import styles from "./Portrait.module.css";
 import { useEffect, useId, useRef, useState } from "react";
 import monochrome from "../../public/images/filipe-albuquerque-pb.png";
 import colored from "../../public/images/filipe-albuquerque-colorido.jpeg";
@@ -37,15 +38,19 @@ export default function Portrait() {
   }, []);
 
   return (
-    <button type="button" aria-label="Alternar fotografia entre preto e branco e cores" aria-pressed={color && colorReady} aria-describedby={descriptionId} data-color-ready={colorReady} data-manual-color={manualColor ?? undefined} onClick={() => setManualColor(!color)} className="portrait-toggle block w-full cursor-pointer text-left">
-      <span ref={frameRef} className="portrait-frame">
-        <Image src={monochrome} alt="Filipe Brito Albuquerque" sizes="(min-width: 768px) 420px, 100vw" className="portrait-monochrome" />
-        <Image src={colored} alt="" aria-hidden="true" sizes="(min-width: 768px) 420px, 100vw" className="portrait-colored" onLoad={() => setColorReady(true)} />
-      </span>
-      <span id={descriptionId} className="mt-2 block text-xs leading-5 text-ink/80">
+    <div className={styles.portrait}>
+      <div className={styles.outline}>
+        <button type="button" aria-label="Alternar fotografia entre preto e branco e cores" aria-pressed={color && colorReady} aria-describedby={descriptionId} data-color-ready={colorReady} data-manual-color={manualColor ?? undefined} onClick={() => setManualColor(!color)} className={`portrait-toggle block w-full cursor-pointer text-left ${styles.photo}`}>
+          <span ref={frameRef} className="portrait-frame">
+            <Image src={monochrome} alt="Filipe Brito Albuquerque" sizes="(min-width: 768px) 420px, 100vw" className="portrait-monochrome" />
+            <Image src={colored} alt="" aria-hidden="true" sizes="(min-width: 768px) 420px, 100vw" className="portrait-colored" onLoad={() => setColorReady(true)} />
+          </span>
+        </button>
+      </div>
+      <span id={descriptionId} className={`${styles.hint} block text-xs leading-5 text-ink/80`}>
         <span className="portrait-mouse-hint">Passe o cursor ou clique para alternar a cor.</span>
         <span className="portrait-touch-hint">A foto ganha cor ao aparecer na tela. Toque para alternar.</span>
       </span>
-    </button>
+    </div>
   );
 }

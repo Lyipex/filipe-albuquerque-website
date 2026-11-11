@@ -6,7 +6,7 @@ import ActionLink from "./ActionLink";
 import { navigationLinks } from "@/lib/site";
 import styles from "./Header.module.css";
 
-export default function MobileNavigation() {
+export default function MobileNavigation({ activeHref, onSelect }: { activeHref: string; onSelect: (href: string) => void }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const restoreScrollRef = useRef<(() => void) | null>(null);
@@ -67,20 +67,21 @@ export default function MobileNavigation() {
       <button
         ref={triggerRef}
         type="button"
+        aria-label="Abrir menu de navegação"
         aria-haspopup="dialog"
         aria-expanded={open}
         aria-controls="mobile-navigation"
         onClick={openMenu}
-        className="control min-w-control border-b border-ink text-sm font-medium text-ink"
+        className={`${styles.menuToggle} control text-ink`}
       >
-        Menu
+        <span className={styles.menuIcon} aria-hidden="true"><span /><span /><span /></span>
       </button>
 
       <dialog
         ref={dialogRef}
         id="mobile-navigation"
         aria-labelledby="mobile-navigation-title"
-        className="fixed inset-0 m-0 h-dvh max-h-none w-full max-w-none overflow-y-auto bg-paper p-6 text-ink sm:p-10 lg:hidden"
+        className={`${styles.mobileMenu} fixed inset-0 m-0 h-dvh max-h-none w-full max-w-none overflow-y-auto bg-paper p-6 text-ink sm:p-10 lg:hidden`}
         onKeyDown={(event) => {
           if (event.key !== "Tab") return;
           const controls = event.currentTarget.querySelectorAll<HTMLElement>(
@@ -124,15 +125,17 @@ export default function MobileNavigation() {
           </div>
 
           <nav aria-label="Navegação mobile" className="mt-8">
-            <ul className="border-t border-ink/15">
+            <ul>
               {navigationLinks.map((link) => (
-                <li key={link.href} className="border-b border-ink/15">
+                <li key={link.href}>
                   <a
                     href={link.href}
-                    onClick={() => closeMenu(link.href.slice(1))}
+                    aria-current={activeHref === link.href ? "location" : undefined}
+                    onClick={() => { onSelect(link.href); closeMenu(link.href.slice(1)); }}
                     className={`block py-3 text-2xl font-medium tracking-title hover:text-moss ${styles.link}`}
                   >
                     <span className={styles.underline}>{link.label}</span>
+                    <span className={styles.menuArrow} aria-hidden="true">↗</span>
                   </a>
                 </li>
               ))}

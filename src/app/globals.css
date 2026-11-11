@@ -212,13 +212,18 @@ h1, h2, h3 { overflow-wrap: anywhere; }
 
 /* Reversible service entrances: scrolling upward moves each row back out to the right. */
 @media (prefers-reduced-motion: no-preference) {
-  [data-service-motion].service-animated > div {
+  [data-service-motion].service-animated > details {
     opacity: 0;
-    transform: translateX(64px);
-    transition: opacity 480ms var(--motion-ease), transform 600ms var(--motion-ease);
+    transform: translateX(96px);
+    transition: opacity 550ms var(--motion-ease), transform 800ms var(--motion-ease);
   }
-  [data-service-motion].service-animated.service-visible > div {
+  [data-service-motion].service-animated.service-visible > details {
     opacity: 1;
     transform: translateX(0);
+  }
+  [data-service-motion].service-animated:focus-within > details {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }

@@ -84,7 +84,8 @@ export default function MotionLayer() {
     }
 
     for (const element of elements) {
-      if (reducedMotion.matches) {
+      if (reducedMotion.matches || (element.dataset.motion === "hero" && window.matchMedia("(max-width: 1023px)").matches)) {
+        // Mobile hero animates in CSS from first paint, alongside the header.
         finish(element);
         continue;
       }
