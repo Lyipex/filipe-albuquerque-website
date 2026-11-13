@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { isIP } from "node:net";
 
-const productionUrl = "https://filipealbuquerque.netlify.app";
+const productionUrl = "https://filipealbuquerque.com.br";
 
 export function resolveSiteUrl(value?: string): URL {
   try {
